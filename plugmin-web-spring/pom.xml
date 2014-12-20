@@ -51,9 +51,9 @@
 	</distributionManagement>
 
 	<scm>
-		<connection>scm:git:https://github.com/varunkumarsp/plugmin-aggregator.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/varunkumarsp/plugmin-aggregator.git</developerConnection>
-		<url>https://github.com/varunkumarsp/plugmin-aggregator</url>
+		<connection>scm:git:https://github.com/varunkumarsp/plugmin-aggregator/plugmin-web-spring.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/varunkumarsp/plugmin-aggregator/plugmin-web-spring.git</developerConnection>
+		<url>https://github.com/varunkumarsp/plugmin-aggregator/plugmin-web-spring</url>
 		<tag>HEAD</tag>
 	</scm>
 
