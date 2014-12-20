@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.plugmin</groupId>
+	<artifactId>plugmin-aggregator</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+	<name>plugmin-aggregator</name>
+
+	<modules>
+		<module>plugmin-core</module>
+		<module>plugmin-web-spring</module>
+		<module>plugmin-web-nonspring</module>
+		<module>plugmin-demo</module>
+	</modules>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.5</version>
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.5.1</version>
+					<dependencies>
+            <dependency>
+               <groupId>org.apache.maven.scm</groupId>
+               <artifactId>maven-scm-provider-gitexe</artifactId>
+               <!-- This version is necessary for use with git version 1.8.5 -->
+               <version>1.8.1</version>
+            </dependency>
+         </dependencies>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

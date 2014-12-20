@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.plugmin</groupId>
+    <artifactId>plugmin-aggregator</artifactId>
+    <version>1.0</version>
+  </parent>
+  <artifactId>plugmin-web-nonspring</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>plugmin-web-nonspring</name>
+  <url>http://maven.apache.org</url>
+  
+  	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdk.version>1.8</jdk.version>
+		<context.path>/</context.path>
+	</properties>
+
+	<developers>
+		<developer>
+			<id>Varun Kumar</id>
+			<email>varun@indianstage.in</email>
+			<organization>Istage Entertainment Pvt. Ltd.</organization>
+			<organizationUrl>http://indianstage.in</organizationUrl>
+			<roles>
+				<role>Java Developer</role>
+			</roles>
+			<timezone>+5:30</timezone>
+		</developer>
+	</developers>
+
+	<repositories>
+	</repositories>
+
+	<build>
+		<finalName>${pom.artifactId}</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>install</id>
+						<phase>install</phase>
+						<goals>
+							<goal>sources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<!-- co-projects -->
+		<dependency>
+			<groupId>org.plugmin</groupId>
+			<artifactId>plugmin-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+</project>
