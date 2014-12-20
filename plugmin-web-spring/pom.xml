@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.plugmin</groupId>
@@ -9,7 +7,7 @@
 		<version>1.0</version>
 	</parent>
 	<artifactId>plugmin-web-spring</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<name>plugmin-web-spring</name>
 	<url>http://maven.apache.org</url>
 
@@ -54,7 +52,7 @@
 		<connection>scm:git:https://github.com/varunkumarsp/plugmin-aggregator.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/varunkumarsp/plugmin-aggregator.git</developerConnection>
 		<url>https://github.com/varunkumarsp/plugmin-aggregator</url>
-		<tag>HEAD</tag>
+		<tag>v1.1</tag>
 	</scm>
 
 	<repositories>
@@ -121,7 +119,7 @@
 		<dependency>
 			<groupId>org.plugmin</groupId>
 			<artifactId>plugmin-core</artifactId>
-			<version>${project.version}</version>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
 
 		<!-- Spring -->
