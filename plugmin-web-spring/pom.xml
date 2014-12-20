@@ -9,7 +9,7 @@
 		<version>1.0</version>
 	</parent>
 	<artifactId>plugmin-web-spring</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>plugmin-web-spring</name>
 	<url>http://maven.apache.org</url>
 
@@ -51,9 +51,9 @@
 	</distributionManagement>
 
 	<scm>
-		<connection>scm:git:https://github.com/varunkumarsp/Plugmin.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/varunkumarsp/Plugmin.git</developerConnection>
-		<url>https://github.com/varunkumarsp/Plugmin</url>
+		<connection>scm:git:https://github.com/varunkumarsp/plugmin-aggregator.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/varunkumarsp/plugmin-aggregator.git</developerConnection>
+		<url>https://github.com/varunkumarsp/plugmin-aggregator</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -111,10 +111,6 @@
 					<preparationGoals>clean verify</preparationGoals>
 					<goals>deploy</goals>
 					<useReleaseProfile>false</useReleaseProfile>
-					<suppressCommitBeforeTag>true</suppressCommitBeforeTag>
-					<suppressCommitBeforeBranch>true</suppressCommitBeforeBranch>
-					<remoteTagging>false</remoteTagging>
-					<dryRun>true</dryRun>
 				</configuration>
 			</plugin>
 		</plugins>
