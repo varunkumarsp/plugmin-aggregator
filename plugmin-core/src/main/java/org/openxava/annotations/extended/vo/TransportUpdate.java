@@ -2,6 +2,7 @@ package org.openxava.annotations.extended.vo;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
+import org.openxava.annotations.extended.JsObject;
 import org.openxava.annotations.parse.GenericConfigSerializer;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -16,6 +17,7 @@ public class TransportUpdate {
 	private String contentType = "application/json";
 	private String dataType = "json";
 	private String type = "POST";
+	@JsObject
 	private String url;
 	
 	public TransportUpdate(String url) {

@@ -3,6 +3,7 @@ package org.plugmin.core.dao;
 import java.io.Serializable;
 import java.util.Map;
 
+import org.openxava.annotations.extended.vo.PlugminEventListener;
 import org.plugmin.core.service.DataSourceRequest;
 import org.plugmin.core.service.DataSourceResult;
 
@@ -15,5 +16,7 @@ public interface GridDao {
 	void update(Map<String, Object> model, Class<?> entity, String view) throws Exception;
 
 	void delete(Map<String, Object> model, Class<?> entity, String view) throws Exception;
+
+	void setEventListener(PlugminEventListener eventListener);
 
 }

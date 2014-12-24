@@ -1,7 +1,7 @@
 package org.plugmin.core.service;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import static org.lightadmin.core.util.LightAdminConfigurationUtils.PLUGMIN_PARSER_MODE;
+import static org.plugmin.core.util.PlugminConfigurationUtils.PLUGMIN_PARSER_MODE;
 
 import java.util.ArrayList;
 import java.util.List;

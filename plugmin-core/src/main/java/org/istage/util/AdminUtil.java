@@ -1,5 +1,6 @@
 package org.istage.util;
 
+import static org.istage.util.AnnotationUtils.getAnnotationsByType;
 import static org.apache.commons.lang3.StringUtils.join;
 import static org.apache.commons.lang3.StringUtils.splitByCharacterTypeCamelCase;
 import static org.apache.commons.lang3.text.WordUtils.capitalizeFully;
@@ -55,7 +56,8 @@ public class AdminUtil {
 		if (metaElement instanceof MetaTab) {
 			MetaTab tab = (MetaTab) metaElement;
 
-			Label[] labels = field.getAnnotationsByType(Label.class);
+			Label[] labels = getAnnotationsByType(field, Label.class);
+			
 			for (Label label : labels) {
 				if (label != null) {
 					String[] eligibleTabs = label.forTabs();

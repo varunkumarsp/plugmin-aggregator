@@ -1,15 +1,13 @@
 package org.plugmin.core.service;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
-import static org.lightadmin.core.util.LightAdminConfigurationUtils.PLUGMIN_PARSER_MODE;
+import static org.plugmin.core.util.PlugminConfigurationUtils.PLUGMIN_PARSER_MODE;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,8 +16,10 @@ import org.openxava.component.MetaComponent;
 import org.openxava.dropdown.MetaDropDown;
 import org.openxava.model.meta.MetaProperty;
 import org.openxava.tab.meta.MetaTab;
+import org.plugmin.core.dao.MetaComponentDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.ServletContextAware;
 
@@ -28,14 +28,14 @@ public class MetaComponentServiceLazyImpl implements MetaComponentService, Servl
 
 	private static final Logger logger = LoggerFactory.getLogger(MetaComponentServiceLazyImpl.class);
 
+	@Autowired
+	MetaComponentDao metaComponentDao;
+	
+	ServletContext servletContext;
+	
 	List<MetaComponent> metaComponents = new ArrayList<MetaComponent>();
 	
 	AnnotatedClassParser parser = new AnnotatedClassParser();
-	
-	@PersistenceContext
-	EntityManager entitymanager;
-
-	ServletContext servletContext;
 	
 
 	@PostConstruct
@@ -44,7 +44,7 @@ public class MetaComponentServiceLazyImpl implements MetaComponentService, Servl
 		if(isEmpty(parserMode) || parserMode.toLowerCase().equals("lazy")) {
 			logger.info("Entering postConstruct()");
 			
-			Collection<String> managedClasses = AnnotatedClassParser.getManagedClassNames(entitymanager);
+			Collection<String> managedClasses = metaComponentDao.init();
 			logger.info("Plugmin Managed Classes: " + managedClasses);
 			
 			logger.info("Leaving postConstruct()");

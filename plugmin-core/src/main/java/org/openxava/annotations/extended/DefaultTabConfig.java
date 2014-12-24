@@ -21,6 +21,7 @@ import java.lang.annotation.Target;
 			filterable = TRUE, 
 			config = @FilterableConfig(mode = ROW)
 		),
+		columnMenu = @ColumnMenu(isEnabled = TRUE),
 		editable = @Editable(editable = TRUE),
 		sortable = @Sortable(sortable = TRUE),
 		pageable = @Pageable(pageable = TRUE),

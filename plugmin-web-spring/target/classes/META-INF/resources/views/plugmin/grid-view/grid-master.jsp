@@ -3,7 +3,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	templateLoader.loadExtTemplate('/plugmin/grid/detail-template/${entity }?view=${view }&drill-depth=0', function() {
+	templateLoader.loadExtTemplate('<%=request.getContextPath() %>/plugmin/grid/detail-template/${entity }?view=${view }&drill-depth=0', function() {
 		var gridConfig = ${metaTab.json };
 		$("#master-grid").kendoGrid(gridConfig);
 	});

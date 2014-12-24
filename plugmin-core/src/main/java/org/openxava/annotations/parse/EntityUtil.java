@@ -1,6 +1,7 @@
 package org.openxava.annotations.parse;
 
 import static org.openxava.annotations.parse.FieldDefaultValueResolver.isSimpleType;
+import static org.springframework.core.annotation.AnnotationUtils.getAnnotation;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.StringTokenizer;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -26,7 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.internal.CriteriaImpl;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.sql.JoinType;
@@ -383,7 +384,7 @@ public class EntityUtil {
 		return _rootEntity;
 	}
 
-	private static Object cast(Object value, Class<?> type) throws ParseException {
+	public static Object cast(Object value, Class<?> type) throws ParseException {
 		if(value instanceof String && StringUtils.isEmpty((String) value))
 			value = null;
 		if(value != null) {
@@ -420,4 +421,19 @@ public class EntityUtil {
 	}
 
 
+	public static boolean isNullable(String field, Class<?> entity) throws NoSuchFieldException, SecurityException {
+		Field metaField = entity.getDeclaredField(field);
+		
+		Column column = getAnnotation(metaField, Column.class);
+		if(column != null) {
+			return column.nullable();
+		}
+		
+		ManyToOne manyToOne = getAnnotation(metaField, ManyToOne.class);
+		if(manyToOne != null) {
+			return manyToOne.optional();
+		}
+		
+		return true;
+	}
 }

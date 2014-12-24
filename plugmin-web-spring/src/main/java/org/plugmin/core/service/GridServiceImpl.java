@@ -1,8 +1,8 @@
 package org.plugmin.core.service;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import static org.lightadmin.core.util.LightAdminConfigurationUtils.PLUGMIN_PARSER_MODE;
 import static org.openxava.annotations.parse.EntityUtil.idField;
+import static org.plugmin.core.util.PlugminConfigurationUtils.PLUGMIN_PARSER_MODE;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -40,13 +40,13 @@ import org.springframework.web.context.ServletContextAware;
 public class GridServiceImpl implements GridService, ServletContextAware, ApplicationContextAware {
 
 	private static final Logger logger = LoggerFactory.getLogger(GridServiceImpl.class);
-	
-	@Autowired
-	GridDao gridDao;
 
 	MetaComponentService metaComponentService;
 	
 	@Autowired
+	GridDao gridDao;
+
+	@Autowired(required = false)
 	DataSourceFilterSetter dataSourceFilterSetter;
 
 	private ServletContext servletContext;
@@ -108,18 +108,22 @@ public class GridServiceImpl implements GridService, ServletContextAware, Applic
 		
 		req.setProjection(projections);
 
-		List<FilterItem> filters = dataSourceFilterSetter.filters(metaTab);
-		if(CollectionUtils.isNotEmpty(filters)) {
-			FilterDescriptor filter = req.getFilter();
-			if(filter.getLogic() == null) {
-				filter.setLogic("and");
-				filter.setIgnoreCase(true);
-			}
+		if(dataSourceFilterSetter != null) {
+			List<FilterItem> filters = dataSourceFilterSetter.filters(metaTab);
 			
-			for (FilterItem filterItem : filters) {
-				filter.getFilters().add(cast(filterItem));
+			if(CollectionUtils.isNotEmpty(filters)) {
+				FilterDescriptor filter = req.getFilter();
+				if(filter.getLogic() == null) {
+					filter.setLogic("and");
+					filter.setIgnoreCase(true);
+				}
+				
+				for (FilterItem filterItem : filters) {
+					filter.getFilters().add(cast(filterItem));
+				}
 			}
 		}
+		
 		
 		FieldResolver fieldResolver = new FieldResolverImpl(columns);
 		req.setFieldResolver(fieldResolver);
@@ -193,7 +197,11 @@ public class GridServiceImpl implements GridService, ServletContextAware, Applic
 
 	@Override
 	@Transactional
-	public void create(List<Map<String, Object>> models, MetaTab metaTab) throws Exception {
+	public DataSourceResult create(List<Map<String, Object>> models, MetaTab metaTab) throws Exception {
+		DataSourceResult result = new DataSourceResult();
+		List<Object> data = new ArrayList<Object>(models.size());
+		result.setData(data);
+		
 		MetaComponent component = metaTab.getMetaComponent();
 		Class<?> pojoClass = component.getMetaEntity().getPOJOClass();
 		for (Map<String, Object> model : models) {
@@ -201,27 +209,44 @@ public class GridServiceImpl implements GridService, ServletContextAware, Applic
 
 			String idField = idField(pojoClass);
 			model.put(idField, generatedId);
+			
+			data.add(model);
 		}
+		return result;
 	}
 
 	@Override
 	@Transactional
-	public void update(List<Map<String, Object>> models, MetaTab metaTab) throws Exception {
+	public DataSourceResult update(List<Map<String, Object>> models, MetaTab metaTab) throws Exception {
+		DataSourceResult result = new DataSourceResult();
+		List<Object> data = new ArrayList<Object>(models.size());
+		result.setData(data);
+		
 		MetaComponent component = metaTab.getMetaComponent();
 		Class<?> pojoClass = component.getMetaEntity().getPOJOClass();
 		for (Map<String, Object> model : models) {
 			gridDao.update(model, pojoClass, metaTab.getName());
+			
+			data.add(model);
 		}
+		return result;
 	}
 
 	@Override
 	@Transactional
-	public void delete(List<Map<String, Object>> models, MetaTab metaTab) throws Exception {
+	public DataSourceResult delete(List<Map<String, Object>> models, MetaTab metaTab) throws Exception {
+		DataSourceResult result = new DataSourceResult();
+		List<Object> data = new ArrayList<Object>(models.size());
+		result.setData(data);
+		
 		MetaComponent component = metaTab.getMetaComponent();
 		Class<?> pojoClass = component.getMetaEntity().getPOJOClass();
 		for (Map<String, Object> model : models) {
 			gridDao.delete(model, pojoClass, metaTab.getName());
+			
+			data.add(model);
 		}
+		return result;
 	}
 
 	public static GridService gridService() {

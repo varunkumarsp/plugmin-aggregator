@@ -5,16 +5,16 @@
 	<parent>
 		<groupId>org.plugmin</groupId>
 		<artifactId>plugmin-aggregator</artifactId>
-		<version>1.0</version>
+		<version>1.2</version>
 	</parent>
 	<artifactId>plugmin-web-spring</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>plugmin-web-spring</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk.version>1.8</jdk.version>
+		<jdk.version>1.7</jdk.version>
 		<context.path>/</context.path>
 		<spring.version>4.0.5.RELEASE</spring.version>
 		<spring.security.version>3.2.5.RELEASE</spring.security.version>
@@ -53,7 +53,7 @@
 		<connection>scm:git:https://github.com/varunkumarsp/plugmin-aggregator.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/varunkumarsp/plugmin-aggregator.git</developerConnection>
 		<url>https://github.com/varunkumarsp/plugmin-aggregator</url>
-		<tag>HEAD</tag>
+		<tag>v1.1</tag>
 	</scm>
 
 	<repositories>
@@ -61,6 +61,7 @@
 			<id>maven2.gueck.com-releases</id>
 			<url>http://maven2.gueck.com/releases</url>
 		</repository>
+		<!-- 
 		<repository>
 			<id>mavenrepo.snapshots</id>
 			<name>My Maven Repository - Snapshots</name>
@@ -71,6 +72,7 @@
 			<name>My Maven Repository - Releases</name>
 			<url>https://raw.github.com/varunkumarsp/Plugmin-release/master/</url>
 		</repository>
+		 -->
 	</repositories>
 
 	<build>
@@ -130,7 +132,7 @@
 		<dependency>
 			<groupId>org.plugmin</groupId>
 			<artifactId>plugmin-core</artifactId>
-			<version>1.0</version>
+			<version>1.2-SNAPSHOT</version>
 		</dependency>
 
 		<!-- Spring -->

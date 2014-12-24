@@ -5,6 +5,7 @@ import static org.istage.util.AdminUtil.PLUGMIN_REST_BASE_URL;
 import static org.istage.util.AdminUtil.prettify;
 import static org.istage.util.AdminUtil.titleFromFieldName;
 import static org.istage.util.AdminUtil.titleFromLabelAnnotation;
+import static org.istage.util.AnnotationUtils.getAnnotationsByType;
 import static org.openxava.annotations.parse.EntityUtil._isIdField;
 import static org.openxava.annotations.parse.EntityUtil.hasCompositePrimaryKey;
 import static org.openxava.annotations.parse.EntityUtil.idField;
@@ -28,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.openxava.AdminException;
 import org.openxava.FeatureNotImplementedException;
 import org.openxava.annotations.DropDownConfig;
 import org.openxava.annotations.extended.Aggregates;
@@ -222,7 +222,13 @@ public class ColumnVo implements JsFieldValueResolver {
 					init(metaField, metaComponents);
 					configureOneToOneColumn(field, metaElement, metaComponents);
 				} else {
-					throw new AdminException("Cannot create column for OneToOne field without a reference field");
+					String nameField = nameField(metaEntity.getPOJOClass().getDeclaredField(field).getType());
+					metaField = fieldReflection(field + "." + nameField, metaEntity.getPOJOClass());
+					setTitle(field);
+					field = field + "." + nameField;
+					setField(field);
+					init(metaField, metaComponents);
+					configureOneToOneColumn(field, metaElement, metaComponents);
 				}
 			} else if(isOneToMany(field, metaEntity.getPOJOClass())){
 //				configureOneToManyColumn(field, metaElement, metaComponents);
@@ -337,7 +343,7 @@ public class ColumnVo implements JsFieldValueResolver {
 	}
 
 	private TabColumnCascade tabColumnCascade(Field metaField, MetaTab metaTab) {
-		TabColumnCascade[] cascades = metaField.getAnnotationsByType(TabColumnCascade.class);
+		TabColumnCascade[] cascades = getAnnotationsByType(metaField, TabColumnCascade.class);
 		for (TabColumnCascade cascade : cascades) {
 			if(cascade.forTab().equals(metaTab.getName())) {
 				return cascade;
@@ -367,7 +373,33 @@ public class ColumnVo implements JsFieldValueResolver {
 	 */
 	private void configureOneToOneColumn(String field,	MetaElement metaElement, List<MetaComponent> metaComponents) throws Exception {
 		// TODO Auto-generated method stub
-		
+//		MetaEntity metaEntity = metaElement.getMetaComponent().getMetaEntity();
+//		Class<?> pojo = metaEntity.getPOJOClass();
+//		Field metaField = pojo.getDeclaredField(field);
+//		metaField.setAccessible(true);
+//		
+//		Class<?> foreignEntity = metaField.getType();
+//
+//		if(hasCompositePrimaryKey(foreignEntity)) {
+//			String msg = "Composite keys not supported: " + metaEntity.getPOJOClassName();
+//			logger.error(msg, new FeatureNotImplementedException(msg));
+//		}
+//		
+//		foreignEntityIdField = idField(foreignEntity);
+//		foreignEntityNameField = nameField(foreignEntity);
+//		
+//		MetaComponent foreignComponent = foreignComponent(foreignEntity, metaComponents);
+//		
+//		String dropdownName = foreignComponent.getMetaEntity().getName().toLowerCase() + "_" + foreignEntityNameField + "_" + "_dropdown_" + randomInt();
+//		MetaDropDown metaDropDown = createDropDown(dropdownName, foreignEntityIdField, foreignEntityNameField, cascadeFrom.toString(), cascadeFromField.toString(), foreignComponent);
+//		registerDropDown(metaDropDown, foreignComponent, metaComponents);
+//		
+//		setEditor(dropdownName);
+//		configureFilterCell(foreignEntityNameField, metaDropDown.getConfig().getDataSourceObj());
+//		setTemplate("#=" + field + "." + getForeignEntityNameField() + "#");
+//		
+//		List<String> jsFunctions = getMetaElement().getJsFunctions();
+//		jsFunctions.addAll(jsFunctions(dropdownName, metaDropDown));
 	}
 	
 	/**
@@ -475,7 +507,7 @@ public class ColumnVo implements JsFieldValueResolver {
 	
 	public static DataSourceVo dataSource(String modelName, String viewName, List<ColumnVo> columns) throws Exception {
 		DataSourceVo ds = new DataSourceVo(columns);
-		String readUrl = PLUGMIN_REST_BASE_URL + "/rest/dropdown/read/" + modelName + "?view=" + viewName;
+		String readUrl = "ctx + '" + PLUGMIN_REST_BASE_URL + "/rest/dropdown/read/" + modelName + "?view=" + viewName + "'";
 		ds.getTransport_(null, readUrl, null, null);
 		return ds;
 	}

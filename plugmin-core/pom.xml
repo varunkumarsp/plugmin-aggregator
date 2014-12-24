@@ -1,20 +1,19 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.plugmin</groupId>
 		<artifactId>plugmin-aggregator</artifactId>
-		<version>1.0</version>
+		<version>1.2</version>
 	</parent>
 	<artifactId>plugmin-core</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>plugmin-core</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk.version>1.8</jdk.version>
+		<jdk.version>1.7</jdk.version>
 		<spring.version>4.0.5.RELEASE</spring.version>
 		<hibernate.version>4.3.5.Final</hibernate.version>
 		<hibernate.validator.version>5.1.0.Final</hibernate.validator.version>
@@ -49,10 +48,10 @@
 	</distributionManagement>
 
 	<scm>
-		<connection>scm:git:https://github.com/varunkumarsp/Plugmin.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/varunkumarsp/Plugmin.git</developerConnection>
-		<url>https://github.com/varunkumarsp/Plugmin</url>
-		<tag>HEAD</tag>
+		<connection>scm:git:https://github.com/varunkumarsp/plugmin-aggregator.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/varunkumarsp/plugmin-aggregator.git</developerConnection>
+		<url>https://github.com/varunkumarsp/plugmin-aggregator</url>
+		<tag>v1.1</tag>
 	</scm>
 
 	<repositories>

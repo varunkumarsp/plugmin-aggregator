@@ -1,11 +1,11 @@
 package org.openxava.annotations.parse;
 
-
 import static org.istage.util.AdminUtil.PLUGMIN_REST_BASE_URL;
 import static org.istage.util.AdminUtil.titleFromFieldName;
+import static org.istage.util.AnnotationUtils.getAnnotationsByType;
 import static org.openxava.annotations.extended.JsonUtil.toJson;
+import static org.openxava.annotations.parse.EntityUtil.isNullable;
 import static org.openxava.annotations.parse.ReflectionUtil.isCollection;
-import gumi.builders.UrlBuilder;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -28,6 +28,7 @@ import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -165,7 +166,6 @@ import org.openxava.annotations.extended.DefaultDropDownConfig;
 import org.openxava.annotations.extended.DefaultTab;
 import org.openxava.annotations.extended.DefaultTabConfig;
 import org.openxava.annotations.extended.DefaultView;
-import org.openxava.annotations.extended.EditableMode;
 import org.openxava.annotations.extended.FilterableMode;
 import org.openxava.annotations.extended.JsonUtil;
 import org.openxava.annotations.extended.TabColumn;
@@ -175,7 +175,6 @@ import org.openxava.annotations.extended.vo.ColumnVo;
 import org.openxava.annotations.extended.vo.DataSourceVo;
 import org.openxava.annotations.extended.vo.DropDownConfigVo;
 import org.openxava.annotations.extended.vo.EventVo;
-import org.openxava.annotations.extended.vo.FieldVo;
 import org.openxava.annotations.extended.vo.FilterItem;
 import org.openxava.annotations.extended.vo.TabConfigVo;
 import org.openxava.annotations.extended.vo.TransportCreate;
@@ -841,7 +840,7 @@ public class AnnotatedClassParser {
 			String modelName, String viewName, Class<?> pojoClass) throws Exception {
 		DataSourceVo ds = new DataSourceVo(columns(metaDropDown.getMetaProperties(), pojoClass));
 		
-		String readUrl = PLUGMIN_REST_BASE_URL + "/rest/dropdown/read/" + modelName + "?view=" + viewName;
+		String readUrl = "ctx + '" + PLUGMIN_REST_BASE_URL + "/rest/dropdown/read/" + modelName + "?view=" + viewName + "'";
 		if(dataSource != null) {
 			ds.copyFrom(dataSource);
 			if(StringUtils.isNotEmpty(dataSource.readUrl()))
@@ -870,7 +869,8 @@ public class AnnotatedClassParser {
 			Class<?> pojoClass) {
 		DropDownConfig ddConfig =  null;
 		
-		DropDownConfig[] ddConfigs = pojoClass.getAnnotationsByType(DropDownConfig.class);
+		DropDownConfig[] ddConfigs = getAnnotationsByType(pojoClass, DropDownConfig.class);
+		
 		for (DropDownConfig ddConf : ddConfigs) {
 			for (String forDropDown : ddConf.forDropDowns()) {
 				if(StringUtils.isNotEmpty(forDropDown) && metaDropDown.getName().equals(forDropDown)) {
@@ -881,7 +881,8 @@ public class AnnotatedClassParser {
 		}
 		
 		if(ddConfig == null) {
-			DefaultDropDownConfig[] defaultDropDownConfigs = pojoClass.getAnnotationsByType(DefaultDropDownConfig.class);
+			DefaultDropDownConfig[] defaultDropDownConfigs = getAnnotationsByType(pojoClass, DefaultDropDownConfig.class);
+			
 			for (DefaultDropDownConfig defaultDropDownConfig : defaultDropDownConfigs) {
 				for (String forDropDown : defaultDropDownConfig.forDropDowns()) {
 					if(StringUtils.isNotEmpty(forDropDown) && metaDropDown.getName().equals(forDropDown)) {
@@ -970,6 +971,7 @@ public class AnnotatedClassParser {
 			metaTab.setJson(toJson(config));
 	}
 
+
 	public void configureSections(MetaTab metaTab, List<MetaComponent> metaComponents, boolean serializeConfig) throws Exception {
 		metaTab.setSectionsConfigured(true);
 		
@@ -1029,20 +1031,16 @@ public class AnnotatedClassParser {
 				dataSource.addFilter(new FilterItem(field, "parentEntityId", "eq"));
 				
 				TransportCreate create = dataSource.getTransport().getCreate();
-			    UrlBuilder urlBuilder = UrlBuilder.fromString(create.getUrl()).addParameter("parent-entity", pojoClass.getSimpleName()).addParameter("parent-entity-id", "parentEntityId");
-			    create.setUrl(urlBuilder.toString());
+				create.setUrl(addParentInfo(create.getUrl(), pojoClass));
 			    
 			    TransportRead read = dataSource.getTransport().getRead();
-			    urlBuilder = UrlBuilder.fromString(read.getUrl()).addParameter("parent-entity", pojoClass.getSimpleName()).addParameter("parent-entity-id", "parentEntityId");
-			    read.setUrl(urlBuilder.toString());
+			    read.setUrl(addParentInfo(read.getUrl(), pojoClass));
 			    
 			    TransportUpdate update = dataSource.getTransport().getUpdate();
-			    urlBuilder = UrlBuilder.fromString(update.getUrl()).addParameter("parent-entity", pojoClass.getSimpleName()).addParameter("parent-entity-id", "parentEntityId");
-			    update.setUrl(urlBuilder.toString());
+			    update.setUrl(addParentInfo(update.getUrl(), pojoClass));
 			    
 			    TransportDestroy destroy = dataSource.getTransport().getDestroy();
-			    urlBuilder = UrlBuilder.fromString(destroy.getUrl()).addParameter("parent-entity", pojoClass.getSimpleName()).addParameter("parent-entity-id", "parentEntityId");
-			    destroy.setUrl(urlBuilder.toString());
+			    destroy.setUrl(addParentInfo(destroy.getUrl(), pojoClass));
 			    
 			    String id = pojoClass.getSimpleName() + "_" + col;
 				String json = null;
@@ -1057,8 +1055,23 @@ public class AnnotatedClassParser {
 		}
 	}
 
+	private String addParentInfo(String url, Class<?> pojoClass) {
+		url = StringUtils.removeEnd(url, "'");
+		StringBuilder sb = new StringBuilder(url);
+		if(sb.toString().contains("?view=")) {
+			sb.append('&');
+		} else {
+			sb.append('?');
+		}
+		sb.append("parent-entity=" + pojoClass.getSimpleName());
+		sb.append('&');
+		sb.append("parent-entity-id=' + parentEntityId");
+		return sb.toString();
+	}
+
 	private String nestedTabName(MetaTab metaTab, Field metaField) {
-        UseTab[] useTabs = metaField.getAnnotationsByType(UseTab.class);
+		UseTab[] useTabs = getAnnotationsByType(metaField, UseTab.class);
+        
         for (UseTab useTab : useTabs) {
         	if(useTab != null) {
             	String[] eligibleTabs = useTab.forTabs();
@@ -1077,51 +1090,65 @@ public class AnnotatedClassParser {
 	}
 
 	private Collection<String> defaultNames(MetaTab metaTab) throws Exception {
-		Collection<String> names = new ArrayList<String>();
 		Class<?> pojo = metaTab.getMetaComponent().getMetaEntity().getPOJOClass();
+		Collection<String> names = new LinkedHashSet<String>();
+		int total = 1; //Hibernate throws exception when the projection fields exceed 64
 
 		Collection<String> keyPropertiesNames = metaTab.getMetaComponent().getMetaEntity().getAllKeyPropertiesNames();
-		names.addAll(keyPropertiesNames); //id of the entity is a must
+		names.addAll(keyPropertiesNames); //id of the entity holds the first position
 		
 		Collection<MetaProperty> metaProperties = metaTab.getMetaModel().getMetaProperties();
-		int i = 0;
 		for (MetaProperty metaProperty : metaProperties) {
-			if(keyPropertiesNames.contains(metaProperty.getName()))
-				continue;
-			if(++i > 3) { // atmost 3 simple fields are added
+			if(total > 64)
 				break;
-			}
 			names.add(metaProperty.getName());
+			total++;
 		}
 		
 		Collection<MetaReference> metaReferences = metaTab.getMetaModel().getMetaReferences();
-		i = 0;
 		for (MetaReference metaReference : metaReferences) {
-			if(++i > 2) { // atmost 2 reference fields are added
+			if(total > 62) // Each reference occupies two fields while querying. See GridServiceImpl.getFields(ColumnVo column);
 				break;
-			}
-			String name = metaReference.getName();
-			if(EntityUtil.isOneToOne(metaReference.getName(), pojo)) {
-				name = name + "." + EntityUtil.nameField(pojo.getDeclaredField(name).getType());
-			}
-			names.add(name);
+			names.add(metaReference.getName());
+			total = total + 2;
 		}
 		
+		List<String> names_ = new ArrayList<String>(names);
+		sortByNullable(names_, pojo);
+		
 		Collection<MetaCollection> metaCollections = metaTab.getMetaModel().getMetaCollections();
-		i = 0;
+		int i = 0;
 		for (MetaCollection metaCollection : metaCollections) {
-			if(++i > 2) { // atmost 2 collection fields are added
-//				break;
+			if(++i > 2) { // atmost 2 collection fields are added 
+				break;
 			}
-			names.add(metaCollection.getName());
+			names_.add(metaCollection.getName());
 		}
-		return names;
+		return names_;
+	}
+
+	private void sortByNullable(List<String> names, final Class<?> entity) {
+		Collections.sort(names, new Comparator<String>() {
+
+			@Override
+			public int compare(String field1, String field2) {
+				boolean field1Nullable = true, field2Nullable = true;
+				try {
+					field1Nullable = isNullable(field1, entity);
+					field2Nullable = isNullable(field2, entity);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return Boolean.compare( field1Nullable, field2Nullable );
+			}
+		});
 	}
 
 	private TabConfig tabConfig(MetaTab metaTab, Class<?> pojoClass) {
 		TabConfig tabConfig =  null;
 		
-		TabConfig[] tabConfigs = pojoClass.getAnnotationsByType(TabConfig.class);
+		TabConfig[] tabConfigs = getAnnotationsByType(pojoClass, TabConfig.class);
+		
 		for (TabConfig tabConf : tabConfigs) {
 			for (String forTab : tabConf.forTabs()) {
 				if(StringUtils.isNotEmpty(forTab) && metaTab.getName().equals(forTab)) {
@@ -1132,7 +1159,8 @@ public class AnnotatedClassParser {
 		}
 		
 		if(tabConfig == null) {
-			DefaultTabConfig[] defaultTabConfigs = pojoClass.getAnnotationsByType(DefaultTabConfig.class);
+			DefaultTabConfig[] defaultTabConfigs = getAnnotationsByType(pojoClass, DefaultTabConfig.class);
+			
 			for (DefaultTabConfig defaultTabConfig : defaultTabConfigs) {
 				for (String forTab : defaultTabConfig.forTabs()) {
 					if(StringUtils.isNotEmpty(forTab) && metaTab.getName().equals(forTab)) {
@@ -1158,10 +1186,13 @@ public class AnnotatedClassParser {
 	public static List<ColumnVo> columns(MetaTab metaTab, Collection<MetaProperty> metaProperties, List<MetaComponent> metaComponents) throws Exception {
 		Class<?> pojoClass_ = metaTab.getMetaComponent().getMetaEntity().getPOJOClass();
 		
+		int showColumns = 0;
+		
 		List<ColumnVo> columns = new ArrayList<ColumnVo>();
 		for (MetaProperty metaProperty : metaProperties) {
 			String name = metaProperty.getName();
 			Field field = null;
+			
 			try {
 				Class<?> pojoClass = metaProperty.getMetaModel().getPOJOClass();
 				field = pojoClass.getDeclaredField(name);
@@ -1172,16 +1203,23 @@ public class AnnotatedClassParser {
 				field = pojoClass.getDeclaredField(field2);
 			}
 
-			try {
-				if(!isCollection(name, pojoClass_)) {
+			if(!isCollection(name, pojoClass_)) {
+				try {
 					ColumnVo column = new ColumnVo(metaProperty.getQualifiedName(), field, metaTab, metaComponents, true);
 					TabColumn tabColumn = columnConfig(metaTab, field);
 					if(tabColumn != null)
 						column = column.copyFrom(tabColumn);
 					columns.add(column);
+
+					if(metaTab.getName().equals("default")) {
+						showColumns++;
+						if(showColumns > 6) {
+							column.setHidden(true);
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 		}
 		return columns;
@@ -1205,7 +1243,7 @@ public class AnnotatedClassParser {
 	public static TabColumn columnConfig(MetaTab metaTab, Field field) {
 		TabColumn colConfig =  null;
 		
-		TabColumn[] colConfigs = field.getAnnotationsByType(TabColumn.class);
+		TabColumn[] colConfigs = getAnnotationsByType(field, TabColumn.class);
 		
 		if(colConfigs.length == 1 && colConfigs[0].forTabs().length == 0) {
 			colConfig = colConfigs[0];
@@ -1226,10 +1264,10 @@ public class AnnotatedClassParser {
 	private DataSourceVo dataSource(MetaTab metaTab, DataSource dataSource, List<ColumnVo> columns, String modelName, String viewName) {
 		DataSourceVo ds = new DataSourceVo(columns);
 		
-		String createUrl = PLUGMIN_REST_BASE_URL + "/rest/grid/create/" + modelName + "?view=" + viewName;
-		String readUrl = PLUGMIN_REST_BASE_URL + "/rest/grid/read/" + modelName + "?view=" + viewName;
-		String updateUrl = PLUGMIN_REST_BASE_URL + "/rest/grid/update/" + modelName + "?view=" + viewName;
-		String destroyUrl = PLUGMIN_REST_BASE_URL + "/rest/grid/destroy/" + modelName + "?view=" + viewName;
+		String createUrl = "ctx + '" + PLUGMIN_REST_BASE_URL + "/rest/grid/create/" + modelName + "?view=" + viewName + "'";
+		String readUrl = "ctx + '" + PLUGMIN_REST_BASE_URL + "/rest/grid/read/" + modelName + "?view=" + viewName + "'";
+		String updateUrl = "ctx + '" + PLUGMIN_REST_BASE_URL + "/rest/grid/update/" + modelName + "?view=" + viewName + "'";
+		String destroyUrl = "ctx + '" + PLUGMIN_REST_BASE_URL + "/rest/grid/destroy/" + modelName + "?view=" + viewName + "'";
 		if(dataSource != null) {
 			ds.copyFrom(dataSource);
 			if(StringUtils.isNotEmpty(dataSource.createUrl()))
@@ -3183,6 +3221,10 @@ public class AnnotatedClassParser {
 	 */
 	public static Collection friendMetaApplicationGetManagedClassNames() {
 		return obtainManagedClassNamesFromFileClassPath();		
+	}
+	
+	public static void setManagedClassNames(Collection<String> managedClassNames2) {
+		managedClassNames = managedClassNames2;
 	}
 	
 	@SuppressWarnings("unchecked")

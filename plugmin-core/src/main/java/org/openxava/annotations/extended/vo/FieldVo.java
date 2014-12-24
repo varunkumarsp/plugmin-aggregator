@@ -21,16 +21,20 @@ import org.openxava.annotations.extended.JsFieldObject;
 import org.openxava.annotations.extended.JsFieldValueResolver;
 import org.openxava.annotations.extended.JsFieldVariable;
 import org.openxava.annotations.parse.GenericConfigSerializer;
+import org.openxava.tab.meta.MetaTab;
+import org.openxava.util.meta.MetaElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize(using = GenericConfigSerializer.class, as=String.class)
 public class FieldVo implements JsFieldValueResolver {
 
-	@DefaultValue("false")
+	@CompositeField("editable")
+	@DefaultValue("true")
 	private Boolean editable;
 	
-	@DefaultValue("true")
+	@DefaultValue("false")
 	private Boolean nullable;
 	
 	@DefaultValue("string")
@@ -44,9 +48,13 @@ public class FieldVo implements JsFieldValueResolver {
 	@CompositeField("defaultValue")
 	private String defaultValueJsVar;
 	
+	@JsonIgnore
+	private MetaElement metaElement; //for internal use only
+	
 
 	public FieldVo(ColumnVo column) {
 		if(!column.isCommandColumn()) {
+			metaElement = column.getMetaElement();
 			init(column);
 			if(column.isIdField()) {
 				editable = false;
@@ -161,10 +169,34 @@ public class FieldVo implements JsFieldValueResolver {
 	public JsField resolve(String field) {
 		if(field.equals("defaultValue")) {
 			return resolveDefaultValue();
+		} else if(field.equals("editable")) {
+			return resolveEditable();
 		}
 		return null;
 	}
 	
+	private JsField resolveEditable() {
+		if(this.editable != null) {
+			boolean gridEditable = false;
+			
+			if(metaElement instanceof MetaTab) {
+				MetaTab metaTab = (MetaTab) metaElement;
+				EditableVo editable = metaTab.getConfig().getEditable();
+				if(editable.getConfig() != null)
+					gridEditable = true;
+				else if(editable.isEditable() != null && editable.isEditable()) 
+					gridEditable = true;
+			}
+			
+			if(gridEditable) {
+				if(!this.editable) {
+					return new JsFieldObject("editable", editable, "editable");
+				}
+			}
+		}
+		return null;
+	}
+
 	private JsField resolveDefaultValue() {
 		if(isNotEmpty(defaultValueJsVar)) {
 			return new JsFieldVariable("defaultValue", defaultValueJsVar, "defaultValueJsVar");

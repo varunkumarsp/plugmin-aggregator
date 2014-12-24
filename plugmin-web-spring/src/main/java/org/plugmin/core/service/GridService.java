@@ -15,9 +15,9 @@ public interface GridService {
 	DataSourceResult read(DataSourceRequest req, MetaTab metaTab)
 			throws Exception;
 
-	void create(List<Map<String, Object>> models, MetaTab metaTab) throws Exception;
+	DataSourceResult create(List<Map<String, Object>> models, MetaTab metaTab) throws Exception;
 
-	void update(List<Map<String, Object>> models, MetaTab metaTab) throws Exception;
+	DataSourceResult update(List<Map<String, Object>> models, MetaTab metaTab) throws Exception;
 
-	void delete(List<Map<String, Object>> models, MetaTab metaTab) throws Exception;
+	DataSourceResult delete(List<Map<String, Object>> models, MetaTab metaTab) throws Exception;
 }
