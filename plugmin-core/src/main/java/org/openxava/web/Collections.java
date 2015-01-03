@@ -1,8 +1,8 @@
 package org.openxava.web;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
-import org.openxava.util.*;
+import org.openxava.util.Is;
 
 /**
  * Utilities used from JSP files for collections. 

@@ -1,8 +1,8 @@
 package org.openxava.actions;
 
-import java.util.*;
+import java.util.Map;
 
-import org.openxava.model.*;
+import org.openxava.model.MapFacade;
 
 /**
  * Save a modified ManyToMany element.

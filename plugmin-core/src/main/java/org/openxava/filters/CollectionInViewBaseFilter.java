@@ -1,10 +1,15 @@
 package org.openxava.filters;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
-import org.openxava.view.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
+import org.openxava.view.View;
 
 /**
  * Used for implementing collections using a {@link org.openxava.tab.Tab} 

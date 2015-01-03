@@ -1,15 +1,35 @@
 package org.openxava.component;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
-import org.apache.commons.logging.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.autocomplete.MetaAutocomplete;
 import org.openxava.dropdown.MetaDropDown;
-import org.openxava.mapping.*;
-import org.openxava.model.meta.*;
-import org.openxava.tab.meta.*;
-import org.openxava.util.*;
-import org.openxava.view.meta.*;
+import org.openxava.mapping.AggregateMapping;
+import org.openxava.mapping.EntityMapping;
+import org.openxava.model.meta.MetaAggregate;
+import org.openxava.model.meta.MetaAggregateForCollection;
+import org.openxava.model.meta.MetaAggregateForReference;
+import org.openxava.model.meta.MetaEntity;
+import org.openxava.tab.meta.MetaTab;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.Is;
+import org.openxava.util.PropertiesReader;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
+import org.openxava.view.meta.MetaView;
 
 /**
  * 
@@ -41,6 +61,8 @@ public class MetaComponent implements Serializable {
 	private Map metaTabs;
 	private MetaDropDown metaDropDown;
 	private Map metaDropDowns;
+	private MetaAutocomplete metaAutocomplete;
+	private Map metaAutocompletes;
 	private EntityMapping entityMapping;
 	private String packageName;
 	private boolean _transient; 
@@ -287,11 +309,30 @@ public class MetaComponent implements Serializable {
 		return result;
 	}
 	
+	public MetaAutocomplete getMetaAutocomplete(String name) throws Exception {		
+		if (Is.emptyString(name)) return getMetaAutocomplete();
+		if (metaAutocompletes == null) {			
+			throw new ElementNotFoundException("autocomplete_not_found", name, getName());
+		}
+		MetaAutocomplete result = (MetaAutocomplete) metaAutocompletes.get(name);
+		if (result == null) {
+			throw new ElementNotFoundException("autocompletes_not_found", name, getName());
+		}
+		return result;
+	}
+	
 	public MetaDropDown getMetaDropDown() throws Exception {
 		if (metaDropDown == null) {
 			metaDropDown = MetaDropDown.createDefault(this);
 		}
 		return metaDropDown;
+	}
+	
+	public MetaAutocomplete getMetaAutocomplete() throws Exception {
+		if (metaAutocomplete == null) {
+			metaAutocomplete = MetaAutocomplete.createDefault(this);
+		}
+		return metaAutocomplete;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -309,6 +350,13 @@ public class MetaComponent implements Serializable {
 		this.metaDropDown = metaDropDown;
 	}
 	
+	private void setMetaAutocomplete(MetaAutocomplete metaAutocomplete) {
+		if (this.metaAutocomplete != null) {			
+			throw new XavaException("no_more_1_autocomplete", getName());
+		}
+		this.metaAutocomplete = metaAutocomplete;
+	}
+	
 	public void addMetaDropDown(MetaDropDown metaDropDown) throws XavaException {
 		metaDropDown.setMetaComponent(this);		
 		String name = metaDropDown.getName();
@@ -322,6 +370,21 @@ public class MetaComponent implements Serializable {
 			metaDropDowns.put(name, metaDropDown);		
 		}
 		metaDropDown.setDefaultValues(); 
+	}
+	
+	public void addMetaAutocomplete(MetaAutocomplete metaAutocomplete) throws XavaException {
+		metaAutocomplete.setMetaComponent(this);		
+		String name = metaAutocomplete.getName();
+		if (Is.emptyString(name)) { // by default
+			setMetaAutocomplete(metaAutocomplete);
+		}
+		else { // with name
+			if (metaAutocompletes == null) {
+				metaAutocompletes = new HashMap();			
+			}
+			metaAutocompletes.put(name, metaAutocomplete);		
+		}
+		metaAutocomplete.setDefaultValues(); 
 	}
 	
 	public void addMetaTab(MetaTab metaTab) throws XavaException {

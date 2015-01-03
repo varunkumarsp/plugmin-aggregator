@@ -1,9 +1,9 @@
 package org.openxava.util.impl;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 
-import org.openxava.actions.*;
-import org.openxava.calculators.*;
+import org.openxava.actions.IRemoteAction;
+import org.openxava.calculators.ICalculator;
 
 
 public interface ServerRemote extends javax.ejb.EJBObject {

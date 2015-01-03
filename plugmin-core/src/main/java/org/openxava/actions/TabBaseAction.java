@@ -1,9 +1,13 @@
 package org.openxava.actions;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.openxava.tab.*;
-import org.openxava.util.*;
+import org.openxava.tab.Tab;
+import org.openxava.util.Is;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
 
 /**
  * Base class for actions that works with Tabs. <p>

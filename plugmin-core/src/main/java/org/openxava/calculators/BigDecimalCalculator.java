@@ -3,10 +3,6 @@ package org.openxava.calculators;
 import java.math.BigDecimal;
 
 
-
-import org.openxava.application.meta.xmlparse.ApplicationParser;
-
-
 /**
  * @author Luis Miguel Hern'ndez
  */

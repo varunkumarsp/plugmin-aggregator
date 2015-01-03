@@ -1,10 +1,15 @@
 package org.openxava.web;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.PropertiesReader;
+import org.openxava.util.XavaResources;
 
 /**
  * Utility used from JSP files to include JS files for editors. 

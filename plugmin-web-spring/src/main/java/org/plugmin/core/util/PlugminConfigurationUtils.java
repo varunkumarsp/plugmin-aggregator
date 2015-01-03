@@ -10,6 +10,7 @@ public class PlugminConfigurationUtils {
     public static final String PLUGMIN_ADMINISTRATION_BACK_TO_SITE_URL = "plugmin:administration:back-to-site-url";
     public static final String PLUGMIN_ADMINISTRATION_FILE_STORAGE_PATH = "plugmin:administration:file-storage";
     public static final String PLUGMIN_ADMINISTRATION_FILE_STREAMING = "plugmin:administration:file-streaming";
+    public static final String PLUGMIN_ADMINISTRATION_LOGO = "plugmin:logo";
 
     public static final String PLUGMIN_ADMIN_DISPATCHER_NAME = "plugmin-dispatcher";
     public static final String PLUGMIN_ADMIN_CUSTOM_RESOURCE_SERVLET_NAME = "plugmin-cusom-resource-servlet";

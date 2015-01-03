@@ -1,11 +1,10 @@
 package org.openxava.model.meta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
-
-
-import org.openxava.mapping.*;
-import org.openxava.util.*;
+import org.openxava.mapping.ModelMapping;
+import org.openxava.util.XavaException;
 
 /**
  * 

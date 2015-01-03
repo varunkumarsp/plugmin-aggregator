@@ -1,9 +1,12 @@
 package org.openxava.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-import org.hibernate.annotations.*;
-import org.openxava.annotations.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.openxava.annotations.Hidden;
 
 /**
  * Base class for defining entities with a UUID id. <p>

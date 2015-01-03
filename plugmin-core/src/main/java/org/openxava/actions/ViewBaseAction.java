@@ -1,13 +1,13 @@
 package org.openxava.actions;
 
-import java.util.*;
+import java.util.Stack;
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-import org.apache.commons.logging.*;
-import org.openxava.tab.*;
-import org.openxava.util.*;
-import org.openxava.view.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.XavaResources;
+import org.openxava.view.View;
 
 /**
  * 

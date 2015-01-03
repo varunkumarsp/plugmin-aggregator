@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import javax.servlet.ServletRequest;
 
+import org.openxava.annotations.extended.ui.config.vo.WidgetConfig;
 import org.openxava.component.MetaComponent;
 import org.openxava.util.Is;
 import org.openxava.util.Labels;
@@ -27,7 +28,7 @@ abstract public class MetaElement implements java.io.Serializable {
 	public MetaComponent metaComponent;
 	public String json;
 	public List<String> jsFunctions = new ArrayList<String>();
-
+	public List<WidgetConfig> widgetConfigs = new ArrayList<WidgetConfig>();
 	
 	
 
@@ -149,6 +150,14 @@ abstract public class MetaElement implements java.io.Serializable {
 
 	public void addJsFunctions(List<String> jsFunctions) {
 		this.jsFunctions = jsFunctions;
+	}
+
+	public List<WidgetConfig> getWidgetConfigs() {
+		return widgetConfigs;
+	}
+
+	public void setWidgetConfigs(List<WidgetConfig> widgetConfigs) {
+		this.widgetConfigs = widgetConfigs;
 	}
 		
 

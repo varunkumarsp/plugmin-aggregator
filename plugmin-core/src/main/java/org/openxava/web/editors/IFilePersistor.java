@@ -1,6 +1,6 @@
 package org.openxava.web.editors;
 
-import java.util.*;
+import java.util.Collection;
 
 /**
  * Interface used to interact with a file container (database, file system, etc) <p>

@@ -1,5 +1,5 @@
 package org.openxava.actions;
-import org.openxava.util.*;
+import org.openxava.util.XavaPreferences;
 
 /**
  * @author Javier Paniza

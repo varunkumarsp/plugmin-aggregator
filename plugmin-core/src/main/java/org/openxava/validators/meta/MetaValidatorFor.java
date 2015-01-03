@@ -2,9 +2,10 @@ package org.openxava.validators.meta;
 
 
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
-import org.openxava.validators.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.XavaException;
+import org.openxava.validators.IPropertyValidator;
 
 /**
  * A validator associated to a type or stereotype. <p>

@@ -1,12 +1,14 @@
 package org.openxava.controller.meta;
 
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-
-
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
 
 /**
  * @author Javier Paniza

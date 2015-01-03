@@ -17,14 +17,6 @@ import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openxava.annotations.extended.CompositeField;
-import org.openxava.annotations.extended.JsField;
-import org.openxava.annotations.extended.JsFieldBoolean;
-import org.openxava.annotations.extended.JsFieldString;
-import org.openxava.annotations.extended.JsFieldVariable;
-import org.openxava.annotations.extended.JsObject;
-import org.openxava.annotations.extended.JsonKeyValueProvider;
-import org.openxava.annotations.extended.JsonRawKeyValueProvider;
-import org.openxava.annotations.extended.JsonValueProvider;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

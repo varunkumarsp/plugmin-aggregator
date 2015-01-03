@@ -1,6 +1,6 @@
 package org.openxava.tab.impl;
 
-import javax.swing.table.*;
+import javax.swing.table.TableModel;
 
 /**
  * Adds to the swing <code>TableModel</code> the posibility

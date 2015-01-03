@@ -3,7 +3,7 @@ package org.openxava.annotations.parse;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openxava.annotations.extended.vo.ColumnVo;
+import org.openxava.annotations.extended.ui.config.vo.ColumnVo;
 
 public class FieldResolverImpl implements FieldResolver {
 

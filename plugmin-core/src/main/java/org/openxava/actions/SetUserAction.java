@@ -2,7 +2,6 @@ package org.openxava.actions;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.openxava.actions.BaseAction;
 import org.openxava.util.Is;
 
 /**

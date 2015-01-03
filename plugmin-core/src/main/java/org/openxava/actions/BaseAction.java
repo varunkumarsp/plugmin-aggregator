@@ -1,16 +1,24 @@
 package org.openxava.actions;
 
-import java.util.*;
+import java.util.Locale;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.*;
-import org.openxava.controller.*;
-import org.openxava.controller.meta.*;
-import org.openxava.hibernate.*;
-import org.openxava.jpa.*;
-import org.openxava.util.*;
-import org.openxava.web.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.controller.Environment;
+import org.openxava.controller.ModuleContext;
+import org.openxava.controller.ModuleManager;
+import org.openxava.controller.meta.MetaAction;
+import org.openxava.controller.meta.MetaControllers;
+import org.openxava.hibernate.XHibernate;
+import org.openxava.jpa.XPersistence;
+import org.openxava.util.Is;
+import org.openxava.util.Locales;
+import org.openxava.util.Messages;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
+import org.openxava.web.DescriptionsLists;
 
 /**
  * 

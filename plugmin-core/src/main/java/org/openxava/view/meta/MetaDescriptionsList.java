@@ -1,11 +1,13 @@
 package org.openxava.view.meta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.StringTokenizer;
 
-
-
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.util.Is;
+import org.openxava.util.XavaPreferences;
 
 /**
  * @author Javier Paniza

@@ -1,6 +1,6 @@
 package org.openxava.actions;
 
-import java.util.*;
+import java.util.Map;
 
 /**
  * 

@@ -2,7 +2,7 @@ package org.openxava.controller.meta;
 
 
 
-import org.openxava.util.*;
+import org.openxava.util.Is;
 
 /**
  * @author Javier Paniza

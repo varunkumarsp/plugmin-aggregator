@@ -1,12 +1,18 @@
 package org.openxava.actions;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
-import org.apache.commons.logging.*;
-import org.openxava.jpa.*;
-import org.openxava.model.*;
-import org.openxava.util.*;
-import org.openxava.web.editors.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.jpa.XPersistence;
+import org.openxava.model.MapFacade;
+import org.openxava.util.Is;
+import org.openxava.web.editors.TreeView;
+import org.openxava.web.editors.TreeViewParser;
 
 public class TreeViewMoveNodeAction extends CollectionElementViewBaseAction {
 	private static Log log = LogFactory.getLog(TreeViewMoveNodeAction.class);

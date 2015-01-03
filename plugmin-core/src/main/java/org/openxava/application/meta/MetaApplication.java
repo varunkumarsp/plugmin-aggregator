@@ -1,14 +1,27 @@
 package org.openxava.application.meta;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
 
-import org.apache.commons.logging.*;
-import org.openxava.annotations.parse.*;
-import org.openxava.component.*;
-import org.openxava.controller.meta.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.annotations.parse.AnnotatedClassParser;
+import org.openxava.component.MetaComponent;
+import org.openxava.controller.meta.MetaControllers;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.Is;
+import org.openxava.util.Labels;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaPreferences;
+import org.openxava.util.meta.MetaElement;
 
 /**
  * @author Javier Paniza

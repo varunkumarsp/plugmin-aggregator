@@ -1,6 +1,6 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 
 /**
  * Read data by chunks.

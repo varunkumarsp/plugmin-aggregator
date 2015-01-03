@@ -1,10 +1,18 @@
 package org.openxava.controller.meta.xmlparse;
 
-import org.openxava.controller.meta.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
-import org.openxava.util.xmlparse.*;
-import org.w3c.dom.*;
+import org.openxava.controller.meta.MetaAction;
+import org.openxava.controller.meta.MetaController;
+import org.openxava.controller.meta.MetaControllers;
+import org.openxava.controller.meta.MetaObject;
+import org.openxava.controller.meta.MetaSubcontroller;
+import org.openxava.controller.meta.MetaUseObject;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
+import org.openxava.util.meta.MetaSet;
+import org.openxava.util.xmlparse.ParserBase;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * @author: Javier Paniza

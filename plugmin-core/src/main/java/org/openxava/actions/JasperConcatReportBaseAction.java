@@ -1,9 +1,9 @@
 package org.openxava.actions;
 
-import java.text.*;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JRDataSource;
 
 /**
  * To generate a custom report concatenating simple reports. <p>

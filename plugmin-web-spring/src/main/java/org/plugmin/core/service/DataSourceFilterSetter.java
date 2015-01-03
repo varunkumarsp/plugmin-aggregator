@@ -2,7 +2,7 @@ package org.plugmin.core.service;
 
 import java.util.List;
 
-import org.openxava.annotations.extended.vo.FilterItem;
+import org.openxava.annotations.extended.ui.config.vo.FilterItem;
 import org.openxava.dropdown.MetaDropDown;
 import org.openxava.tab.meta.MetaTab;
 

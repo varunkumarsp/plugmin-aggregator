@@ -1,13 +1,13 @@
 package org.openxava.web.taglib;
 
-import javax.servlet.http.*;
-import javax.servlet.jsp.*;
-import javax.servlet.jsp.tagext.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.commons.logging.*;
-import org.openxava.controller.*;
-import org.openxava.util.*;
-import org.openxava.web.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.XavaResources;
+import org.openxava.web.Ids;
 
 /**
  * Logic used by OX for generated ids for the HTML parts. <p>

@@ -1,11 +1,14 @@
 package org.openxava.generators;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.StringTokenizer;
 
-
-
-import org.openxava.util.*;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaPreferences;
 
 /**
  * Utility methods used in code generation.

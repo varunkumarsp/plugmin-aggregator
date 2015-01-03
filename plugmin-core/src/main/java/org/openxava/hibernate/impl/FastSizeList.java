@@ -1,10 +1,11 @@
 package org.openxava.hibernate.impl;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
-
-
-import org.hibernate.*;
+import org.hibernate.Query;
 
 /**
  * Wrapper to calculated size() and isEmpty() fast. <p>

@@ -1,9 +1,14 @@
 package org.openxava.validators.meta;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
-import org.openxava.validators.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
+import org.openxava.util.meta.MetaSetsContainer;
+import org.openxava.validators.IPropertyValidator;
+import org.openxava.validators.IRemoveValidator;
+import org.openxava.validators.IValidator;
+import org.openxava.validators.IWithMessage;
 
 /**
  * 

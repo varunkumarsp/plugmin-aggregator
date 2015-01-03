@@ -1,6 +1,6 @@
 package org.openxava.actions;
 
-import org.openxava.util.*;
+import org.openxava.util.IConnectionProvider;
 
 /**
  * @author Javier Paniza

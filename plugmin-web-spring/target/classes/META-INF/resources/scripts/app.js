@@ -82,6 +82,16 @@ function parameterMap(options, operation) {
 }
 
 $(document).ready(function(){
+		$("#config-toggle").on('click', function() {
+			$("#configurator").slideToggle();
+		});
+		
+		$("#clear-components").on('click', function() {
+			$.get(ctx + '/plugmin/rest/grid/components/clear', function(data, status) {
+				console.log('Components cleared: ' + data);
+			});
+		});
+		
         $("#dimensions").kendoDropDownList({
             dataTextField: "text",
             dataValueField: "value",

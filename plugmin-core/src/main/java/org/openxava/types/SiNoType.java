@@ -1,11 +1,14 @@
 package org.openxava.types;
 
-import java.io.*;
+import java.io.Serializable;
 
-import org.hibernate.dialect.*;
-import org.hibernate.type.*;
-import org.hibernate.type.descriptor.java.*;
-import org.hibernate.type.descriptor.sql.*;
+import org.hibernate.dialect.Dialect;
+import org.hibernate.type.AbstractSingleColumnStandardBasicType;
+import org.hibernate.type.DiscriminatorType;
+import org.hibernate.type.PrimitiveType;
+import org.hibernate.type.StringType;
+import org.hibernate.type.YesNoType;
+import org.hibernate.type.descriptor.sql.CharTypeDescriptor;
 
 /**
  * Stores a boolean value as 'S' or 'N' in database. <p>

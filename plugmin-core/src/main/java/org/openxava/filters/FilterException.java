@@ -2,7 +2,7 @@ package org.openxava.filters;
 
 
 
-import org.openxava.util.*;
+import org.openxava.util.XavaException;
 
 
 /**

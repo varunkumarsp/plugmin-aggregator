@@ -1,12 +1,12 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.util.Map;
 
-import javax.ejb.*;
-import javax.swing.event.*;
+import javax.ejb.FinderException;
+import javax.swing.event.TableModelListener;
 
-import org.openxava.util.*;
+import org.openxava.util.Assert;
 
 
 /**

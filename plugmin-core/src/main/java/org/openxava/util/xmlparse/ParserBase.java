@@ -1,14 +1,18 @@
 package org.openxava.util.xmlparse;
 
 
-import java.net.*;
-import java.util.*;
+import java.net.URL;
+import java.util.Enumeration;
 
-import javax.xml.parsers.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
-import org.w3c.dom.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.XavaException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * @author: Javier Paniza

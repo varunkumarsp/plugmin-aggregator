@@ -1,15 +1,24 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-import javax.ejb.*;
-import org.apache.commons.logging.*;
-import org.openxava.component.*;
-import org.openxava.mapping.*;
-import org.openxava.model.meta.*;
-import org.openxava.tab.meta.*;
-import org.openxava.util.*;
+import javax.ejb.FinderException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.component.MetaComponent;
+import org.openxava.mapping.ReferenceMapping;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.model.meta.MetaReference;
+import org.openxava.tab.meta.MetaTab;
+import org.openxava.util.Is;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
 
 /**
  * 

@@ -1,15 +1,19 @@
 package org.openxava.actions;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.ejb.*;
+import javax.ejb.CreateException;
+import javax.ejb.FinderException;
+import javax.ejb.ObjectNotFoundException;
 
-import org.openxava.model.*;
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
-import org.openxava.validators.*;
-import org.openxava.view.*;
+import org.openxava.model.MapFacade;
+import org.openxava.model.meta.MetaCollection;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaPreferences;
+import org.openxava.validators.ValidationException;
+import org.openxava.view.View;
 
 /**
  * To save a collection element. <p>

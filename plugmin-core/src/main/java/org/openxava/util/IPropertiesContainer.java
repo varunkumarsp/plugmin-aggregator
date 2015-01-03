@@ -1,9 +1,9 @@
 package org.openxava.util;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.util.Map;
 
-import org.openxava.validators.*;
+import org.openxava.validators.ValidationException;
 
 
 /**

@@ -1,8 +1,8 @@
 package org.openxava.controller.meta;
 
-import java.util.*;
+import java.util.Collection;
 
-import org.openxava.util.*;
+import org.openxava.util.Is;
 
 /**
  * 

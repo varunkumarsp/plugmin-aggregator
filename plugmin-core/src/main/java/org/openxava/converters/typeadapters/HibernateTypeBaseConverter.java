@@ -1,8 +1,8 @@
 package org.openxava.converters.typeadapters;
 
-import java.util.*;
+import java.util.Properties;
 
-import org.hibernate.usertype.*;
+import org.hibernate.usertype.ParameterizedType;
 
 /**
  * Base class for adapters for using Hibernate composite types as converters in OpenXava.

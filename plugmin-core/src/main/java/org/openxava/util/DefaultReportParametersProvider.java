@@ -1,8 +1,8 @@
 package org.openxava.util;
 
-import java.util.*;
+import java.util.Locale;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * By default it get parameters from i18n.

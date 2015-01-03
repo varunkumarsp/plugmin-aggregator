@@ -19,7 +19,7 @@ import javax.ejb.FinderException;
 import javax.ejb.ObjectNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.*;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openxava.actions.IOnChangePropertyAction;
@@ -61,7 +61,8 @@ import org.openxava.util.Users;
 import org.openxava.util.XArrays;
 import org.openxava.util.XavaException;
 import org.openxava.util.XavaResources;
-import org.openxava.util.meta.*;
+import org.openxava.util.meta.MetaElement;
+import org.openxava.util.meta.MetaSet;
 import org.openxava.view.meta.MetaCollectionView;
 import org.openxava.view.meta.MetaDescriptionsList;
 import org.openxava.view.meta.MetaGroup;
@@ -69,7 +70,9 @@ import org.openxava.view.meta.MetaReferenceView;
 import org.openxava.view.meta.MetaView;
 import org.openxava.view.meta.MetaViewAction;
 import org.openxava.view.meta.PropertiesSeparator;
-import org.openxava.web.*;
+import org.openxava.web.DescriptionsLists;
+import org.openxava.web.Ids;
+import org.openxava.web.WebEditors;
 import org.openxava.web.meta.MetaEditor;
 
 /**

@@ -1,10 +1,13 @@
 package org.openxava.util;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Hashtable;
+import java.util.Properties;
 
-import org.apache.commons.logging.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Generic class to implement object factories. <p>

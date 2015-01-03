@@ -1,10 +1,8 @@
 package org.openxava.converters;
 
-import java.util.*;
+import java.util.Calendar;
 
-
-
-import org.openxava.util.*;
+import org.openxava.util.Dates;
 
 
 /**

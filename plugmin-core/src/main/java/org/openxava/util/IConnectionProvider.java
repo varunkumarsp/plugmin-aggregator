@@ -1,6 +1,7 @@
 package org.openxava.util;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * Provides JDBC connections. <p>

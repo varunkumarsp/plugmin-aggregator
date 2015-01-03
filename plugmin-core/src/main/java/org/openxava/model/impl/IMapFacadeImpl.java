@@ -1,16 +1,18 @@
 package org.openxava.model.impl;
 
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.util.Map;
 
-import javax.ejb.*;
+import javax.ejb.CreateException;
+import javax.ejb.FinderException;
+import javax.ejb.RemoveException;
 
-
-
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
-import org.openxava.validators.*;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.util.Messages;
+import org.openxava.util.UserInfo;
+import org.openxava.util.XavaException;
+import org.openxava.validators.ValidationException;
 
 
 public interface IMapFacadeImpl {

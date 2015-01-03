@@ -1,16 +1,24 @@
 package org.openxava.web.servlets;
 
-import static org.apache.commons.lang3.SystemUtils.*;
-import java.io.*;
+import static org.apache.commons.lang3.SystemUtils.IS_OS_UNIX;
+import static org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.io.IOException;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
-import org.openxava.web.editors.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import eu.medsea.mimeutil.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.Is;
+import org.openxava.util.XavaResources;
+import org.openxava.web.editors.AttachedFile;
+import org.openxava.web.editors.FilePersistorFactory;
+
+import eu.medsea.mimeutil.MimeType;
+import eu.medsea.mimeutil.MimeUtil;
 /**
  * 
  * @author Jeromy Altuna

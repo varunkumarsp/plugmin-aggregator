@@ -1,11 +1,13 @@
 package org.openxava.session;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-
-
-import org.hibernate.*;
-import org.openxava.hibernate.*;
+import org.hibernate.Query;
+import org.openxava.hibernate.XHibernate;
 
 /**
  * Manages an images gallery. <p>

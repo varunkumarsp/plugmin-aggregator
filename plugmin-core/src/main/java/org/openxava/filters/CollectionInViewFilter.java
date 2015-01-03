@@ -1,8 +1,12 @@
 package org.openxava.filters;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
-import org.openxava.util.*;
+import org.openxava.util.Maps;
+import org.openxava.util.XavaException;
 
 /**
  * Used for implementing collections using a {@link org.openxava.tab.Tab} from a

@@ -1,8 +1,8 @@
 package org.openxava.actions;
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-import org.openxava.session.*;
+import org.openxava.session.MyReport;
 
 /**
  * 

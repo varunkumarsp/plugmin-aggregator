@@ -1,10 +1,9 @@
 package org.openxava.filters;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
 
-
-
-import org.openxava.util.*;
+import org.openxava.util.Dates;
 
 
 /**

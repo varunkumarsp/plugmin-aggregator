@@ -1,11 +1,13 @@
 package org.openxava.util;
 
-import java.util.prefs.*;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.impl.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.impl.UserPreferences;
 
 /**
  * Utilities to work with users. <p>

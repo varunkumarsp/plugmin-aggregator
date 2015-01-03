@@ -2,8 +2,8 @@ package org.openxava.model.meta;
 
 
 
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
+import org.openxava.util.Is;
+import org.openxava.util.meta.MetaElement;
 
 /**
  * @author Javier Paniza

@@ -1,6 +1,6 @@
 package org.openxava.tab.meta;
 
-import java.io.*;
+import java.io.Serializable;
 
 
 

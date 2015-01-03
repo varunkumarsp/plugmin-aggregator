@@ -1,6 +1,6 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 
 /**
  * Something with a {@link IXTableModel}. <p>

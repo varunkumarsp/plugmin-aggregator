@@ -1,9 +1,13 @@
 package org.openxava.actions;
 
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.openxava.model.meta.MetaCollection;
+import org.openxava.model.meta.MetaEntity;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.Messages;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
 import org.openxava.validators.ValidationException;
-import org.openxava.view.*;
+import org.openxava.view.View;
 
 /**
  * 

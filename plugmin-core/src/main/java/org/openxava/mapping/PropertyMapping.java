@@ -1,14 +1,21 @@
 package org.openxava.mapping;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
-
-
-import org.apache.commons.logging.*;
-import org.openxava.converters.*;
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.converters.IConverter;
+import org.openxava.converters.IMultipleConverter;
+import org.openxava.converters.NoConversionConverter;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.Is;
+import org.openxava.util.Primitives;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
+import org.openxava.util.meta.MetaSetsContainer;
 
 public class PropertyMapping extends MetaSetsContainer {
 	

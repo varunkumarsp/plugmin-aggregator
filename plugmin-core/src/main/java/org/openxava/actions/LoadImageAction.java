@@ -1,14 +1,14 @@
 package org.openxava.actions;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-import org.apache.commons.fileupload.*;
-
-
-import org.openxava.util.*;
-import org.openxava.view.*;
+import org.apache.commons.fileupload.FileItem;
+import org.openxava.util.Is;
+import org.openxava.util.Strings;
+import org.openxava.view.View;
 
 /**
  * @author Javier Paniza

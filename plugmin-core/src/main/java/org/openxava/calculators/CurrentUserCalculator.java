@@ -2,7 +2,7 @@ package org.openxava.calculators;
 
 
 
-import org.openxava.util.*;
+import org.openxava.util.Users;
 
 public class CurrentUserCalculator implements ICalculator {
 

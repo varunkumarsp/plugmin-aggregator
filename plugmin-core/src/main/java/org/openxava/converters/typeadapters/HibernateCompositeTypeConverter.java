@@ -1,10 +1,12 @@
 package org.openxava.converters.typeadapters;
 
 
-import org.apache.commons.logging.*;
-import org.hibernate.usertype.*;
-import org.openxava.converters.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.usertype.CompositeUserType;
+import org.openxava.converters.ConversionException;
+import org.openxava.converters.IMultipleConverter;
+import org.openxava.util.XavaResources;
 
 /**
  * Adapter for using Hibernate composite types as converters in OpenXava. <p>

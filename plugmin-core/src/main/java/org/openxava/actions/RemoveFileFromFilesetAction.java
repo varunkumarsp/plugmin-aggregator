@@ -1,6 +1,6 @@
 package org.openxava.actions;
 
-import org.openxava.web.editors.*;
+import org.openxava.web.editors.FilePersistorFactory;
 
 /**
  * Logic of AttachedFiles.remove in default-controllers.xml. <p>

@@ -1,18 +1,36 @@
 package org.openxava.component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
-import org.apache.commons.logging.*;
-import org.openxava.annotations.parse.*;
-import org.openxava.mapping.*;
-import org.openxava.mapping.xmlparse.*;
-import org.openxava.model.meta.*;
-import org.openxava.model.meta.xmlparse.*;
-import org.openxava.tab.meta.xmlparse.*;
-import org.openxava.util.*;
-import org.openxava.util.xmlparse.*;
-import org.openxava.view.meta.xmlparse.*;
-import org.w3c.dom.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.annotations.parse.AnnotatedClassParser;
+import org.openxava.mapping.AggregateMapping;
+import org.openxava.mapping.EntityMapping;
+import org.openxava.mapping.ModelMapping;
+import org.openxava.mapping.PropertyMapping;
+import org.openxava.mapping.ReferenceMapping;
+import org.openxava.mapping.ReferenceMappingDetail;
+import org.openxava.mapping.xmlparse.MappingParser;
+import org.openxava.model.meta.MetaAggregate;
+import org.openxava.model.meta.MetaAggregateForCollection;
+import org.openxava.model.meta.MetaAggregateForReference;
+import org.openxava.model.meta.MetaCollection;
+import org.openxava.model.meta.MetaFinder;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.model.meta.MetaReference;
+import org.openxava.model.meta.xmlparse.ModelParser;
+import org.openxava.tab.meta.xmlparse.TabParser;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaPreferences;
+import org.openxava.util.XavaResources;
+import org.openxava.util.xmlparse.ParserBase;
+import org.openxava.view.meta.xmlparse.ViewParser;
+import org.w3c.dom.NodeList;
 
 /**
  * @author: Javier Paniza

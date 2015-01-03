@@ -1,14 +1,23 @@
 package org.openxava.tab.impl;
 
-import java.math.*;
-import java.rmi.*;
-import java.util.*;
+import java.math.BigDecimal;
+import java.rmi.RemoteException;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.NoSuchElementException;
+import java.util.ResourceBundle;
+import java.util.Vector;
 
-import javax.ejb.*;
-import javax.swing.event.*;
+import javax.ejb.FinderException;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.XavaResources;
 
 /**
  * <code>IXTableModel</code> implementation in JavaBean format. <p>

@@ -1,7 +1,8 @@
 package org.openxava.web;
 
-import java.util.*;
-import org.openxava.model.meta.*;
+import java.util.Collection;
+
+import org.openxava.model.meta.MetaProperty;
 
 /**
  * Utilities used from JSP files for lists. 

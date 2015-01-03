@@ -1,14 +1,19 @@
 package org.openxava.model.meta;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.StringTokenizer;
 
-
-
-import org.apache.commons.logging.*;
-import org.openxava.calculators.*;
-import org.openxava.component.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.calculators.ICalculator;
+import org.openxava.component.MetaComponent;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.Is;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
+import org.openxava.util.meta.ElementName;
 import org.openxava.view.meta.MetaDescriptionsList;
 import org.openxava.view.meta.MetaView;
 

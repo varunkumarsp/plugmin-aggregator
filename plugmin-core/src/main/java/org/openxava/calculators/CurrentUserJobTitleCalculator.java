@@ -1,6 +1,7 @@
 package org.openxava.calculators;
 
-import org.openxava.util.*;
+import org.openxava.util.UserInfo;
+import org.openxava.util.Users;
 
 /**
  * Job title of the current user. <p>

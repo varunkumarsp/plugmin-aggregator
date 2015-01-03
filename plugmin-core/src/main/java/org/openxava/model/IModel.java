@@ -1,9 +1,9 @@
 package org.openxava.model;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.util.XavaException;
 
 /**
  * Interface to be implemented by all model classes. <p>

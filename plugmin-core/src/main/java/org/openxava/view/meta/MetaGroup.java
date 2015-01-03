@@ -2,8 +2,8 @@ package org.openxava.view.meta;
 
 
 
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.openxava.model.meta.MetaMember;
+import org.openxava.util.XavaException;
 
 /**
  * @author Javier Paniza

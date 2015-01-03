@@ -1,20 +1,32 @@
 package org.openxava.model;
 
-import java.util.*;
-import java.rmi.*;
-import javax.ejb.*;
-import javax.rmi.*;
+import java.rmi.RemoteException;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.ejb.CreateException;
+import javax.ejb.FinderException;
+import javax.ejb.ObjectNotFoundException;
+import javax.ejb.RemoveException;
+import javax.rmi.PortableRemoteObject;
 
-
-import org.apache.commons.logging.*;
-import org.openxava.component.*;
-import org.openxava.ejbx.*;
-import org.openxava.jpa.*;
-import org.openxava.model.impl.*;
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
-import org.openxava.validators.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.component.MetaComponent;
+import org.openxava.ejbx.BeansContext;
+import org.openxava.model.impl.IMapFacadeImpl;
+import org.openxava.model.impl.MapFacadeBean;
+import org.openxava.model.impl.MapFacadeHome;
+import org.openxava.model.impl.MapFacadeRemote;
+import org.openxava.model.meta.MetaEntity;
+import org.openxava.util.Assert;
+import org.openxava.util.Messages;
+import org.openxava.util.SystemException;
+import org.openxava.util.Users;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaPreferences;
+import org.openxava.util.XavaResources;
+import org.openxava.validators.ValidationException;
 
 
 /** 

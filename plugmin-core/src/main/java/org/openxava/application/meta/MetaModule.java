@@ -1,12 +1,15 @@
 package org.openxava.application.meta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
-
-
-import org.openxava.controller.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
+import org.openxava.controller.Environment;
+import org.openxava.util.Is;
+import org.openxava.util.Labels;
+import org.openxava.util.meta.MetaElement;
 
 /**
  * @author Javier Paniza

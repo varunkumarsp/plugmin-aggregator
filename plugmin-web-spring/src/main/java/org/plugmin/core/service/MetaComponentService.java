@@ -15,4 +15,6 @@ public interface MetaComponentService {
 	
 	List<MetaProperty> metaPropertiesView(String entity, String view) throws Exception;
 
+	void clear() throws Exception;
+
 }

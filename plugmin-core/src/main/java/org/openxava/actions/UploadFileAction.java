@@ -1,12 +1,14 @@
 package org.openxava.actions;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-import org.apache.commons.fileupload.*;
-import org.openxava.util.*;
-import org.openxava.web.editors.*;
+import org.apache.commons.fileupload.FileItem;
+import org.openxava.util.Is;
+import org.openxava.web.editors.AttachedFile;
+import org.openxava.web.editors.FilePersistorFactory;
 
 /**
  * Logic of UploadFile.uploadFile action in default-controllers.xml. <p>

@@ -1,12 +1,21 @@
 package org.openxava.actions;
 
-import java.lang.reflect.*;
-import java.text.*;
-import java.util.*;
-import org.openxava.model.*;
-import org.openxava.util.*;
-import org.openxava.validators.*;
-import org.openxava.web.servlets.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.text.DateFormat;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeSet;
+import java.util.Vector;
+
+import org.openxava.model.MapFacade;
+import org.openxava.util.Messages;
+import org.openxava.util.SimpleTemplater;
+import org.openxava.validators.ValidationException;
+import org.openxava.web.servlets.GenerateSimpleHTMLReportServlet;
 
 /**
  * 

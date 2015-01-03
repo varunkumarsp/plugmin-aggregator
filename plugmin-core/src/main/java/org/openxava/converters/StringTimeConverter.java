@@ -1,8 +1,5 @@
 package org.openxava.converters;
 
-import org.openxava.converters.IConverter;
-import org.openxava.converters.ConversionException;
-
 import java.sql.Time;
 
 /**

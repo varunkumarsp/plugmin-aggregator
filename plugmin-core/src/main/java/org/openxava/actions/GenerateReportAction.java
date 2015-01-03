@@ -1,9 +1,13 @@
 package org.openxava.actions;
 
-import org.apache.commons.logging.*;
-import org.openxava.hibernate.*;
-import org.openxava.jpa.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.hibernate.XHibernate;
+import org.openxava.jpa.XPersistence;
+import org.openxava.util.Is;
+import org.openxava.util.Users;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
 
 /**
  * @author Javier Paniza

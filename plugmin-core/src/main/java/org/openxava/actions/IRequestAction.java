@@ -1,6 +1,6 @@
 package org.openxava.actions;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Action that receive a servlet request. <p>

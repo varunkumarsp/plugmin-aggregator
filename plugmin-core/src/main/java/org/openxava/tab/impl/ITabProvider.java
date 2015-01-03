@@ -1,8 +1,8 @@
 package org.openxava.tab.impl;
 
-import java.util.*;
+import java.util.Collection;
 
-import org.openxava.tab.meta.*;
+import org.openxava.tab.meta.MetaTab;
 
 /**
  * Provides data and specific behavior from the underlying query technology. <p>

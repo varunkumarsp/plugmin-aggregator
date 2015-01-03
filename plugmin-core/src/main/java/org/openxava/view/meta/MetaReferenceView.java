@@ -1,8 +1,9 @@
 package org.openxava.view.meta;
 
-import org.apache.commons.logging.*;
-import org.openxava.actions.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.actions.IOnChangePropertyAction;
+import org.openxava.util.XavaException;
 
 
 

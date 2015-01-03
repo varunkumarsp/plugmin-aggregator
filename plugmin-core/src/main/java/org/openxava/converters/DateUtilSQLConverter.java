@@ -1,6 +1,6 @@
 package org.openxava.converters;
 
-import java.util.*;
+import java.util.Date;
 
 /**
  * In java a <tt>java.util.Date</tt> and in database a

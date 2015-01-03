@@ -1,6 +1,7 @@
 package org.openxava.tab.meta.xmlparse;
 
-import org.openxava.tab.meta.*;
+import org.openxava.tab.meta.MetaTab;
+import org.openxava.tab.meta.MetaTabsDefaultValues;
 import org.openxava.util.XavaException;
 import org.openxava.util.xmlparse.ParserBase;
 import org.w3c.dom.Element;

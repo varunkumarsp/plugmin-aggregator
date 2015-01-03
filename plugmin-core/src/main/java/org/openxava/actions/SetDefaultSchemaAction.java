@@ -1,9 +1,9 @@
 package org.openxava.actions;
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-import org.openxava.hibernate.*;
-import org.openxava.jpa.*;
+import org.openxava.hibernate.XHibernate;
+import org.openxava.jpa.XPersistence;
 
 /**
  * Set value of default schema for JPA Persistence and

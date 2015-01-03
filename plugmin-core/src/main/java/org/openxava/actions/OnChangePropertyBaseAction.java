@@ -2,9 +2,9 @@ package org.openxava.actions;
 
 
 
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
-import org.openxava.view.*;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.util.XavaException;
+import org.openxava.view.View;
 
 /**
  * @author Javier Paniza

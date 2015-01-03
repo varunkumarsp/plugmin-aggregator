@@ -1,6 +1,6 @@
 package org.openxava.generators;
 
-import org.openxava.model.meta.*;
+import org.openxava.model.meta.MetaProperty;
 
 /**
  * To customize the code generation of a concrete property. <p>

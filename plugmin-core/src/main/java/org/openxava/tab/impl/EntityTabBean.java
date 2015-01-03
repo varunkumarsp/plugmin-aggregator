@@ -1,11 +1,11 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
-
-
-import org.openxava.ejbx.*;
+import org.openxava.ejbx.SessionBase;
 
 /**
  * 

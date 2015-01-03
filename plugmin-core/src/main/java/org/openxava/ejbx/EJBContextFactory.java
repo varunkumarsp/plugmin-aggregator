@@ -1,10 +1,8 @@
 package org.openxava.ejbx;
 
-import javax.ejb.*;
+import javax.ejb.EJBContext;
 
-
-
-import org.openxava.util.*;
+import org.openxava.util.InitException;
 
 
 /**

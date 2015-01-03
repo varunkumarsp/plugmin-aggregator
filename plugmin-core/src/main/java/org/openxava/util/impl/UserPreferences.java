@@ -1,10 +1,19 @@
 package org.openxava.util.impl;
 
-import java.io.*;
-import java.util.*;
-import java.util.prefs.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.prefs.AbstractPreferences;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
-import org.openxava.util.*;
+import org.openxava.util.Strings;
+import org.openxava.util.XCollections;
+import org.openxava.util.XavaResources;
 
 /**
  * Implementation of Java Preferences for OX applications. <p>

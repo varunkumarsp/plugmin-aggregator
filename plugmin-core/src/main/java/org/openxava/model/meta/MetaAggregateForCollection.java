@@ -3,9 +3,10 @@ package org.openxava.model.meta;
 
 
 
-import org.openxava.component.*;
-import org.openxava.mapping.*;
-import org.openxava.util.*;
+import org.openxava.component.MetaComponent;
+import org.openxava.mapping.ModelMapping;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
 
 /**
  * 

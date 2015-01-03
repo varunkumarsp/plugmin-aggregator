@@ -1,10 +1,14 @@
 package org.openxava.util;
 
-import java.util.*;
-import java.util.logging.*;
+import java.util.Iterator;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import org.apache.commons.logging.*;
-import org.openxava.component.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.component.MetaComponent;
 
 /**
  * Global utilities about the system. <p>

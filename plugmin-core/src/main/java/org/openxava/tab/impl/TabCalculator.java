@@ -2,9 +2,11 @@ package org.openxava.tab.impl;
 
 
 
-import org.openxava.calculators.*;
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.openxava.calculators.ICalculator;
+import org.openxava.model.meta.MetaCalculator;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.util.PropertiesManager;
+import org.openxava.util.XavaException;
 
 
 /**

@@ -1,7 +1,7 @@
 package org.openxava.tab.meta;
 
+import static org.openxava.annotations.parse.JsonUtil.toJson;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import static org.openxava.annotations.extended.JsonUtil.toJson;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +18,7 @@ import java.util.StringTokenizer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openxava.annotations.extended.vo.TabConfigVo;
+import org.openxava.annotations.extended.ui.config.vo.TabConfigVo;
 import org.openxava.component.MetaComponent;
 import org.openxava.filters.FilterException;
 import org.openxava.filters.IFilter;

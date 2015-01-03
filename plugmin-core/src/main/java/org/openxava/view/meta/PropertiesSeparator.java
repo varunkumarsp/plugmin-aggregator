@@ -2,8 +2,7 @@ package org.openxava.view.meta;
 
 
 
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.openxava.model.meta.MetaProperty;
 
 /**
  * It's used in a property collection for

@@ -1,10 +1,14 @@
 package org.openxava.util;
 
-import java.text.*;
-import java.util.*;
+import java.text.MessageFormat;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
-import org.apache.commons.logging.*;
-import org.openxava.application.meta.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.application.meta.MetaApplications;
 
 /**
  * @author Javier Paniza

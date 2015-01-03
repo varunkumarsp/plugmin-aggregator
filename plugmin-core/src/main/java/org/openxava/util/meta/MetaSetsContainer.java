@@ -1,11 +1,13 @@
 package org.openxava.util.meta;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 
-
-
-import org.openxava.util.*;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.PropertiesManager;
 
 
 /**

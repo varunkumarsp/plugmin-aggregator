@@ -92,5 +92,4 @@
         <put-attribute name="footer-section" value="/views/sections/footer-section.jsp"/>
          -->
     </definition>
-
 </tiles-definitions>

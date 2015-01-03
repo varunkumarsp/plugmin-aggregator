@@ -1,13 +1,17 @@
 package org.openxava.web.meta;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-
-
-import org.openxava.model.meta.*;
-import org.openxava.tab.meta.*;
-import org.openxava.util.*;
-import org.openxava.web.meta.xmlparse.*;
+import org.openxava.model.meta.MetaCollection;
+import org.openxava.model.meta.MetaMember;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.model.meta.MetaReference;
+import org.openxava.tab.meta.MetaTab;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
+import org.openxava.web.meta.xmlparse.EditorsParser;
 
 /**
  * 

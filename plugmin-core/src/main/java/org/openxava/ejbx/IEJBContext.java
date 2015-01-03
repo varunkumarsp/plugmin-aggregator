@@ -1,8 +1,8 @@
 package org.openxava.ejbx;
 
-import java.security.*;
+import java.security.Principal;
 
-import org.openxava.util.*;
+import org.openxava.util.IConnectionProvider;
 
 
 /**

@@ -1,8 +1,8 @@
 package org.openxava.validators;
 
-import java.math.*;
+import java.math.BigDecimal;
 
-import org.openxava.util.*;
+import org.openxava.util.Messages;
 
 /**
  * 

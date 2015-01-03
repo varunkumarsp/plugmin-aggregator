@@ -1,15 +1,20 @@
 package org.openxava.util;
 
-import java.text.*;
-import java.util.*;
-import java.util.regex.*;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import javax.servlet.*;
+import javax.servlet.ServletRequest;
 
-
-
-import org.apache.commons.logging.*;
-import org.openxava.model.meta.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.model.meta.MetaMember;
 
 
 /**

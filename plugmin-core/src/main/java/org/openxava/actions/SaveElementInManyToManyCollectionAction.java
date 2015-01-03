@@ -1,7 +1,8 @@
 package org.openxava.actions;
 
-import java.util.*;
-import org.openxava.model.*;
+import java.util.Map;
+
+import org.openxava.model.MapFacade;
 
 /**
  * 

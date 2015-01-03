@@ -1,9 +1,14 @@
 package org.openxava.tab.meta;
 
 
-import java.util.*;
-import org.openxava.tab.meta.xmlparse.*;
-import org.openxava.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.openxava.tab.meta.xmlparse.TabsDefaultValuesParser;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.XavaException;
 
 public class MetaTabsDefaultValues {
 	

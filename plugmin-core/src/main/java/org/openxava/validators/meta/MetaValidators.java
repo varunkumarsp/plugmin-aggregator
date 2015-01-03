@@ -1,12 +1,15 @@
 package org.openxava.validators.meta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-
-
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
-import org.openxava.validators.meta.xmlparse.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
+import org.openxava.validators.meta.xmlparse.ValidatorsParser;
 
 /**
  * 

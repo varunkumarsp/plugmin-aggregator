@@ -1,9 +1,10 @@
 package org.openxava.actions;
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-import org.apache.commons.logging.*;
-import org.openxava.session.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.session.MyReport;
 
 /**
  * It removes the initial report and it makes a shared report.<br>

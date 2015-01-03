@@ -2,12 +2,22 @@ package org.openxava.mapping.xmlparse;
 
 
 
-import org.openxava.component.*;
-import org.openxava.mapping.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
-import org.openxava.util.xmlparse.*;
-import org.w3c.dom.*;
+import org.openxava.component.MetaComponent;
+import org.openxava.mapping.AggregateMapping;
+import org.openxava.mapping.CmpField;
+import org.openxava.mapping.EntityMapping;
+import org.openxava.mapping.ModelMapping;
+import org.openxava.mapping.PropertyMapping;
+import org.openxava.mapping.ReferenceMapping;
+import org.openxava.mapping.ReferenceMappingDetail;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
+import org.openxava.util.meta.MetaSet;
+import org.openxava.util.meta.MetaSetsContainer;
+import org.openxava.util.xmlparse.XmlElementsNames;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * @author: Javier Paniza

@@ -1,0 +1,17 @@
+package org.openxava.annotations.extended.ui.config.grid;
+
+import static org.openxava.annotations.extended.ui.config.enums.Boolean.NULL;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import org.openxava.annotations.extended.ui.config.enums.Boolean;
+
+@Retention(RetentionPolicy.RUNTIME)
+public @interface GroupableConfig {
+
+	Boolean enabled() default NULL;
+
+	Boolean showFooter() default NULL;
+
+}

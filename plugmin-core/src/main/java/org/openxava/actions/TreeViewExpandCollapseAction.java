@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.openxava.model.MapFacade;
-import org.openxava.web.editors.*;
+import org.openxava.web.editors.TreeView;
+import org.openxava.web.editors.TreeViewParser;
 
 
 public class TreeViewExpandCollapseAction extends CollectionElementViewBaseAction {

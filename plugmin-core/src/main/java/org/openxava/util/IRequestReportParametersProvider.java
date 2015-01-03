@@ -1,6 +1,6 @@
 package org.openxava.util;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * ReportParametersProvider that receive a HTTP request before filter.

@@ -1,6 +1,7 @@
 package org.openxava.util;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Utilities to working with <tt>java.io.InputStream</tt>). <p>

@@ -1,6 +1,9 @@
 package org.openxava.annotations;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * View of the referenced object used to display it in a reference. <p>

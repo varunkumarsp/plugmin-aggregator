@@ -1,7 +1,7 @@
 package org.openxava.util;
 
-import java.math.*;
-import java.util.*;
+import java.math.BigDecimal;
+import java.util.Map;
 
 /**
  * Utility class to reduce the ifs size. <p>

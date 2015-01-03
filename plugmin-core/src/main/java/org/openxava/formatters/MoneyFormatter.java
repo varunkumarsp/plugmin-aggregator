@@ -1,11 +1,14 @@
 package org.openxava.formatters;
 
-import java.math.*;
-import java.text.*;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
-import org.openxava.util.*;
+import org.openxava.util.Is;
+import org.openxava.util.Locales;
+import org.openxava.util.Strings;
 
 /**
  * For MONEY and DINERO stereotypes. <p>

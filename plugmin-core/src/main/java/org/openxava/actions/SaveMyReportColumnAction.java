@@ -1,12 +1,15 @@
 package org.openxava.actions;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Map;
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-import org.openxava.model.*;
-import org.openxava.session.*;
-import org.openxava.util.*;
+import org.openxava.model.MapFacade;
+import org.openxava.session.MyReport;
+import org.openxava.session.MyReportColumn;
+import org.openxava.util.Is;
+import org.openxava.util.Messages;
 
 /**
  * 

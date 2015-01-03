@@ -1,9 +1,12 @@
 package org.openxava.actions;
 
 import java.util.Arrays;
-import javax.inject.*;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.openxava.tab.Tab;
-import org.openxava.util.*;
+import org.openxava.util.XavaPreferences;
 
 /**
  * @author Javier Paniza

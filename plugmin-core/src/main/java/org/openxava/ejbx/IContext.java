@@ -1,6 +1,6 @@
 package org.openxava.ejbx;
 
-import javax.naming.*;
+import javax.naming.NamingException;
 
 
 /**

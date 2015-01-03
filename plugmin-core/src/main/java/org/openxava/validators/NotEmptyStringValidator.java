@@ -2,7 +2,8 @@ package org.openxava.validators;
 
 
 
-import org.openxava.util.*;
+import org.openxava.util.Is;
+import org.openxava.util.Messages;
 
 
 /**

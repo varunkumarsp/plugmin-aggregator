@@ -1,7 +1,10 @@
 package org.openxava.calculators;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
 
 /**
  * 

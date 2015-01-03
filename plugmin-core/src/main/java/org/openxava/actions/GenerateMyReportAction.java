@@ -1,13 +1,16 @@
 package org.openxava.actions;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-import org.apache.commons.logging.*;
-import org.openxava.session.*;
-import org.openxava.tab.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.session.MyReport;
+import org.openxava.session.MyReportColumn;
+import org.openxava.tab.Tab;
+import org.openxava.util.XavaResources;
 
 /**
  * 

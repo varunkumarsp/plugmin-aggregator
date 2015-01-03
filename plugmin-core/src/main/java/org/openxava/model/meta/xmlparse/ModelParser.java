@@ -2,12 +2,27 @@ package org.openxava.model.meta.xmlparse;
 
 
 
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
-import org.openxava.util.xmlparse.*;
-import org.openxava.validators.meta.*;
-import org.w3c.dom.*;
+import org.openxava.model.meta.MetaAggregate;
+import org.openxava.model.meta.MetaAggregateForCollection;
+import org.openxava.model.meta.MetaAggregateForReference;
+import org.openxava.model.meta.MetaCalculator;
+import org.openxava.model.meta.MetaCollection;
+import org.openxava.model.meta.MetaEntity;
+import org.openxava.model.meta.MetaFinder;
+import org.openxava.model.meta.MetaMethod;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.model.meta.MetaReference;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
+import org.openxava.util.meta.MetaSet;
+import org.openxava.util.meta.MetaSetsContainer;
+import org.openxava.util.xmlparse.ParserUtil;
+import org.openxava.util.xmlparse.XmlElementsNames;
+import org.openxava.validators.meta.MetaValidator;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * @author Javier Paniza; modified by Radoslaw Ostrzycki, Newitech

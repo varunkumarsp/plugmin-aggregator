@@ -1,8 +1,9 @@
 package org.openxava.ejbx;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 
-import javax.ejb.*;
+import javax.ejb.SessionBean;
+import javax.ejb.SessionContext;
 
 
 

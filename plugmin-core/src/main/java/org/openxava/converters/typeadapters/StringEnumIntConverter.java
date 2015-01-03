@@ -1,9 +1,12 @@
 package org.openxava.converters.typeadapters;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
-import org.openxava.converters.*;
-import org.openxava.util.*;
+import org.openxava.converters.ConversionException;
+import org.openxava.converters.IConverter;
+import org.openxava.util.Is;
 
 /**
  * For using Java 5 enums in tabs, specifically for converting filter data. <p>

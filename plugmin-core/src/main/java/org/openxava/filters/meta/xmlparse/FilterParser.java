@@ -2,11 +2,13 @@ package org.openxava.filters.meta.xmlparse;
 
 
 
-import org.openxava.filters.meta.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
-import org.openxava.util.xmlparse.*;
-import org.w3c.dom.*;
+import org.openxava.filters.meta.MetaFilter;
+import org.openxava.util.XavaException;
+import org.openxava.util.meta.MetaSet;
+import org.openxava.util.xmlparse.XmlElementsNames;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * 

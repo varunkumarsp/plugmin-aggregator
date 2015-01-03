@@ -1,6 +1,6 @@
 package org.openxava.actions;
 
-import org.openxava.controller.meta.*;
+import org.openxava.controller.meta.MetaAction;
 
 /**
  * 

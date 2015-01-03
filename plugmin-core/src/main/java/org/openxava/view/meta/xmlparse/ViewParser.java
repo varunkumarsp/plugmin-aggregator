@@ -1,11 +1,22 @@
 package org.openxava.view.meta.xmlparse;
 
-import org.openxava.model.meta.xmlparse.*;
-import org.openxava.tab.meta.*;
-import org.openxava.util.*;
-import org.openxava.util.xmlparse.*;
-import org.openxava.view.meta.*;
-import org.w3c.dom.*;
+import org.openxava.model.meta.xmlparse.ModelParser;
+import org.openxava.tab.meta.MetaRowStyle;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaPreferences;
+import org.openxava.util.xmlparse.ParserUtil;
+import org.openxava.util.xmlparse.XmlElementsNames;
+import org.openxava.view.meta.MetaCollectionView;
+import org.openxava.view.meta.MetaDescriptionsList;
+import org.openxava.view.meta.MetaMemberView;
+import org.openxava.view.meta.MetaPropertyView;
+import org.openxava.view.meta.MetaReferenceView;
+import org.openxava.view.meta.MetaSearchAction;
+import org.openxava.view.meta.MetaView;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * @author: Javier Paniza

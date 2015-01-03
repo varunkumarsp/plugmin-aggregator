@@ -1,8 +1,9 @@
 package org.openxava.actions;
 
-import javax.inject.*;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import org.openxava.tab.*;
+import org.openxava.tab.Tab;
 
 /**
  * 

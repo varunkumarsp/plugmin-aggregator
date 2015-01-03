@@ -1,14 +1,19 @@
 package org.openxava.model.impl;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.util.Map;
 
-import javax.ejb.*;
+import javax.ejb.CreateException;
+import javax.ejb.DuplicateKeyException;
+import javax.ejb.FinderException;
+import javax.ejb.ObjectNotFoundException;
+import javax.ejb.RemoveException;
 
-import org.openxava.model.meta.*;
-import org.openxava.tab.impl.*;
-import org.openxava.util.*;
-import org.openxava.validators.*;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.tab.impl.ITabProvider;
+import org.openxava.util.IPropertiesContainer;
+import org.openxava.util.XavaException;
+import org.openxava.validators.ValidationException;
 
 /**
  * Provides the implementation of the persistence services

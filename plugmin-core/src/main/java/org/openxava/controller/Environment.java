@@ -1,12 +1,9 @@
 package org.openxava.controller;
 
-import java.util.*;
+import java.util.Map;
 
-
-
-import org.openxava.component.MetaComponent;
-import org.openxava.controller.meta.*;
-import org.openxava.util.*;
+import org.openxava.controller.meta.MetaControllers;
+import org.openxava.util.XavaException;
 
 /**
  * It read first the variables sent on create (it extracted from module),

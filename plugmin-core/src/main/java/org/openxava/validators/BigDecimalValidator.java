@@ -1,10 +1,12 @@
 package org.openxava.validators;
 
-import java.math.*;
-import java.util.*;
+import java.math.BigDecimal;
+import java.util.StringTokenizer;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.Messages;
+import org.openxava.util.Strings;
 
 /**
  * To validate the size of integer digits and fraction digits parts. <p>

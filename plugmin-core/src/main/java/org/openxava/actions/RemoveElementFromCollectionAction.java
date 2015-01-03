@@ -2,8 +2,8 @@ package org.openxava.actions;
 
 
 
-import org.openxava.model.*;
-import org.openxava.validators.*;
+import org.openxava.model.MapFacade;
+import org.openxava.validators.ValidationException;
 
 /**
  * @author Javier Paniza

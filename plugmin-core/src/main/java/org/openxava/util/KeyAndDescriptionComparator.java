@@ -1,6 +1,6 @@
 package org.openxava.util;
 
-import java.util.*;
+import java.util.Comparator;
 
 
 

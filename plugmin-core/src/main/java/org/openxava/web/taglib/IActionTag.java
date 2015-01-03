@@ -1,6 +1,6 @@
 package org.openxava.web.taglib;
 
-import javax.servlet.jsp.tagext.*;
+import javax.servlet.jsp.tagext.IterationTag;
 
 /**
  * @author Javier Paniza

@@ -1,9 +1,11 @@
 package org.openxava.formatters;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
-import org.openxava.controller.*;
-import org.openxava.util.*;
+import org.openxava.controller.ModuleContext;
+import org.openxava.util.Assert;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
 
 
 /**

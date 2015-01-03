@@ -1,8 +1,10 @@
 package org.openxava.ejbx;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 
-import javax.ejb.*;
+import javax.ejb.EntityBean;
+import javax.ejb.EntityContext;
+import javax.ejb.RemoveException;
 
 
 

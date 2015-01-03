@@ -2,7 +2,7 @@
 
 
 
-import org.openxava.util.*;
+import org.openxava.util.Is;
 
 /**
  * In java a valid-values and in database a string corresponding

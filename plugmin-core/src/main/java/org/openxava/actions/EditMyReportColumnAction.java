@@ -3,8 +3,11 @@ package org.openxava.actions;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-import javax.inject.*;
-import org.openxava.session.*;
+
+import javax.inject.Inject;
+
+import org.openxava.session.MyReport;
+import org.openxava.session.MyReportColumn;
 
 
 /**

@@ -3,8 +3,12 @@ package org.openxava.annotations.parse;
 import static org.istage.util.AdminUtil.PLUGMIN_REST_BASE_URL;
 import static org.istage.util.AdminUtil.titleFromFieldName;
 import static org.istage.util.AnnotationUtils.getAnnotationsByType;
-import static org.openxava.annotations.extended.JsonUtil.toJson;
+import static org.openxava.annotations.parse.ComponentUtil.configureViewSection;
 import static org.openxava.annotations.parse.EntityUtil.isNullable;
+import static org.openxava.annotations.parse.JsonUtil.toJson;
+import static org.openxava.annotations.parse.ReflectionUtil.findAnnotation;
+import static org.openxava.annotations.parse.ReflectionUtil.findWidget;
+import static org.openxava.annotations.parse.ReflectionUtil.findWidgetConfig;
 import static org.openxava.annotations.parse.ReflectionUtil.isCollection;
 
 import java.beans.BeanInfo;
@@ -93,9 +97,6 @@ import org.openxava.annotations.DetailAction;
 import org.openxava.annotations.DetailActions;
 import org.openxava.annotations.DisplaySize;
 import org.openxava.annotations.DisplaySizes;
-import org.openxava.annotations.DropDown;
-import org.openxava.annotations.DropDownConfig;
-import org.openxava.annotations.DropDowns;
 import org.openxava.annotations.EditAction;
 import org.openxava.annotations.EditActions;
 import org.openxava.annotations.EditOnly;
@@ -151,36 +152,40 @@ import org.openxava.annotations.SearchKey;
 import org.openxava.annotations.SearchListCondition;
 import org.openxava.annotations.SearchListConditions;
 import org.openxava.annotations.Stereotype;
-import org.openxava.annotations.Tab;
-import org.openxava.annotations.Tabs;
 import org.openxava.annotations.Tree;
 import org.openxava.annotations.Trees;
-import org.openxava.annotations.View;
 import org.openxava.annotations.ViewAction;
 import org.openxava.annotations.ViewActions;
-import org.openxava.annotations.Views;
 import org.openxava.annotations.XOrderBy;
 import org.openxava.annotations.extended.DataSource;
-import org.openxava.annotations.extended.DefaultDropDown;
-import org.openxava.annotations.extended.DefaultDropDownConfig;
-import org.openxava.annotations.extended.DefaultTab;
-import org.openxava.annotations.extended.DefaultTabConfig;
-import org.openxava.annotations.extended.DefaultView;
-import org.openxava.annotations.extended.FilterableMode;
-import org.openxava.annotations.extended.JsonUtil;
-import org.openxava.annotations.extended.TabColumn;
-import org.openxava.annotations.extended.TabConfig;
-import org.openxava.annotations.extended.UseTab;
-import org.openxava.annotations.extended.vo.ColumnVo;
-import org.openxava.annotations.extended.vo.DataSourceVo;
-import org.openxava.annotations.extended.vo.DropDownConfigVo;
-import org.openxava.annotations.extended.vo.EventVo;
-import org.openxava.annotations.extended.vo.FilterItem;
-import org.openxava.annotations.extended.vo.TabConfigVo;
-import org.openxava.annotations.extended.vo.TransportCreate;
-import org.openxava.annotations.extended.vo.TransportDestroy;
-import org.openxava.annotations.extended.vo.TransportRead;
-import org.openxava.annotations.extended.vo.TransportUpdate;
+import org.openxava.annotations.extended.ui.DropDown;
+import org.openxava.annotations.extended.ui.DropDowns;
+import org.openxava.annotations.extended.ui.Tab;
+import org.openxava.annotations.extended.ui.Tabs;
+import org.openxava.annotations.extended.ui.View;
+import org.openxava.annotations.extended.ui.Views;
+import org.openxava.annotations.extended.ui.config.DropDownConfig;
+import org.openxava.annotations.extended.ui.config.DropDownConfigs;
+import org.openxava.annotations.extended.ui.config.TabConfig;
+import org.openxava.annotations.extended.ui.config.TabConfigs;
+import org.openxava.annotations.extended.ui.config.defaults.DefaultDropDownConfig;
+import org.openxava.annotations.extended.ui.config.defaults.DefaultTabConfig;
+import org.openxava.annotations.extended.ui.config.enums.FilterableMode;
+import org.openxava.annotations.extended.ui.config.grid.TabColumn;
+import org.openxava.annotations.extended.ui.config.vo.ColumnVo;
+import org.openxava.annotations.extended.ui.config.vo.DataSourceVo;
+import org.openxava.annotations.extended.ui.config.vo.DropDownConfigVo;
+import org.openxava.annotations.extended.ui.config.vo.EventVo;
+import org.openxava.annotations.extended.ui.config.vo.FilterItem;
+import org.openxava.annotations.extended.ui.config.vo.TabConfigVo;
+import org.openxava.annotations.extended.ui.config.vo.TransportCreate;
+import org.openxava.annotations.extended.ui.config.vo.TransportDestroy;
+import org.openxava.annotations.extended.ui.config.vo.TransportRead;
+import org.openxava.annotations.extended.ui.config.vo.TransportUpdate;
+import org.openxava.annotations.extended.ui.defaults.DefaultDropDown;
+import org.openxava.annotations.extended.ui.defaults.DefaultTab;
+import org.openxava.annotations.extended.ui.defaults.DefaultView;
+import org.openxava.annotations.extended.ui.use.UseTab;
 import org.openxava.calculators.NullCalculator;
 import org.openxava.component.MetaComponent;
 import org.openxava.converters.typeadapters.HibernateCompositeTypeConverter;
@@ -188,8 +193,6 @@ import org.openxava.converters.typeadapters.HibernateTypeConverter;
 import org.openxava.converters.typeadapters.OrdinalEnumIntConverter;
 import org.openxava.converters.typeadapters.StringEnumIntConverter;
 import org.openxava.dropdown.MetaDropDown;
-import org.openxava.filters.VoidFilter;
-import org.openxava.filters.meta.MetaFilter;
 import org.openxava.jpa.XPersistence;
 import org.openxava.mapping.AggregateMapping;
 import org.openxava.mapping.CmpField;
@@ -207,6 +210,8 @@ import org.openxava.model.meta.MetaModel;
 import org.openxava.model.meta.MetaProperty;
 import org.openxava.model.meta.MetaReference;
 import org.openxava.section.meta.MetaSection;
+import org.openxava.section.meta.MetaSectionForGrid;
+import org.openxava.section.meta.MetaSectionForView;
 import org.openxava.tab.meta.MetaRowStyle;
 import org.openxava.tab.meta.MetaTab;
 import org.openxava.util.ElementNotFoundException;
@@ -226,7 +231,6 @@ import org.openxava.view.meta.MetaReferenceView;
 import org.openxava.view.meta.MetaSearchAction;
 import org.openxava.view.meta.MetaView;
 import org.openxava.web.layout.LayoutFactory;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ReflectionUtils;
 
 import com.rits.cloning.Cloner;
@@ -291,9 +295,6 @@ public class AnnotatedClassParser {
 		MetaEntity entity = component.getMetaEntity();
 		Class<?> pojoClass = entity.getPOJOClass();
 		
-		// View
-		parseViews(component, pojoClass);
-			
 		// Members				
 		parseMembers(entity, pojoClass, mapping, null);
 															
@@ -302,6 +303,9 @@ public class AnnotatedClassParser {
 				
 		// DropDowns
 		parseDropDowns(component, pojoClass, serializeConfig);
+		
+		// View
+		parseViews(component, pojoClass, metaComponents, serializeConfig);
 					
 		// Other model level annotations
 		processAnnotations(entity, pojoClass);
@@ -501,7 +505,7 @@ public class AnnotatedClassParser {
 			metaAggregate.setBeanClass(pd.getPropertyType().getName());
 			metaAggregate.setPOJOClassName(pd.getPropertyType().getName());
 			model.getMetaComponent().addMetaAggregate(metaAggregate);
-			parseViews(model.getMetaComponent(), pd.getPropertyType(), modelName);
+//			parseViews(model.getMetaComponent(), pd.getPropertyType(), modelName);
 			String embedded = Is.emptyString(parentEmbedded) ? pd.getName() : parentEmbedded + "_" + pd.getName();  
 			parseMembers(metaAggregate, pd.getPropertyType(), mapping, embedded);			
 			parseAttributeOverrides(pd.getReadMethod(), mapping, embedded);			 
@@ -525,7 +529,7 @@ public class AnnotatedClassParser {
 				metaAggregate.setPOJOKeyClass(idClass.value());
 			}			
 			model.getMetaComponent().addMetaAggregate(metaAggregate);
-			parseViews(model.getMetaComponent(), type, modelName);
+//			parseViews(model.getMetaComponent(), type, modelName);
 			AggregateMapping mapping = new AggregateMapping();
 			mapping.setModelName(modelName);
 			mapping.setTable(getTable(modelName, pojoClass));
@@ -633,30 +637,34 @@ public class AnnotatedClassParser {
 
 
 
-	private void parseViews(MetaComponent component, Class pojoClass) throws XavaException {
-		parseViews(component, pojoClass, null);
+	private void parseViews(MetaComponent component, Class<?> pojoClass, List<MetaComponent> metaComponents, boolean serializeConfig) throws XavaException {
+		parseViews(component, pojoClass, null, metaComponents, serializeConfig);
 	}
 	
-	@SuppressWarnings("unchecked")
-	private void parseViews(MetaComponent component, Class pojoClass, String modelName) throws XavaException {
-		//Add default tab for all entities
+	private void parseViews(MetaComponent component, Class<?> pojoClass, String modelName, List<MetaComponent> metaComponents, boolean serializeConfig) throws XavaException {
+		//Add default view for all entities
+		View defaultView = DefaultView.class.getAnnotation(View.class);
+		addView(component, defaultView, modelName, metaComponents, serializeConfig);
+				
+		if (pojoClass.isAnnotationPresent(Views.class)) {
+			Views views = (Views) pojoClass.getAnnotation(Views.class);
+			for (View view: views.value()) {
+				addView(component, view, modelName, metaComponents, serializeConfig);
+			}
+		}
+	}
+	
+	private void parseViews(MetaComponent component, Class<?> pojoClass, String modelName) throws XavaException {
+		//Add default view for all entities
 		View defaultView = DefaultView.class.getAnnotation(View.class);
 		addView(component, defaultView, modelName);
 				
-		if (pojoClass.isAnnotationPresent(View.class)) {
-			View view = (View) pojoClass.getAnnotation(View.class);
-			addView(component, view, modelName);
-		}
 		if (pojoClass.isAnnotationPresent(Views.class)) {
 			Views views = (Views) pojoClass.getAnnotation(Views.class);
 			for (View view: views.value()) {
 				addView(component, view, modelName);
 			}
 		}
-		
-		// For force create and add a view by default if it does not exist
-		if (modelName == null) component.getMetaEntity().getMetaViewByDefault();
-		else component.getMetaAggregate(modelName).getMetaViewByDefault();
 	}
 	
 	private void addView(MetaComponent component, View view, String modelName) throws XavaException {
@@ -671,6 +679,28 @@ public class AnnotatedClassParser {
 		else 
 			addMembersToView(null, null, metaView, new StringTokenizer(view.members(), ";,{}[]#", true));
 		component.addMetaView(metaView);
+		metaView.setMetaComponent(component);
+	}
+	
+	private void addView(MetaComponent component, View view, String modelName, List<MetaComponent> metaComponents, boolean serializeConfig) throws XavaException {
+		MetaView metaView = new MetaView();
+		metaView.setName(view.name());
+		metaView.setExtendsView(view.extendsView()); 
+		if (modelName != null) {
+			metaView.setModelName(modelName);
+		}		
+		if (Is.empty(view.members())) 
+			metaView.setMembersNames("*");
+		else 
+			addMembersToView(null, null, metaView, new StringTokenizer(view.members(), ";,{}[]#", true));
+		component.addMetaView(metaView);
+		metaView.setMetaComponent(component);
+		
+		try {
+			configureViewSection(metaView, metaComponents, serializeConfig);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private String addMembersToView(String sectionName, String groupName, MetaView metaView, StringTokenizer st) throws XavaException {
@@ -741,16 +771,11 @@ public class AnnotatedClassParser {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
-	private void parseDropDowns(MetaComponent component, Class pojoClass, boolean serializeConfig) {
+	private void parseDropDowns(MetaComponent component, Class<?> pojoClass, boolean serializeConfig) {
 		//Add default DropDown for all entities
 		DropDown defaultDropDown = DefaultDropDown.class.getAnnotation(DropDown.class);
 		addDropDown(component, defaultDropDown, serializeConfig);
 		
-		if (pojoClass.isAnnotationPresent(DropDown.class)) {
-			DropDown dd = (DropDown) pojoClass.getAnnotation(DropDown.class);
-			addDropDown(component, dd, serializeConfig);
-		}
 		if (pojoClass.isAnnotationPresent(DropDowns.class)) {
 			DropDowns dds = (DropDowns) pojoClass.getAnnotation(DropDowns.class);
 			for (DropDown dd: dds.value()) {
@@ -759,16 +784,11 @@ public class AnnotatedClassParser {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	private void parseTabs(MetaComponent component, Class pojoClass, List<MetaComponent> metaComponents, boolean serializeConfig) throws Exception {
+	private void parseTabs(MetaComponent component, Class<?> pojoClass, List<MetaComponent> metaComponents, boolean serializeConfig) throws Exception {
 		//Add default tab for all entities
 		Tab defaultTab = DefaultTab.class.getAnnotation(Tab.class);
 		addTab(component, defaultTab, metaComponents, serializeConfig);
-		
-		if (pojoClass.isAnnotationPresent(Tab.class)) {
-			Tab tab = (Tab) pojoClass.getAnnotation(Tab.class);
-			addTab(component, tab, metaComponents, serializeConfig);
-		}
+
 		if (pojoClass.isAnnotationPresent(Tabs.class)) {
 			Tabs tabs = (Tabs) pojoClass.getAnnotation(Tabs.class);
 			for (Tab tab: tabs.value()) {
@@ -781,21 +801,6 @@ public class AnnotatedClassParser {
 		try {
 			MetaDropDown metaDropDown = new MetaDropDown(component);
 			metaDropDown.setName(dd.name());
-			metaDropDown.setBaseCondition(dd.baseCondition()); 
-			metaDropDown.setDefaultOrder(dd.defaultOrder());
-			if (!dd.filter().equals(VoidFilter.class)) {
-				MetaFilter metaFilter = new MetaFilter();
-				metaFilter.setClassName(dd.filter().getName());
-				metaDropDown.setMetaFilter(metaFilter);
-			}
-			
-			for (RowStyle rowStyle: dd.rowStyles()) {
-				MetaRowStyle metaRowStyle = new MetaRowStyle();
-				metaRowStyle.setStyle(rowStyle.style());
-				metaRowStyle.setProperty(rowStyle.property());
-				metaRowStyle.setValue(rowStyle.value());			
-				metaDropDown.addMetaRowStyle(metaRowStyle);
-			}			
 			
 			if (Is.emptyString(dd.keyProperty())) {
 				metaDropDown.setKeyProperty(MetaDropDown.defaultKeyProperty(component.getMetaEntity()));
@@ -866,38 +871,17 @@ public class AnnotatedClassParser {
 	}
 
 	public static DropDownConfig dropDownConfig(MetaDropDown metaDropDown,
-			Class<?> pojoClass) {
+			Class<?> pojoClass) throws Exception {
 		DropDownConfig ddConfig =  null;
 		
-		DropDownConfig[] ddConfigs = getAnnotationsByType(pojoClass, DropDownConfig.class);
-		
-		for (DropDownConfig ddConf : ddConfigs) {
-			for (String forDropDown : ddConf.forDropDowns()) {
-				if(StringUtils.isNotEmpty(forDropDown) && metaDropDown.getName().equals(forDropDown)) {
-					ddConfig = ddConf;
-					break;
-				}
+		DropDown dropDown = findWidget(DropDowns.class, DropDown.class, metaDropDown.getName(), pojoClass);
+		if(dropDown != null) {
+			String config = dropDown.config();
+			if(StringUtils.isNotEmpty(config)) {
+				ddConfig = findWidgetConfig(DropDownConfigs.class, DropDownConfig.class, config, pojoClass);
 			}
 		}
 		
-		if(ddConfig == null) {
-			DefaultDropDownConfig[] defaultDropDownConfigs = getAnnotationsByType(pojoClass, DefaultDropDownConfig.class);
-			
-			for (DefaultDropDownConfig defaultDropDownConfig : defaultDropDownConfigs) {
-				for (String forDropDown : defaultDropDownConfig.forDropDowns()) {
-					if(StringUtils.isNotEmpty(forDropDown) && metaDropDown.getName().equals(forDropDown)) {
-						ddConfig = defaultDropDownConfig.getClass().getAnnotation(DropDownConfig.class);;
-						break;
-					}
-				}
-			}
-		}
-		
-		if(ddConfig == null) {
-			//It searches all superclasses, interfaces & annotations
-			ddConfig =  AnnotationUtils.findAnnotation(pojoClass, DropDownConfig.class);
-		}
-
 		if(ddConfig == null) {
 			ddConfig = DefaultDropDownConfig.class.getAnnotation(DropDownConfig.class);
 		}
@@ -909,22 +893,7 @@ public class AnnotatedClassParser {
 	private void addTab(MetaComponent component, Tab tab, List<MetaComponent> metaComponents, boolean serializeConfig) throws Exception {
 		MetaTab metaTab = new MetaTab();		
 		metaTab.setName(tab.name());
-		metaTab.setBaseCondition(tab.baseCondition()); 
-		metaTab.setDefaultOrder(tab.defaultOrder());
-		metaTab.setEditor(tab.editor()); 
-		if (!tab.filter().equals(VoidFilter.class)) {
-			MetaFilter metaFilter = new MetaFilter();
-			metaFilter.setClassName(tab.filter().getName());
-			metaTab.setMetaFilter(metaFilter);
-		}
-		
-		for (RowStyle rowStyle: tab.rowStyles()) {
-			MetaRowStyle metaRowStyle = new MetaRowStyle();
-			metaRowStyle.setStyle(rowStyle.style());
-			metaRowStyle.setProperty(rowStyle.property());
-			metaRowStyle.setValue(rowStyle.value());			
-			metaTab.addMetaRowStyle(metaRowStyle);
-		}			
+					
 		component.addMetaTab(metaTab);
 
 		if (Is.emptyString(tab.properties())) {
@@ -974,8 +943,12 @@ public class AnnotatedClassParser {
 
 	public void configureSections(MetaTab metaTab, List<MetaComponent> metaComponents, boolean serializeConfig) throws Exception {
 		metaTab.setSectionsConfigured(true);
-		
 		Class<?> pojoClass = metaTab.getMetaComponent().getMetaEntity().getPOJOClass();
+		
+		MetaView metaView = metaTab.getMetaComponent().getMetaEntity().getMetaView("default");
+		
+		MetaSection sectionForView = new MetaSectionForView("Basic", metaView);
+		metaTab.addSection(sectionForView);
 		
 		Collection<String> collectionNames = new ArrayList<String>();
 		for (Object name : metaTab.getPropertiesNames()) {
@@ -1046,7 +1019,7 @@ public class AnnotatedClassParser {
 				String json = null;
 			    if(serializeConfig)
 					json = JsonUtil.toJson(config);
-				MetaSection section = new MetaSection(titleFromFieldName(col), id, sectionId, json, referencedEntity.getSimpleName(), nestedTabName);
+				MetaSectionForGrid section = new MetaSectionForGrid(titleFromFieldName(col), id, sectionId, json, referencedEntity.getSimpleName(), nestedTabName);
 				section.setTabConfig(config);
 				metaTab.addSection(section);
 			} catch (Exception e) {
@@ -1076,11 +1049,11 @@ public class AnnotatedClassParser {
         	if(useTab != null) {
             	String[] eligibleTabs = useTab.forTabs();
             	if(eligibleTabs.length == 0) {
-            		return useTab.value();
+            		return useTab.name();
             	} else {
             		for (String eligibleTab : eligibleTabs) {
     					if(metaTab.getName().equals(eligibleTab)) {
-    						return useTab.value();
+    						return useTab.name();
     					}
     				}
             	}
@@ -1144,38 +1117,17 @@ public class AnnotatedClassParser {
 		});
 	}
 
-	private TabConfig tabConfig(MetaTab metaTab, Class<?> pojoClass) {
+	private TabConfig tabConfig(MetaTab metaTab, Class<?> pojoClass) throws Exception {
 		TabConfig tabConfig =  null;
 		
-		TabConfig[] tabConfigs = getAnnotationsByType(pojoClass, TabConfig.class);
-		
-		for (TabConfig tabConf : tabConfigs) {
-			for (String forTab : tabConf.forTabs()) {
-				if(StringUtils.isNotEmpty(forTab) && metaTab.getName().equals(forTab)) {
-					tabConfig = tabConf;
-					break;
-				}
+		Tab tab = findWidget(Tabs.class, Tab.class, metaTab.getName(), pojoClass);
+		if(tab != null) {
+			String config = tab.config();
+			if(StringUtils.isNotEmpty(config)) {
+				tabConfig = findWidgetConfig(TabConfigs.class, TabConfig.class, config, pojoClass);
 			}
 		}
 		
-		if(tabConfig == null) {
-			DefaultTabConfig[] defaultTabConfigs = getAnnotationsByType(pojoClass, DefaultTabConfig.class);
-			
-			for (DefaultTabConfig defaultTabConfig : defaultTabConfigs) {
-				for (String forTab : defaultTabConfig.forTabs()) {
-					if(StringUtils.isNotEmpty(forTab) && metaTab.getName().equals(forTab)) {
-						tabConfig = defaultTabConfig.getClass().getAnnotation(TabConfig.class);;
-						break;
-					}
-				}
-			}
-		}
-		
-		if(tabConfig == null) {
-			//It searches all superclasses, interfaces & annotations
-			tabConfig =  AnnotationUtils.findAnnotation(pojoClass, TabConfig.class);
-		}
-
 		if(tabConfig == null) {
 			tabConfig = DefaultTabConfig.class.getAnnotation(TabConfig.class);
 		}
@@ -1206,7 +1158,7 @@ public class AnnotatedClassParser {
 			if(!isCollection(name, pojoClass_)) {
 				try {
 					ColumnVo column = new ColumnVo(metaProperty.getQualifiedName(), field, metaTab, metaComponents, true);
-					TabColumn tabColumn = columnConfig(metaTab, field);
+					TabColumn tabColumn = findAnnotation(TabColumn.class, field, metaTab);
 					if(tabColumn != null)
 						column = column.copyFrom(tabColumn);
 					columns.add(column);
@@ -1240,27 +1192,6 @@ public class AnnotatedClassParser {
 		return visitClass;
 	}
     
-	public static TabColumn columnConfig(MetaTab metaTab, Field field) {
-		TabColumn colConfig =  null;
-		
-		TabColumn[] colConfigs = getAnnotationsByType(field, TabColumn.class);
-		
-		if(colConfigs.length == 1 && colConfigs[0].forTabs().length == 0) {
-			colConfig = colConfigs[0];
-		} else {
-			for (TabColumn colConf : colConfigs) {
-				for (String forTab : colConf.forTabs()) {
-					if(StringUtils.isNotEmpty(forTab) && metaTab.getName().equals(forTab)) {
-						colConfig = colConf;
-						break;
-					}
-				}
-			}
-		}
-				
-		return colConfig;
-	}
-
 	private DataSourceVo dataSource(MetaTab metaTab, DataSource dataSource, List<ColumnVo> columns, String modelName, String viewName) {
 		DataSourceVo ds = new DataSourceVo(columns);
 		

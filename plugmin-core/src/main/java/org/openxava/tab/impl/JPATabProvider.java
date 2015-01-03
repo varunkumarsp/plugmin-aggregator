@@ -1,15 +1,23 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Query;
 
-import org.apache.commons.logging.*;
-import org.openxava.jpa.*;
-import org.openxava.mapping.*;
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.jpa.XPersistence;
+import org.openxava.mapping.ReferenceMapping;
+import org.openxava.model.meta.MetaReference;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.Is;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
 
 /** 
  * An <code>ITabProvider</code> that obtain data via JPA. <p>

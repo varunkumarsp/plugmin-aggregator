@@ -1,8 +1,10 @@
 package org.openxava.filters;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
-import org.openxava.util.*;
+import org.openxava.util.XavaException;
 
 /**
  * Used for implementing collections with condition using a 

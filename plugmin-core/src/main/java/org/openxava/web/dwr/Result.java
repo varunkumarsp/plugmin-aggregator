@@ -1,6 +1,7 @@
 package org.openxava.web.dwr;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * 

@@ -1,8 +1,10 @@
 package org.openxava.actions;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
-import org.openxava.view.meta.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.XavaResources;
+import org.openxava.view.meta.MetaView;
 
 /**
  * 

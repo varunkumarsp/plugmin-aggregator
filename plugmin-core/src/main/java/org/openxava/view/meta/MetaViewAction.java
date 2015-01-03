@@ -2,8 +2,9 @@ package org.openxava.view.meta;
 
 
 
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
 
 /**
  * Represents an action shown inside a view. <p>

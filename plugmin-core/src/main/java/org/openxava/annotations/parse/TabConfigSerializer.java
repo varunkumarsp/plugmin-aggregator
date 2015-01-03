@@ -7,18 +7,18 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.openxava.annotations.extended.Selectable;
-import org.openxava.annotations.extended.vo.ColumnMenuVo;
-import org.openxava.annotations.extended.vo.EditableVo;
-import org.openxava.annotations.extended.vo.ExcelVo;
-import org.openxava.annotations.extended.vo.FilterableVo;
-import org.openxava.annotations.extended.vo.GroupableVo;
-import org.openxava.annotations.extended.vo.PageableVo;
-import org.openxava.annotations.extended.vo.PdfVo;
-import org.openxava.annotations.extended.vo.ScrollableVo;
-import org.openxava.annotations.extended.vo.SortableVo;
-import org.openxava.annotations.extended.vo.TabConfigVo;
-import org.openxava.annotations.extended.vo.ToolbarVo;
+import org.openxava.annotations.extended.ui.config.enums.SelectableMode;
+import org.openxava.annotations.extended.ui.config.vo.ColumnMenuVo;
+import org.openxava.annotations.extended.ui.config.vo.EditableVo;
+import org.openxava.annotations.extended.ui.config.vo.ExcelVo;
+import org.openxava.annotations.extended.ui.config.vo.FilterableVo;
+import org.openxava.annotations.extended.ui.config.vo.GroupableVo;
+import org.openxava.annotations.extended.ui.config.vo.PageableVo;
+import org.openxava.annotations.extended.ui.config.vo.PdfVo;
+import org.openxava.annotations.extended.ui.config.vo.ScrollableVo;
+import org.openxava.annotations.extended.ui.config.vo.SortableVo;
+import org.openxava.annotations.extended.ui.config.vo.TabConfigVo;
+import org.openxava.annotations.extended.ui.config.vo.ToolbarVo;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -87,7 +87,7 @@ public class TabConfigSerializer extends JsonSerializer<TabConfigVo> {
 	}
 
 	private void serializeSelectable(JsonGenerator gen, TabConfigVo tabConfig) throws Exception {
-		Selectable selectable = tabConfig.getSelectableStr();
+		SelectableMode selectable = tabConfig.getSelectableStr();
 		if(selectable != null) {
 			String selectableStr = selectable.toString();
 			if(isNotDefault(selectableStr, "selectableStr", TabConfigVo.class))

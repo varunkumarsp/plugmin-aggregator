@@ -4,7 +4,6 @@ import javax.inject.Inject;
 
 import org.openxava.model.meta.MetaCollection;
 import org.openxava.tab.Tab;
-import org.openxava.util.Is;
 import org.openxava.util.Labels;
 import org.openxava.util.XavaResources;
 import org.openxava.view.meta.MetaCollectionView;

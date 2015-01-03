@@ -1,8 +1,10 @@
 package org.openxava.web.editors;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-import org.openxava.model.*;
+import org.openxava.model.Identifiable;
 
 /**
  * Class that allows to implement stereotypes FILE and FILES. <p>

@@ -1,6 +1,9 @@
 package org.openxava.annotations;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * The final user cannot create new objects of the referenced type from here. <p>

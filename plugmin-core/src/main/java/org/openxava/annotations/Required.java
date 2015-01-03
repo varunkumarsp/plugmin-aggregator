@@ -1,9 +1,9 @@
 package org.openxava.annotations;
 
-import java.lang.annotation.*;
-
-import org.hibernate.validator.*;
-import org.openxava.validators.hibernate.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Indicates if this property or reference is required. <p>

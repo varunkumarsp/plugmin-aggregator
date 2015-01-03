@@ -1,10 +1,8 @@
 package org.openxava.model.meta;
 
-import java.io.*;
+import java.io.Serializable;
 
-
-
-import org.openxava.util.*;
+import org.openxava.util.Is;
 
 /**
  * @author Javier Paniza

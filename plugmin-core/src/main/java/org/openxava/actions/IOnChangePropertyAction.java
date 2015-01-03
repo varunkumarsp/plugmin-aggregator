@@ -1,6 +1,6 @@
 package org.openxava.actions;
 
-import org.openxava.view.*;
+import org.openxava.view.View;
 
 /**
  * 

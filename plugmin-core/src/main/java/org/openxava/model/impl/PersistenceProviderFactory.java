@@ -1,7 +1,9 @@
 package org.openxava.model.impl;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.XavaPreferences;
+import org.openxava.util.XavaResources;
 
 /**
  * For obtaining a instance of the persistence provider configured in the system. <p>

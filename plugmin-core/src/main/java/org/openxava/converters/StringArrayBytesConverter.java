@@ -7,9 +7,10 @@
 package org.openxava.converters;
 
 
-import java.sql.*;
+import java.sql.Blob;
 
-import org.apache.commons.logging.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openxava.util.XavaResources;
 
 /**

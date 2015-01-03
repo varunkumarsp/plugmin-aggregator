@@ -1,16 +1,22 @@
 package org.openxava.ejbx;
 
-import java.io.*;
-import java.security.*;
-import java.sql.*;
-import java.util.*;
+import java.io.Serializable;
+import java.security.Principal;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.StringTokenizer;
 
-import javax.ejb.*;
-import javax.naming.*;
-import javax.sql.*;
+import javax.ejb.EJBContext;
+import javax.ejb.EJBException;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.Is;
+import org.openxava.util.XavaResources;
 
 
 /**

@@ -1,12 +1,16 @@
 package org.openxava.types;
 
-import java.io.*;
-import java.sql.*;
+import java.io.Serializable;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
 
-import org.apache.commons.logging.*;
-import org.hibernate.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
-import org.hibernate.usertype.*;
+import org.hibernate.usertype.UserType;
 
 /**
  * Allows to remove null for strings on save and on load from database. <p>

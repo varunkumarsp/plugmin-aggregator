@@ -1,0 +1,82 @@
+#configurator {
+	display: none;
+}
+#config-toggle {
+  background-position: -16px -222px; cursor: pointer; height: 16px; position: absolute; right: 20px; top: 15px;
+}
+div.plugmin-container {
+	margin: 15px 5px;
+}
+.plugmin-row {
+	clear: left;
+	margin: 25px 0;
+}
+.plugmin-field {
+	float: left;
+	margin: 0 50px 30px 0;
+}
+.plugmin-field-name {
+  float: left;
+  width: 150px;
+  word-wrap: break-word;
+}
+.plugmin-field-value {
+	float: right;
+	width: 200px;
+}
+.plugmin-field-value.width-x2 {
+	width: 620px;
+}
+.plugmin-seperator {
+  float: left;
+  margin-left: 5px;
+  margin-right: 15px;
+}
+.k-textbox, .k-ff input.k-textbox {
+  height: 1.87em;
+  line-height: 1.1em;
+}
+.k-button {
+  padding: 4px 14px;
+}
+.k-grouping-header {
+  line-height: 1.2;
+}
+.k-grid-header th.k-header, .k-filter-row th {
+  padding: 0.486em 0.6em 0.414em;
+}
+.k-grid td {
+  padding: 0.329em 1.286em;
+}
+:root * > .k-icon, *:root * > .k-sprite, *:root * > .k-button-group .k-tool-icon {
+  position: relative;
+  top: 18%;
+  vertical-align: middle;
+}
+:root * > .k-grid-toolbar .k-icon, *:root * > .k-grid-toolbar .k-sprite, *:root * > .k-button-group .k-grid-toolbar .k-tool-icon {
+  top: -9%;
+}
+.k-icon, .k-sprite, .k-button-group .k-tool-icon {
+  height: 17px;
+}
+.k-tabstrip-items .k-link {
+  padding: 0.3em 1.071em;
+}
+.k-grid-toolbar .k-cancel, .k-grid-toolbar .k-button:hover .k-cancel {
+  background-position: -48px -47px;
+}
+.k-grid-toolbar .k-update, .k-grid-toolbar .k-button:hover .k-update {
+  background-position: -48px -31px;
+}
+.k-textbox > input, .k-autocomplete .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input, .k-dropdown-wrap .k-input, .k-selectbox .k-input {
+  height: 1.414em;
+  line-height: 1.414em;
+}
+.k-numerictextbox .k-link {
+  height: 0.884em;
+  line-height: 0.957em;
+}
+.k-picker-wrap .k-select, .k-numeric-wrap .k-select, .k-dropdown-wrap .k-select {
+  line-height: 1.564em;
+  min-height: 1.214em;
+}

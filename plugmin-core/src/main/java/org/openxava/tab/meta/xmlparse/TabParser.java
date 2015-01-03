@@ -3,13 +3,18 @@ package org.openxava.tab.meta.xmlparse;
 
 
 
-import org.openxava.filters.meta.*;
-import org.openxava.filters.meta.xmlparse.*;
-import org.openxava.model.meta.xmlparse.*;
-import org.openxava.tab.meta.*;
-import org.openxava.util.*;
-import org.openxava.util.xmlparse.*;
-import org.w3c.dom.*;
+import org.openxava.filters.meta.MetaFilter;
+import org.openxava.filters.meta.xmlparse.FilterParser;
+import org.openxava.model.meta.xmlparse.ModelParser;
+import org.openxava.tab.meta.MetaRowStyle;
+import org.openxava.tab.meta.MetaTab;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
+import org.openxava.util.xmlparse.ParserUtil;
+import org.openxava.util.xmlparse.XmlElementsNames;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * 

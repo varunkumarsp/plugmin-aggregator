@@ -1,8 +1,8 @@
 package org.openxava.web.dwr;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
-import org.openxava.controller.*;
+import org.openxava.controller.ModuleContext;
 
 /**
  * Base class for creating DWR remote classes. <p>

@@ -1,7 +1,8 @@
 package org.openxava.actions;
 
-import java.util.*;
-import org.openxava.view.*;
+import java.util.Map;
+
+import org.openxava.view.View;
 
 /**
  * Update (update, create, etc) a reference from another view, and returns to 

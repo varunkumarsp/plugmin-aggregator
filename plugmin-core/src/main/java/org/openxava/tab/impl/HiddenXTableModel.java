@@ -1,6 +1,6 @@
 package org.openxava.tab.impl;
 
-import java.util.*;
+import java.util.Vector;
 
 
 

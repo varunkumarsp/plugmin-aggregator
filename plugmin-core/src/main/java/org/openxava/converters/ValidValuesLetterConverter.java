@@ -2,7 +2,7 @@ package org.openxava.converters;
 
 
 
-import org.openxava.util.*;
+import org.openxava.util.Is;
 
 
 /**

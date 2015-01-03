@@ -7,7 +7,8 @@ import java.util.Map;
 
 import org.openxava.model.MapFacade;
 import org.openxava.validators.ValidationException;
-import org.openxava.web.editors.*;
+import org.openxava.web.editors.TreeView;
+import org.openxava.web.editors.TreeViewParser;
 
 public class RemoveTreeViewNodeAction extends CollectionElementViewBaseAction {
 

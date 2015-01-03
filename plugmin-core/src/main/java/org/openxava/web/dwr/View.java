@@ -1,9 +1,11 @@
 package org.openxava.web.dwr;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.Users;
+import org.openxava.util.XavaResources;
 
 /**
  * For accessing to the View from DWR. <p>

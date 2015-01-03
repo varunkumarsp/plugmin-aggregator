@@ -1,10 +1,17 @@
 package org.openxava.model.meta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-import org.apache.commons.logging.*;
-import org.openxava.mapping.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.mapping.ModelMapping;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
 
 /**
  * Aggregate whose implementation is a JavaBean. <p>

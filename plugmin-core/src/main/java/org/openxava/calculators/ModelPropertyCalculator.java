@@ -1,8 +1,8 @@
 package org.openxava.calculators;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 
-import org.openxava.util.*;
+import org.openxava.util.PropertiesManager;
 
 /**
  * Return the value of the indicated property of the sent object model. <p>

@@ -34,10 +34,9 @@ import static org.springframework.core.Ordered.LOWEST_PRECEDENCE;
 public class PlugminWebApplicationInitializer implements WebApplicationInitializer {
 
     private static final Pattern BASE_URL_PATTERN = Pattern.compile("(/)|(/[\\w-]+)+");
-
     private static final String CHARSET_ENCODING = "UTF-8";
-    
     public static String PLUGMIN_BASE_URL = "/admin";
+    public static String PLUGMIN_LOGO = "/plugmin/images/admin-logo.png";
 
     @Override
     public void onStartup(final ServletContext servletContext) throws ServletException {
@@ -57,6 +56,7 @@ public class PlugminWebApplicationInitializer implements WebApplicationInitializ
         }
         
         PLUGMIN_BASE_URL = plugminBaseUrl(servletContext);
+        PLUGMIN_LOGO = plugminLogo(servletContext);
 
         registerCusomResourceServlet(servletContext);
 
@@ -223,6 +223,11 @@ public class PlugminWebApplicationInitializer implements WebApplicationInitializ
     public static String plugminBaseUrl(final ServletContext servletContext) {
         String baseUrl = servletContext.getInitParameter(PLUGMIN_ADMINISTRATION_BASE_URL);
 		return baseUrl != null ? baseUrl : PLUGMIN_BASE_URL;
+    }
+    
+    public static String plugminLogo(final ServletContext servletContext) {
+        String baseUrl = servletContext.getInitParameter(PLUGMIN_ADMINISTRATION_LOGO);
+		return baseUrl != null ? baseUrl : PLUGMIN_LOGO;
     }
 
     private boolean plugminSecurityEnabled(final ServletContext servletContext) {

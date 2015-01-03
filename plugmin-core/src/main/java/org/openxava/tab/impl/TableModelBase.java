@@ -1,9 +1,11 @@
 package org.openxava.tab.impl;
 
-import java.io.*;
+import java.io.Serializable;
 
-import javax.swing.event.*;
-import javax.swing.table.*;
+import javax.swing.event.EventListenerList;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 
 

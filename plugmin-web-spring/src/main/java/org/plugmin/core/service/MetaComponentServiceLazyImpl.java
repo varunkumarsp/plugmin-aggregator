@@ -54,6 +54,11 @@ public class MetaComponentServiceLazyImpl implements MetaComponentService, Servl
 	}
 	
 	@Override
+	public void clear() throws Exception {
+		metaComponents.clear();
+	}
+	
+	@Override
 	public MetaComponent find(String entity) throws Exception {
 		for(MetaComponent component : metaComponents) {
 			String compName = component.getName().toLowerCase().substring(component.getName().lastIndexOf('.') + 1);

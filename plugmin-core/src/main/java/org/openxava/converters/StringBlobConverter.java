@@ -1,6 +1,7 @@
 package org.openxava.converters;
 
-import org.apache.commons.logging.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * In java a String a a Blog in database. <p>

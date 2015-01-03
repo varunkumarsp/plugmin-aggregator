@@ -1,9 +1,10 @@
 package org.openxava.actions;
 
-import org.openxava.model.meta.*;
-import org.openxava.session.*;
-import org.openxava.util.*;
-import org.openxava.web.*;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.session.MyReportColumn;
+import org.openxava.util.Is;
+import org.openxava.util.Locales;
+import org.openxava.web.WebEditors;
 
 /**
  * 

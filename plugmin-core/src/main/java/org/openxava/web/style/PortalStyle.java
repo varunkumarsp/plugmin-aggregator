@@ -1,9 +1,13 @@
 package org.openxava.web.style;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.PropertiesReader;
 
 /**
  * This class and its subclasses is used from JSP code to give

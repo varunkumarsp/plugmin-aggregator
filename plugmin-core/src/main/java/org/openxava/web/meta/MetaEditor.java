@@ -1,14 +1,21 @@
 package org.openxava.web.meta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.StringTokenizer;
 
-
-
-import org.apache.commons.logging.*;
-import org.openxava.formatters.*;
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.formatters.IFormatter;
+import org.openxava.formatters.IMultipleValuesFormatter;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.util.Is;
+import org.openxava.util.PropertiesManager;
+import org.openxava.util.XavaException;
+import org.openxava.util.meta.MetaSet;
 
 /**
  * Editor associated to a type.

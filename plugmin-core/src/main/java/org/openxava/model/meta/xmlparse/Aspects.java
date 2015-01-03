@@ -1,11 +1,15 @@
 package org.openxava.model.meta.xmlparse;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.StringTokenizer;
 
-
-
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.openxava.model.meta.MetaCalculator;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.util.XavaException;
 
 /**
  * @author Javier Paniza

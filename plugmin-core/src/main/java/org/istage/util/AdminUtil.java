@@ -1,9 +1,9 @@
 package org.istage.util;
 
-import static org.istage.util.AnnotationUtils.getAnnotationsByType;
 import static org.apache.commons.lang3.StringUtils.join;
 import static org.apache.commons.lang3.StringUtils.splitByCharacterTypeCamelCase;
 import static org.apache.commons.lang3.text.WordUtils.capitalizeFully;
+import static org.istage.util.AnnotationUtils.getAnnotationsByType;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

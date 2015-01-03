@@ -1,6 +1,7 @@
 package org.openxava.converters.typeadapters;
 
-import org.openxava.converters.*;
+import org.openxava.converters.ConversionException;
+import org.openxava.converters.IConverter;
 
 /**
  * For using Java 5 enums in tabs, specifically for converting filter data. <p>

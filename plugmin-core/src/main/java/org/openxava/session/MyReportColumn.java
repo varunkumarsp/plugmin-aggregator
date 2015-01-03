@@ -1,16 +1,27 @@
 package org.openxava.session;
 
-import java.text.*;
-import java.util.*;
-import java.util.prefs.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 
-import org.apache.commons.logging.*;
-import org.openxava.actions.*;
-import org.openxava.annotations.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.actions.OnChangeMyReportColumnComparatorAction;
+import org.openxava.actions.OnChangeMyReportColumnNameAction;
+import org.openxava.annotations.DisplaySize;
+import org.openxava.annotations.Hidden;
+import org.openxava.annotations.OnChange;
+import org.openxava.annotations.Required;
 import org.openxava.tab.Tab;
-import org.openxava.util.*;
+import org.openxava.util.Is;
+import org.openxava.util.Labels;
+import org.openxava.util.Locales;
+import org.openxava.util.XavaResources;
 
 
 /**

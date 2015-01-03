@@ -1,6 +1,6 @@
 package org.openxava.ejbx;
 
-import javax.ejb.*;
+import javax.ejb.EJBContext;
 
 /**
  * Add the possibility of init to {@link IEJBContext}. <p> 

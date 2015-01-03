@@ -1,10 +1,8 @@
 package org.openxava.tab.impl;
 
-import java.util.*;
+import java.util.List;
 
-
-
-import org.openxava.util.*;
+import org.openxava.util.Assert;
 
 /**
  * A chunk of data. <p>

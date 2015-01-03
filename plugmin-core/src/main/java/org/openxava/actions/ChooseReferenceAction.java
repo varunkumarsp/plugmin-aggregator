@@ -1,13 +1,11 @@
 package org.openxava.actions;
 
-import java.util.*;
+import java.util.Map;
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-
-
-import org.openxava.tab.*;
-import org.openxava.view.*;
+import org.openxava.tab.Tab;
+import org.openxava.view.View;
 
 /**
  * @author Javier Paniza

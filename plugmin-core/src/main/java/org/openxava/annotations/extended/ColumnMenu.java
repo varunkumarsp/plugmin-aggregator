@@ -1,9 +1,9 @@
 package org.openxava.annotations.extended;
 
+import static org.openxava.annotations.extended.ui.config.enums.Boolean.NULL;
+import org.openxava.annotations.extended.ui.config.enums.Boolean;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import static org.openxava.annotations.extended.Boolean.*; 
 
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ColumnMenu {

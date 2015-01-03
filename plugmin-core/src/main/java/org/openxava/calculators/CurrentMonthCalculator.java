@@ -1,6 +1,6 @@
 package org.openxava.calculators;
 
-import java.util.*;
+import java.util.Calendar;
 
 /**
  * @author Trifon Trifonov

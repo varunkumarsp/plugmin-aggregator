@@ -1,7 +1,5 @@
 package org.openxava.calculators;
 
-import org.openxava.calculators.ICalculator;
-
 import java.util.Date;
 
 /**

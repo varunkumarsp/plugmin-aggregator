@@ -1,12 +1,13 @@
 package org.openxava.filters;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
-
-
-import org.openxava.controller.*;
-import org.openxava.ejbx.SessionBase;
-import org.openxava.util.*;
+import org.openxava.controller.Environment;
+import org.openxava.controller.ModuleContext;
+import org.openxava.controller.ModuleManager;
+import org.openxava.util.Assert;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
 
 
 /**

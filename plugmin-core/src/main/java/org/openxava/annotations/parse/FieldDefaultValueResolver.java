@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.openxava.annotations.extended.DefaultValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

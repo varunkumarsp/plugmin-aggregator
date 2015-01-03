@@ -1,6 +1,5 @@
 package org.openxava.view.meta;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -13,8 +12,12 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jsoup.nodes.Element;
+import org.jsoup.parser.Tag;
 import org.openxava.actions.IOnChangePropertyAction;
 import org.openxava.actions.OnChangeSearchAction;
+import org.openxava.annotations.extended.ui.config.vo.AngularScope;
+import org.openxava.annotations.extended.ui.config.vo.DataConfig;
 import org.openxava.model.meta.MetaMember;
 import org.openxava.model.meta.MetaModel;
 import org.openxava.model.meta.MetaProperty;
@@ -64,6 +67,10 @@ public class MetaView extends MetaElement implements Cloneable {
 	private Collection notAlwaysEnabledViewActionsNames;
 	private String extendsView; 
 	private boolean extendedFromExtendsView = false;
+	
+	private Element angularView = new Element(Tag.valueOf("div"), "");
+	private List<AngularScope> angularScopes = new ArrayList<AngularScope>();
+	private DataConfig dataConfig = new DataConfig();
 	
 	private void addMemberName(String memberName) {
 		_membersNames.add(memberName);
@@ -866,5 +873,26 @@ public class MetaView extends MetaElement implements Cloneable {
 		MetaDescriptionsList descriptionsList = metaReferenceView.getMetaDescriptionsList(); 
 		if (descriptionsList == null) return "";  
 		return descriptionsList.getLabelStyle();		
-	}	
+	}
+
+	public Element getAngularView() {
+		return angularView;
+	}
+
+	public void setAngularView(Element angularView) {
+		this.angularView = angularView;
+	}
+
+	public List<AngularScope> getAngularScopes() {
+		return angularScopes;
+	}
+
+	public void setAngularScopes(List<AngularScope> angularScopes) {
+		this.angularScopes = angularScopes;
+	}
+
+	public DataConfig getDataConfig() {
+		return dataConfig;
+	}
+
 }

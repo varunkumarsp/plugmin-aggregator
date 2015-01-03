@@ -1,6 +1,6 @@
 package org.openxava.model;
 
-import org.openxava.model.impl.*;
+import org.openxava.model.impl.PersistenceProviderFactory;
 
 /**
  * To access to some persistence services in an abstract way. <p>

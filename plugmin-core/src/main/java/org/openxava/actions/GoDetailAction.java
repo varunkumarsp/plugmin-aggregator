@@ -2,10 +2,11 @@ package org.openxava.actions;
 
 
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-import org.openxava.tab.*;
-import org.openxava.util.*;
+import org.openxava.tab.Tab;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
 
 /**
  * @author Javier Paniza

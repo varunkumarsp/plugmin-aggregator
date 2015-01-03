@@ -1,6 +1,6 @@
 package org.openxava.actions;
 
-import org.openxava.controller.*;
+import org.openxava.controller.ModuleContext;
 
 /**
  * Action that receives the ModuleContext. <p>

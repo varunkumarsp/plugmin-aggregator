@@ -1,6 +1,6 @@
 package org.openxava.formatters;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * For convert to String (used in HTML page) to Object (used in java side),

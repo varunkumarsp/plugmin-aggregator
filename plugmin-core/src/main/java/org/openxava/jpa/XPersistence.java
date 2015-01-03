@@ -1,16 +1,28 @@
 package org.openxava.jpa;
 
 
-import java.net.*;
-import java.util.*;
+import java.net.URL;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.persistence.*;
-import javax.xml.parsers.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.commons.logging.*;
-import org.openxava.jpa.impl.*;
-import org.openxava.util.*;
-import org.w3c.dom.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.jpa.impl.EntityManagerDecorator;
+import org.openxava.jpa.impl.PersistenceXml;
+import org.openxava.util.Is;
+import org.openxava.util.XavaPreferences;
+import org.openxava.util.XavaResources;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * Allows to work easily with EJB3 JPA inside OpenXava applications. <p>

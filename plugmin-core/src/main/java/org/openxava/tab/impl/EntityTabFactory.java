@@ -1,14 +1,15 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 
-import javax.ejb.*;
+import javax.ejb.CreateException;
 
-
-
-import org.apache.commons.logging.*;
-import org.openxava.tab.meta.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.tab.meta.MetaTab;
+import org.openxava.util.InitException;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
 
 /**
  * 

@@ -1,23 +1,43 @@
 package org.openxava.web.dwr;
 
-import java.awt.event.*;
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.awt.event.InputEvent;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
-import javax.servlet.http.*;
-import javax.swing.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.KeyStroke;
 
-import org.apache.commons.logging.*;
-import org.openxava.actions.*;
-import org.openxava.controller.*;
-import org.openxava.controller.meta.*;
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.actions.IChangeModeAction;
+import org.openxava.actions.IChangeModuleAction;
+import org.openxava.controller.ModuleContext;
+import org.openxava.controller.ModuleManager;
+import org.openxava.controller.meta.MetaAction;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.model.meta.MetaReference;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.Is;
+import org.openxava.util.Labels;
+import org.openxava.util.Locales;
+import org.openxava.util.Messages;
+import org.openxava.util.Users;
+import org.openxava.util.XSystem;
+import org.openxava.util.XavaException;
 import org.openxava.view.View;
-import org.openxava.web.*;
-import org.openxava.web.servlets.*;
-import org.openxava.web.style.*;
+import org.openxava.web.Ids;
+import org.openxava.web.Lists;
+import org.openxava.web.servlets.Servlets;
+import org.openxava.web.style.Style;
 
 /**
  * For accessing to module execution from DWR. <p>

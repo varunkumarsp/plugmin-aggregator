@@ -1,10 +1,9 @@
 package org.openxava.validators;
 
-import org.openxava.validators.IPropertyValidator;
-import org.openxava.util.Messages;
+import java.util.StringTokenizer;
 
 import org.apache.commons.validator.GenericValidator;
-import java.util.StringTokenizer;
+import org.openxava.util.Messages;
 
 /**
  * @author Janesh Kodikara

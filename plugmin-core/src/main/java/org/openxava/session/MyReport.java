@@ -1,16 +1,34 @@
 package org.openxava.session;
 
-import java.util.*;
-import java.util.prefs.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 
-import org.apache.commons.logging.*;
-import org.openxava.annotations.*;
-import org.openxava.model.meta.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.annotations.AsEmbedded;
+import org.openxava.annotations.EditAction;
+import org.openxava.annotations.Hidden;
+import org.openxava.annotations.ListProperties;
+import org.openxava.annotations.NewAction;
+import org.openxava.annotations.OnChange;
+import org.openxava.annotations.RemoveSelectedAction;
+import org.openxava.annotations.Required;
+import org.openxava.annotations.RowAction;
+import org.openxava.annotations.RowActions;
+import org.openxava.annotations.SaveAction;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.model.meta.MetaProperty;
 import org.openxava.session.MyReportColumn.Order;
 import org.openxava.tab.Tab;
-import org.openxava.util.*;
+import org.openxava.util.Is;
+import org.openxava.util.Locales;
+import org.openxava.util.Users;
+import org.openxava.util.XavaResources;
 
 /**
  * 

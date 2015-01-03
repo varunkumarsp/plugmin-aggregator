@@ -1,8 +1,8 @@
 package org.openxava.actions;
 
-import org.openxava.model.meta.*;
-import org.openxava.tab.*;
-import org.openxava.util.*;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.tab.Tab;
+import org.openxava.util.Is;
 
 
 /**

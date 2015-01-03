@@ -1,7 +1,8 @@
 package org.openxava.formatters;
 
-import javax.servlet.http.*;
-import org.openxava.util.*;
+import javax.servlet.http.HttpServletRequest;
+
+import org.openxava.util.XavaResources;
 
 /**
  * 

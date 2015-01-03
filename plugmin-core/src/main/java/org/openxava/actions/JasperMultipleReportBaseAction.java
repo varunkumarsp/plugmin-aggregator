@@ -1,16 +1,26 @@
 package org.openxava.actions;
 
-import java.io.*;
-import java.sql.*;
-import java.util.*;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import javax.servlet.*;
+import javax.servlet.ServletContext;
 
-import org.apache.commons.logging.*;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openxava.jpa.XPersistence;
-import org.openxava.util.*;
-
-import net.sf.jasperreports.engine.*;
+import org.openxava.util.DataSourceConnectionProvider;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
 
 /**
  * To generate several custom Jasper Reports with the same action.

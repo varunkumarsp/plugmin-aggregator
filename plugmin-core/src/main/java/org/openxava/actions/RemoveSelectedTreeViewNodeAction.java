@@ -10,7 +10,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openxava.model.MapFacade;
 import org.openxava.validators.ValidationException;
-import org.openxava.web.editors.*;
+import org.openxava.web.editors.TreeView;
+import org.openxava.web.editors.TreeViewParser;
 
 public class RemoveSelectedTreeViewNodeAction extends CollectionBaseAction {
 	private Log log = LogFactory.getLog(RemoveSelectedTreeViewNodeAction.class);

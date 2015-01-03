@@ -1,7 +1,7 @@
 package org.openxava.tab.impl;
 
-import javax.ejb.*;
-import javax.swing.table.*;
+import javax.ejb.FinderException;
+import javax.swing.table.TableModel;
 
 
 /**

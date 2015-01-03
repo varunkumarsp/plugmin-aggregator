@@ -1,7 +1,7 @@
 package org.openxava.actions;
 
-import org.openxava.controller.meta.*;
-import org.openxava.util.*;
+import org.openxava.controller.meta.MetaControllers;
+import org.openxava.util.XavaException;
 
 /**
  * @author Javier Paniza

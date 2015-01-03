@@ -1,6 +1,9 @@
 package org.openxava.annotations;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * A stereotype is the way to determine a specific behavior of a type. <p>

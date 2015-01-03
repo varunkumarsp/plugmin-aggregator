@@ -2,7 +2,6 @@ package org.openxava.web;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,8 +11,7 @@ import org.openxava.model.meta.MetaMember;
 import org.openxava.model.meta.MetaModel;
 import org.openxava.model.meta.MetaProperty;
 import org.openxava.model.meta.MetaReference;
-import org.openxava.tab.*;
-import org.openxava.tab.meta.*;
+import org.openxava.tab.meta.MetaTab;
 import org.openxava.util.ElementNotFoundException;
 import org.openxava.util.Is;
 import org.openxava.util.Locales;

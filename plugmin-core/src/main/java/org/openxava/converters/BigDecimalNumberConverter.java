@@ -1,6 +1,6 @@
 package org.openxava.converters;
 
-import java.math.*;
+import java.math.BigDecimal;
 
 
 

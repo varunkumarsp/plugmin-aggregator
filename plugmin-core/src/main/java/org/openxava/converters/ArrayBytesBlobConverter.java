@@ -1,9 +1,11 @@
 package org.openxava.converters;
 
-import java.sql.*;
+import java.sql.Blob;
+import java.sql.SQLException;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.XavaResources;
 
 
 

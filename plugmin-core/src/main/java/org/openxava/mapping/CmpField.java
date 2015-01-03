@@ -1,6 +1,6 @@
 package org.openxava.mapping;
 
-import java.io.*;
+import java.io.Serializable;
 
 
 

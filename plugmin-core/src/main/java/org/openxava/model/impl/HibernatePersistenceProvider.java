@@ -1,17 +1,23 @@
 package org.openxava.model.impl;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.Map;
 
-import javax.ejb.*;
+import javax.ejb.RemoveException;
 
-import org.apache.commons.logging.*;
-import org.hibernate.*;
-
-import org.openxava.hibernate.*;
-import org.openxava.model.meta.*;
-import org.openxava.tab.impl.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.LockMode;
+import org.hibernate.Query;
+import org.hibernate.UnresolvableObjectException;
+import org.openxava.hibernate.XHibernate;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.tab.impl.ITabProvider;
+import org.openxava.tab.impl.JDBCTabProvider;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaPreferences;
+import org.openxava.util.XavaResources;
 
 /**
  * @author M' Carmen Gimeno Alabau

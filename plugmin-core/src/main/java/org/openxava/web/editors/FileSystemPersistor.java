@@ -1,13 +1,18 @@
 package org.openxava.web.editors;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
-import org.apache.commons.io.*;
-import org.apache.commons.io.filefilter.*;
-import org.apache.commons.logging.*;
-import org.openxava.calculators.*;
-import org.openxava.util.*;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.FileFilterUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.calculators.UUIDCalculator;
+import org.openxava.util.Is;
+import org.openxava.util.XavaPreferences;
+import org.openxava.util.XavaResources;
 
 /**
  * A implementation of {@link IFilePersistor} <p>

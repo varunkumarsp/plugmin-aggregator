@@ -3,7 +3,10 @@ package org.plugmin.core.config.context;
 import javax.persistence.EntityManagerFactory;
 
 import org.hibernate.SessionFactory;
-import org.openxava.annotations.extended.vo.PlugminEventListener;
+import org.openxava.annotations.extended.ui.config.vo.PlugminEventListener;
+import org.plugmin.core.dao.AutocompleteDao;
+import org.plugmin.core.dao.AutocompleteDaoHibernateImpl;
+import org.plugmin.core.dao.AutocompleteDaoJpaImpl;
 import org.plugmin.core.dao.DropDownBoxDao;
 import org.plugmin.core.dao.DropDownBoxDaoHibernateImpl;
 import org.plugmin.core.dao.DropDownBoxDaoJpaImpl;
@@ -74,6 +77,17 @@ public class PlugminDaoConfiguration implements TransactionManagementConfigurer,
 			dropDownBoxDao = new DropDownBoxDaoHibernateImpl(sessionFactory);
 		}
         return dropDownBoxDao;
+    }
+    
+    @Bean
+    public AutocompleteDao autocompleteDao() {
+    	AutocompleteDao autocompleteDao;
+		if(entityManagerFactory != null) {
+			autocompleteDao = new AutocompleteDaoJpaImpl();
+		} else {
+			autocompleteDao = new AutocompleteDaoHibernateImpl(sessionFactory);
+		}
+        return autocompleteDao;
     }
 	
 	@Bean

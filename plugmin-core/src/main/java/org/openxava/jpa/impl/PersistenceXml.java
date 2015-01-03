@@ -1,10 +1,10 @@
 package org.openxava.jpa.impl;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Enumeration;
 
-import org.openxava.jpa.*;
+import org.openxava.jpa.XPersistence;
 
 /**
  * To obtain the URL of the persistence.xml to be used in this application. <p>

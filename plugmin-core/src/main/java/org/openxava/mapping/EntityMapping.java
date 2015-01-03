@@ -2,8 +2,8 @@ package org.openxava.mapping;
 
 
 
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.util.XavaException;
 
 
 /** 

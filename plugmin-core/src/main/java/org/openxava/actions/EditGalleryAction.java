@@ -1,18 +1,23 @@
 package org.openxava.actions;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-
-
-import org.apache.commons.logging.*;
-import org.openxava.calculators.*;
-import org.openxava.model.*;
-import org.openxava.model.meta.*;
-import org.openxava.session.*;
-import org.openxava.util.*;
-import org.openxava.view.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.calculators.UUIDCalculator;
+import org.openxava.model.MapFacade;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.session.Gallery;
+import org.openxava.util.Is;
+import org.openxava.util.Labels;
+import org.openxava.util.Locales;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
+import org.openxava.view.View;
 
 /**
  * 

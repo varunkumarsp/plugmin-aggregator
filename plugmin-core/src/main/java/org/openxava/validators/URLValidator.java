@@ -1,8 +1,7 @@
 package org.openxava.validators;
 
-import org.openxava.util.*;
-import org.openxava.validators.IPropertyValidator;
 import org.apache.commons.validator.UrlValidator;
+import org.openxava.util.Messages;
 
 
 

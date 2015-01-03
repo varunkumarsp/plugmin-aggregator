@@ -1,15 +1,15 @@
 package org.openxava.util.impl;
 
-import javax.ejb.*;
+import javax.ejb.CreateException;
 
-
-
-import org.apache.commons.logging.*;
-import org.openxava.actions.*;
-import org.openxava.calculators.*;
-import org.openxava.ejbx.*;
-import org.openxava.hibernate.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.actions.IRemoteAction;
+import org.openxava.calculators.ICalculator;
+import org.openxava.calculators.IJDBCCalculator;
+import org.openxava.ejbx.SessionBase;
+import org.openxava.hibernate.XHibernate;
+import org.openxava.util.XSystem;
 
 
 public class ServerBean extends SessionBase {

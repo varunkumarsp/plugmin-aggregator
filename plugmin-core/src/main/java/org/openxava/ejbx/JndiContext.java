@@ -1,10 +1,9 @@
 package org.openxava.ejbx;
 
-import javax.naming.*;
+import javax.naming.Context;
+import javax.naming.NamingException;
 
-
-
-import org.openxava.util.*;
+import org.openxava.util.Assert;
 
 
 /**

@@ -1,8 +1,9 @@
 package org.openxava.actions;
 
 
-import javax.inject.*;
-import org.openxava.jpa.*;
+import javax.inject.Inject;
+
+import org.openxava.jpa.XPersistence;
 
 /**
  * 

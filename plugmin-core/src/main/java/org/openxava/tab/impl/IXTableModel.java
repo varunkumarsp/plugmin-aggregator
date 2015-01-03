@@ -1,9 +1,9 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.util.Map;
 
-import javax.ejb.*;
+import javax.ejb.FinderException;
 
 /**
  * Extended TableModel. <p>

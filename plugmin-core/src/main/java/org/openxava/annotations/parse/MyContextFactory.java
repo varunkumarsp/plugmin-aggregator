@@ -12,7 +12,6 @@ import javax.naming.NamingException;
 import javax.naming.spi.InitialContextFactory;
 import javax.sql.DataSource;
 
-
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class MyContextFactory implements InitialContextFactory {

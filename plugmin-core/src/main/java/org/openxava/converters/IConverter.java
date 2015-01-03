@@ -1,6 +1,6 @@
 package org.openxava.converters;
 
-import java.io.*;
+import java.io.Serializable;
 
 /**
  * @author Javier Paniza

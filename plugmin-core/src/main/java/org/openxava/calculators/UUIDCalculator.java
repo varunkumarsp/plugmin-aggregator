@@ -1,11 +1,10 @@
 package org.openxava.calculators;
 
-import java.net.*;
-import java.security.*;
+import java.net.InetAddress;
+import java.security.SecureRandom;
 
-
-
-import org.openxava.util.*;
+import org.openxava.util.Align;
+import org.openxava.util.Strings;
 
 
 /**

@@ -1,9 +1,12 @@
 package org.openxava.filters;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.Users;
 
 /**
  * Inserts the name of the current user as first parameter. <p>

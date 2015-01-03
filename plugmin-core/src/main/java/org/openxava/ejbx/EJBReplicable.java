@@ -1,8 +1,8 @@
 package org.openxava.ejbx;
 
-import javax.ejb.*;
+import javax.ejb.EJBObject;
 
-import org.openxava.util.*;
+import org.openxava.util.IPropertiesContainer;
 
 
 /**

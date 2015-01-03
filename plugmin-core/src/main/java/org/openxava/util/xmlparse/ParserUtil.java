@@ -1,8 +1,12 @@
 package org.openxava.util.xmlparse;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
-import org.w3c.dom.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * 

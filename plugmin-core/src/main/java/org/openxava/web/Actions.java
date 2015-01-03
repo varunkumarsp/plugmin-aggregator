@@ -1,8 +1,10 @@
 package org.openxava.web;
 
-import org.apache.commons.logging.*;
-import org.openxava.controller.meta.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.controller.meta.MetaAction;
+import org.openxava.util.Is;
+import org.openxava.util.XavaResources;
 
 /**
  * Utility class to help in action code generated for JSPs.

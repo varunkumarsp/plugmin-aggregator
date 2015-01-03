@@ -1,13 +1,17 @@
 package org.openxava.actions;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
-import javax.ejb.*;
+import javax.ejb.FinderException;
 
-import org.apache.commons.logging.*;
-import org.openxava.model.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.model.MapFacade;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
 
 /**
  * Base class for creating actions to be used as list actions.<p>

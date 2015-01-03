@@ -1,7 +1,7 @@
 package org.openxava.dropdown;
 
+import static org.openxava.annotations.parse.JsonUtil.toJson;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import static org.openxava.annotations.extended.JsonUtil.toJson;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,7 +13,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openxava.FeatureNotImplementedException;
-import org.openxava.annotations.extended.vo.DropDownConfigVo;
+import org.openxava.annotations.extended.ui.config.vo.DropDownConfigVo;
 import org.openxava.component.MetaComponent;
 import org.openxava.filters.IFilter;
 import org.openxava.filters.meta.MetaFilter;
@@ -204,7 +204,7 @@ public class MetaDropDown extends MetaElement implements java.io.Serializable, C
 		this.valueProperty = valueProperty;
 		if(propertiesNames == null)
 			propertiesNames = new ArrayList<String>();
-		propertiesNames.add(keyProperty);
+		propertiesNames.add(valueProperty);
 	}
 
 	public String getSelect() {

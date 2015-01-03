@@ -1,6 +1,6 @@
 package org.openxava.calculators;
 
-import org.openxava.util.*;
+import org.openxava.util.IConnectionProvider;
 
 
 /**

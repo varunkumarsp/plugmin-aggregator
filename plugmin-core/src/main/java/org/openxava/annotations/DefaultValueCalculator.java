@@ -1,8 +1,9 @@
 package org.openxava.annotations;
 
-import java.lang.annotation.*;
-
-import org.openxava.calculators.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * For calculating its initial value. <p>

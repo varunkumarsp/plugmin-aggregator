@@ -1,13 +1,17 @@
 package org.openxava.ejbx;
 
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
-import javax.ejb.*;
+import javax.ejb.EJBException;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
-import org.openxava.validators.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.IPropertiesContainer;
+import org.openxava.util.PropertiesManager;
+import org.openxava.util.PropertiesManagerException;
+import org.openxava.util.XavaResources;
+import org.openxava.validators.ValidationException;
 
 
 /**

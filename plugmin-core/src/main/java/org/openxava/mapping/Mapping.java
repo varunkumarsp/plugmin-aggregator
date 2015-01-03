@@ -1,11 +1,12 @@
 package org.openxava.mapping;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 
-
-
-import org.openxava.component.*;
-import org.openxava.util.*;
+import org.openxava.component.MetaComponent;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
 
 /**
  * Utility class for mapping issues.

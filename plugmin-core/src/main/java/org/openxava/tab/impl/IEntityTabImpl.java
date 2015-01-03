@@ -1,8 +1,8 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 
-import javax.ejb.*;
+import javax.ejb.FinderException;
 
 /**
  * Interface to facilite a remote <b>impl</b>ementation of

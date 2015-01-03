@@ -1,6 +1,6 @@
 package org.openxava.calculators;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 
 
 /**

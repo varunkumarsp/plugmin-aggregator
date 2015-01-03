@@ -1,12 +1,16 @@
 package org.openxava.model.meta.xmlparse;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
-
-
-import org.openxava.util.*;
-import org.openxava.util.xmlparse.*;
-import org.w3c.dom.*;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
+import org.openxava.util.xmlparse.ParserBase;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * @author: Javier Paniza

@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 
 import org.hibernate.criterion.CriteriaSpecification;
-import org.openxava.annotations.extended.vo.ColumnVo;
+import org.openxava.annotations.extended.ui.config.vo.ColumnVo;
 import org.openxava.annotations.parse.FieldResolver;
 import org.openxava.annotations.parse.FieldResolverImpl;
 import org.openxava.component.MetaComponent;

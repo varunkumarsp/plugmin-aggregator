@@ -4,7 +4,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.plugmin.core.service.DataSourceRequest;
 import org.plugmin.core.service.DataSourceResult;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class DropDownBoxDaoHibernateImpl implements DropDownBoxDao {
 

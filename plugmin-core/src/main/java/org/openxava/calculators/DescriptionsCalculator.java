@@ -21,12 +21,17 @@ import org.apache.commons.logging.LogFactory;
 import org.openxava.component.MetaComponent;
 import org.openxava.filters.FilterException;
 import org.openxava.filters.IFilter;
-import org.openxava.model.meta.*;
-import org.openxava.tab.impl.EntityTabFactory;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.model.meta.MetaProperty;
 import org.openxava.tab.impl.EntityTab;
+import org.openxava.tab.impl.EntityTabFactory;
 import org.openxava.tab.meta.MetaTab;
-import org.openxava.util.*;
-import org.openxava.web.*;
+import org.openxava.util.Is;
+import org.openxava.util.KeyAndDescription;
+import org.openxava.util.KeyAndDescriptionComparator;
+import org.openxava.util.Locales;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
 
 /**
  * It obtain a description collection. <p>

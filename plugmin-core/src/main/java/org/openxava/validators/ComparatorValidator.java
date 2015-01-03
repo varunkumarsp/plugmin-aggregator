@@ -2,7 +2,8 @@ package org.openxava.validators;
 
 
 
-import org.openxava.util.*;
+import org.openxava.util.Messages;
+import org.openxava.util.XavaResources;
 
 /**
  * Assert that a comparation is true. <p>

@@ -1,10 +1,11 @@
 package org.openxava.formatters;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
-import org.openxava.util.*;
-import org.openxava.web.editors.*;
-import org.openxava.web.style.*;
+import org.openxava.util.Is;
+import org.openxava.web.editors.AttachedFile;
+import org.openxava.web.editors.FilePersistorFactory;
+import org.openxava.web.style.Style;
 
 /**
  * For stereotypes FILE and ARCHIVO in list mode. <p>

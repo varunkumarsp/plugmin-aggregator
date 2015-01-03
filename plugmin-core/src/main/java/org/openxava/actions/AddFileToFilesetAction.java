@@ -1,10 +1,10 @@
 package org.openxava.actions;
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-import org.apache.commons.lang3.*;
-import org.openxava.model.*;
-import org.openxava.util.*;
+import org.apache.commons.lang3.ArrayUtils;
+import org.openxava.model.MapFacade;
+import org.openxava.util.Is;
 
 /**
  * Logic of AttachedFiles.add action in default-controllers.xml. <p>

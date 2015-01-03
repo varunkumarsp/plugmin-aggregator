@@ -1,12 +1,18 @@
 package org.openxava.filters.meta;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
-import org.apache.commons.logging.*;
-import org.openxava.filters.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.filters.FilterException;
+import org.openxava.filters.IFilter;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.PropertiesManager;
+import org.openxava.util.XavaException;
+import org.openxava.util.meta.MetaSet;
 
 /**
  * @author Javier Paniza

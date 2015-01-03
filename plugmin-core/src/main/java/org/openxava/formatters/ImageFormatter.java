@@ -1,10 +1,10 @@
 package org.openxava.formatters;
 
-import java.text.*;
+import java.text.ParseException;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.codec.binary.*;
+import org.apache.commons.codec.binary.Base64;
 
 
 

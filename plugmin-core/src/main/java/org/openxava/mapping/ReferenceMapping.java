@@ -1,14 +1,18 @@
 package org.openxava.mapping;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-
-
-import org.openxava.component.*;
-import org.openxava.converters.*;
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.openxava.component.MetaComponent;
+import org.openxava.converters.IConverter;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
 
 
 public class ReferenceMapping implements java.io.Serializable {

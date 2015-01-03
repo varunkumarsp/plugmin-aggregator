@@ -1,6 +1,6 @@
 package org.openxava.validators.hibernate;
 
-import org.openxava.util.*;
+import org.openxava.util.Messages;
 
 /**
  * To use in validators in this package, in order to avoid 

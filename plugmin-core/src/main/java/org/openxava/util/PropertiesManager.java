@@ -1,11 +1,21 @@
 package org.openxava.util;
 
-import java.beans.*;
-import java.lang.reflect.*;
-import java.util.*;
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
-import org.apache.commons.logging.*;
-import org.openxava.model.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.model.MapFacade;
 
 /**
  * Manages with reflection the properties of a object. <p> 

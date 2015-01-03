@@ -1,7 +1,9 @@
 package org.openxava.formatters;
 
-import java.text.*;
-import org.openxava.util.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import org.openxava.util.Locales;
 
 /**
  * Common code for DateTime formatters. <p>

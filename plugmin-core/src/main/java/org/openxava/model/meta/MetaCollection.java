@@ -1,12 +1,17 @@
 package org.openxava.model.meta;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 
-
-
-import org.openxava.util.*;
-import org.openxava.validators.*;
+import org.openxava.util.Is;
+import org.openxava.util.Messages;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
+import org.openxava.validators.IPropertyValidator;
 
 /**
  * 

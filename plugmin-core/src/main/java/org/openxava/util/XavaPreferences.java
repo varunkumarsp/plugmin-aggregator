@@ -1,11 +1,12 @@
 package org.openxava.util;
 
-import java.io.*;
-import java.util.*;
-import java.util.logging.*;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.logging.Level;
 
-import org.apache.commons.logging.*;
-import org.openxava.view.meta.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.view.meta.MetaPropertyView;
 
 /**
  * @author Javier Paniza

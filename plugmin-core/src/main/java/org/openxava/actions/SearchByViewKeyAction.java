@@ -11,7 +11,8 @@ import org.openxava.component.MetaComponent;
 import org.openxava.model.MapFacade;
 import org.openxava.model.meta.MetaEntity;
 import org.openxava.model.meta.MetaProperty;
-import org.openxava.util.*;
+import org.openxava.util.Is;
+import org.openxava.util.Maps;
 import org.openxava.web.WebEditors;
 
 /**

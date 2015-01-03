@@ -1,10 +1,15 @@
 package org.openxava.ejbx;
 
-import javax.naming.*;
+import java.util.Properties;
 
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
-import java.util.*;
+import javax.naming.NamingException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.Factory;
+import org.openxava.util.InitException;
+import org.openxava.util.Is;
+import org.openxava.util.XavaResources;
 
 /**
  * Factory for <code>IContextProvider</code> in order to accede to EJBs. 

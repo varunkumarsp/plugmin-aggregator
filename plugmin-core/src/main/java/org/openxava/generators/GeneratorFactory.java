@@ -1,13 +1,11 @@
 package org.openxava.generators;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-
-
-import org.openxava.formatters.UpperCaseFormatter;
-import org.openxava.generators.xmlparse.*;
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.openxava.generators.xmlparse.GeneratorsParser;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.util.XavaException;
 
 /**
  * @author Javier Paniza

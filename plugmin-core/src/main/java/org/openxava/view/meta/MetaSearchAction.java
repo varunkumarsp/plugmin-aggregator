@@ -1,7 +1,8 @@
 package org.openxava.view.meta;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 
 

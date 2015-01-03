@@ -1,14 +1,15 @@
 package org.openxava.model.impl;
 
-import java.lang.reflect.*;
-import java.rmi.*;
-import java.util.*;
+import java.lang.reflect.InvocationTargetException;
+import java.rmi.RemoteException;
+import java.util.Map;
 
-
-
-import org.apache.commons.logging.*;
-import org.openxava.util.*;
-import org.openxava.validators.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.IPropertiesContainer;
+import org.openxava.util.PropertiesManager;
+import org.openxava.util.XavaResources;
+import org.openxava.validators.ValidationException;
 
 /**
  * @author Javier Paniza

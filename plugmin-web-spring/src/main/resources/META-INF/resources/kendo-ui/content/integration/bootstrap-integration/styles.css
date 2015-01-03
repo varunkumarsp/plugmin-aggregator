@@ -29,7 +29,7 @@ header {
     margin: 0;
     font-size: 20px;
     color: #fff;
-    background-color: #272727;
+    background-color: #3f51b5;
 }
 
 header h1,
@@ -39,12 +39,11 @@ header button {
 }
 
 header .container h1 {
-    margin: 0;
-    font-size: 21px;
-    line-height: 65px;
-    padding-top: 20px;
-    padding-left: 0;
-    /**background: url("../../../../resources/images/logo.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);**/
+  font-size: 21px;
+  margin: 0;
+  padding-bottom: 10px;
+  padding-left: 0;
+  padding-top: 10px;
 }
 
 #configure,
@@ -85,14 +84,14 @@ header .k-dropdown-wrap {
 header .k-dropdown,
 header .k-dropdown-wrap.k-state-default {
     background-color: transparent;
-    border-color: #5c5c5c;
+    border-color: #ccc;
     border-radius: 0;
 }
 
 header .k-dropdown-wrap.k-state-hover,
 header .k-dropdown-wrap.k-state-active,
 header .k-dropdown-wrap.k-state-focused {
-    background-color: #030303;
+    background-color: #283593;
 }
 
 header .k-dropdown-wrap.k-state-focused {
@@ -121,8 +120,8 @@ header .k-dropdown-wrap.k-state-default .k-input {
 }
 
 .k-popup.ra-list {
-    background-color: #010101;
-    border-color: #5c5c5c;
+    background-color: #283593;
+    border-color: #ccc;
     color: #fff;
     padding: 0;
     border-radius: 0;
@@ -132,7 +131,7 @@ header .k-dropdown-wrap.k-state-default .k-input {
 .k-popup.ra-list .k-state-selected,
 .k-popup.ra-list .k-state-focused {
     background-image: none;
-    background-color: #555;
+    background-color: #3f51b5;
     box-shadow: none;
     color: #fff;
     border-color: #555;

@@ -1,21 +1,29 @@
 package org.openxava.util;
 
-import java.io.*;
-import java.net.*;
-import java.sql.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
-import javax.naming.*;
-import javax.sql.*;
-import javax.xml.parsers.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.commons.logging.*;
-import org.hibernate.*;
-import org.openxava.component.*;
-import org.openxava.hibernate.*;
-import org.openxava.jpa.*;
-import org.openxava.jpa.impl.*;
-import org.w3c.dom.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.component.MetaComponent;
+import org.openxava.jpa.XPersistence;
+import org.openxava.jpa.impl.PersistenceXml;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * Adapter from JNDI DataSource interface to IConnectionProvider interface.

@@ -1,7 +1,7 @@
 package org.openxava.util;
 
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.Field;
+import java.util.Comparator;
 
 
 

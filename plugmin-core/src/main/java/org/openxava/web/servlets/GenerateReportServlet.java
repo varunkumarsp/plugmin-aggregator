@@ -1,26 +1,52 @@
 package org.openxava.web.servlets;
 
-import java.io.*;
-import java.math.*;
-import java.text.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.MissingResourceException;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.*;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 
-import org.apache.commons.logging.*;
-import org.openxava.hibernate.*;
-import org.openxava.jpa.*;
-import org.openxava.model.meta.*;
-import org.openxava.tab.*;
-import org.openxava.tab.impl.*;
-import org.openxava.util.*;
-import org.openxava.web.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.hibernate.XHibernate;
+import org.openxava.jpa.XPersistence;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.tab.Tab;
+import org.openxava.tab.impl.SelectedRowsXTableModel;
+import org.openxava.util.Is;
+import org.openxava.util.Locales;
+import org.openxava.util.Messages;
+import org.openxava.util.ReportParametersProviderFactory;
+import org.openxava.util.Strings;
+import org.openxava.util.TableModels;
+import org.openxava.util.Users;
+import org.openxava.util.XSystem;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaPreferences;
+import org.openxava.util.XavaResources;
+import org.openxava.web.WebEditors;
 
 /**
  * To generate automatically reports from list mode. <p>

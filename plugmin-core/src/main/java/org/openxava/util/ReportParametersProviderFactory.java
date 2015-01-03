@@ -1,6 +1,7 @@
 package org.openxava.util;
 
-import org.apache.commons.logging.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * For obtaining a instance of report parameters.

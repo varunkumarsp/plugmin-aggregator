@@ -2,7 +2,7 @@ package org.openxava.validators;
 
 
 
-import org.openxava.util.*;
+import org.openxava.util.Messages;
 
 /**
  * Everything is valid. <p>

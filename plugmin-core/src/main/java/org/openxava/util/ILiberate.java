@@ -1,6 +1,6 @@
 package org.openxava.util;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 
 
 /**

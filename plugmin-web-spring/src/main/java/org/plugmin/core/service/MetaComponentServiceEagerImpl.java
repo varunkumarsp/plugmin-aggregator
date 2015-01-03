@@ -77,6 +77,12 @@ public class MetaComponentServiceEagerImpl implements MetaComponentService, Serv
 	}
 	
 	@Override
+	public void clear() throws Exception {
+		metaComponents.clear();
+		postConstruct();
+	}
+	
+	@Override
 	public MetaComponent find(String entity) {
 		for(MetaComponent component : metaComponents) {
 			if(component.getName().toLowerCase().equals(entity.toLowerCase()))
@@ -123,5 +129,5 @@ public class MetaComponentServiceEagerImpl implements MetaComponentService, Serv
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
 	}
-	
+
 }

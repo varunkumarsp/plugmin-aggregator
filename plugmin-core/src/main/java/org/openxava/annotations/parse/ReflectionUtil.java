@@ -1,11 +1,17 @@
 package org.openxava.annotations.parse;
 
+import static org.istage.util.AnnotationUtils.getAnnotationsByType;
+
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
+
+import org.openxava.tab.meta.MetaTab;
+import org.openxava.view.meta.MetaView;
 
 public class ReflectionUtil {
 
@@ -77,14 +83,94 @@ public class ReflectionUtil {
 		return valid;
 	}
 	
+	public static boolean isCollection(Field field) {
+		return Collection.class.isAssignableFrom(field.getType()) || field.getType().isArray();
+	}
+	
 	public static boolean isCollection(String fieldName, Class<?> clazz) throws NoSuchFieldException, SecurityException {
 		if(fieldName.contains("."))
 			return false;
 		Field field = clazz.getDeclaredField(fieldName);
-		Class<?> type = field.getType();
-		if(type.isArray() || Collection.class.isAssignableFrom(type)) {
+		if(isCollection(field)) {
 			return field.getGenericType() instanceof ParameterizedType;
 		}
 		return false;
+	}
+	
+	public static <T extends Annotation> T findAnnotation(Class<T> annotation, Field metaField, MetaTab metaTab) throws Exception {
+		return findAnnotation(annotation, metaField, metaTab.getName(), "forTab", "forTabs");
+	}
+	
+	public static <T extends Annotation> T findAnnotation(Class<T> annotation, Field metaField, MetaView metaView) throws Exception {
+		return findAnnotation(annotation, metaField, metaView.getName(), "forView", "forViews");
+	}
+	
+	private static <T extends Annotation> T findAnnotation(Class<T> annotation, Field metaField, String elementName, String singularMethod, String pluralMethod) throws Exception {
+		T[] anns = getAnnotationsByType(metaField, annotation);
+		for (T ann : anns) {
+			Class<? extends Annotation> annotationType = ann.annotationType();
+			
+			try {
+				Method declaredMethod = annotationType.getDeclaredMethod(singularMethod);
+				String name = (String) declaredMethod.invoke(ann);
+				if(name.equals(elementName) || name.isEmpty()) { //empty means for all tabs or views
+					return ann;
+				}
+			} catch (Exception e) {
+			}
+			
+			try {
+				Method declaredMethod = annotationType.getDeclaredMethod(pluralMethod);
+				String[] names = (String[]) declaredMethod.invoke(ann);
+				if(names.length == 0) //which means for all tabs or views
+					return ann;
+				
+				for (String name : names) {
+					if(name.equals(elementName)) {
+						return ann;
+					}
+				}
+			} catch (Exception e) {
+			}
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T extends Annotation> T findWidget(Class<? extends Annotation> wrapper,
+			Class<T> type, String widgetName, Class<?> entity) throws Exception {
+		Annotation ann = entity.getAnnotation(wrapper);
+		if(ann != null) {
+			Class<? extends Annotation> annotationType = ann.annotationType();
+			
+			Method declaredMethod = annotationType.getDeclaredMethod("value");
+			T[] types = (T[]) declaredMethod.invoke(ann);
+			for (T t : types) {
+				declaredMethod = t.getClass().getDeclaredMethod("name");
+				String name = (String) declaredMethod.invoke(t);
+				if(name.equals(widgetName))
+					return t;
+			}
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T extends Annotation> T findWidgetConfig(Class<? extends Annotation> wrapper,
+			Class<T> type, String widgetConfigName, Class<?> entity) throws Exception {
+		Annotation ann = entity.getAnnotation(wrapper);
+		if(ann != null) {
+			Class<? extends Annotation> annotationType = ann.annotationType();
+			
+			Method declaredMethod = annotationType.getDeclaredMethod("value");
+			T[] types = (T[]) declaredMethod.invoke(ann);
+			for (T t : types) {
+				declaredMethod = t.getClass().getDeclaredMethod("name");
+				String name = (String) declaredMethod.invoke(t);
+				if(name.equals(widgetConfigName))
+					return t;
+			}
+		}
+		return null;
 	}
 }

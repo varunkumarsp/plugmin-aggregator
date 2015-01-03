@@ -9,7 +9,7 @@ import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.openxava.annotations.extended.vo.PlugminEventListener;
+import org.openxava.annotations.extended.ui.config.vo.PlugminEventListener;
 import org.openxava.annotations.parse.EntityUtil;
 import org.plugmin.core.service.DataSourceRequest;
 import org.plugmin.core.service.DataSourceResult;

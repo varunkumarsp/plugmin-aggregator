@@ -1,6 +1,6 @@
 package org.openxava.application.meta;
 
-import java.io.*;
+import java.io.Serializable;
 
 
 

@@ -1,7 +1,8 @@
 package org.openxava.web;
 
-import javax.servlet.http.*;
-import org.openxava.controller.*;
+import javax.servlet.http.HttpServletRequest;
+
+import org.openxava.controller.ModuleContext;
 
 /**
  * To decorate ids used for HTML elements.

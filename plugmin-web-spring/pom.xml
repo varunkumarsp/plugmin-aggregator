@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.plugmin</groupId>
 		<artifactId>plugmin-aggregator</artifactId>
-		<version>1.2</version>
+		<version>1.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>plugmin-web-spring</artifactId>
 	<version>1.2-SNAPSHOT</version>

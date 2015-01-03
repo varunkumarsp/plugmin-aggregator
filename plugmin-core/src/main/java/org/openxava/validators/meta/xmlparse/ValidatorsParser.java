@@ -3,10 +3,14 @@ package org.openxava.validators.meta.xmlparse;
 
 
 
-import org.openxava.util.*;
-import org.openxava.util.xmlparse.*;
-import org.openxava.validators.meta.*;
-import org.w3c.dom.*;
+import org.openxava.util.XavaException;
+import org.openxava.util.xmlparse.ParserBase;
+import org.openxava.validators.meta.MetaValidator;
+import org.openxava.validators.meta.MetaValidatorFor;
+import org.openxava.validators.meta.MetaValidators;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 
 /**

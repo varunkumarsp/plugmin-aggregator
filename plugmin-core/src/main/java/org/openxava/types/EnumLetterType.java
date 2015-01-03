@@ -1,15 +1,20 @@
 package org.openxava.types;
 
-import java.io.*;
-import java.sql.*;
-import java.util.*;
+import java.io.Serializable;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.Properties;
 
-import org.apache.commons.logging.*;
-import org.hibernate.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
-import org.hibernate.usertype.UserType;
 import org.hibernate.usertype.ParameterizedType;
-import org.openxava.util.*;
+import org.hibernate.usertype.UserType;
+import org.openxava.util.Is;
+import org.openxava.util.XavaResources;
 
 /**
  * In java an Enum and in database a letter corresponding

@@ -1,8 +1,8 @@
 package org.openxava.actions;
 
 
-import org.openxava.controller.*;
-import org.openxava.util.*;
+import org.openxava.controller.Environment;
+import org.openxava.util.Messages;
 
 
 /**

@@ -28,6 +28,13 @@ public class GridRestController {
 	@Autowired
 	Environment env;
 	
+
+	@RequestMapping(value = "/components/clear", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean clear() throws Exception {
+		gridService.clear();
+		return true;
+	}
 	
 	@RequestMapping(value = "/create/{entity}", method = { RequestMethod.GET,
 			RequestMethod.POST })

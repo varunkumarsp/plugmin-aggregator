@@ -1,17 +1,33 @@
 package org.openxava.model.impl;
 
-import java.io.*;
-import java.rmi.*;
-import java.util.*;
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
 
-import javax.ejb.*;
-import javax.persistence.*;
+import javax.ejb.CreateException;
+import javax.ejb.DuplicateKeyException;
+import javax.ejb.FinderException;
+import javax.ejb.ObjectNotFoundException;
 
-import org.apache.commons.logging.*;
-import org.openxava.mapping.*;
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
-import org.openxava.validators.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.mapping.PropertyMapping;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.IPropertiesContainer;
+import org.openxava.util.Is;
+import org.openxava.util.Maps;
+import org.openxava.util.PropertiesManager;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
+import org.openxava.validators.ValidationException;
 
 /**
  * Abstract class for create <i>Persistence Providers</i> based in POJOs. <p>

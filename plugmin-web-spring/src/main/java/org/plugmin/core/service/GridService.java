@@ -20,4 +20,8 @@ public interface GridService {
 	DataSourceResult update(List<Map<String, Object>> models, MetaTab metaTab) throws Exception;
 
 	DataSourceResult delete(List<Map<String, Object>> models, MetaTab metaTab) throws Exception;
+
+	void configureViewSection(MetaTab metaTab) throws Exception;
+
+	void clear() throws Exception;
 }

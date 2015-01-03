@@ -1,7 +1,13 @@
 package org.openxava.view.meta;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.openxava.annotations.Tree;
 import org.openxava.tab.meta.MetaRowStyle;

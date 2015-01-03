@@ -1,12 +1,12 @@
 package org.openxava.ejbx;
 
-import javax.naming.*;
+import javax.naming.Context;
+import javax.naming.NamingException;
 
-
-
-import org.apache.commons.logging.*;
-import org.openxava.converters.ValidValuesStringConverter;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.util.InitException;
+import org.openxava.util.XavaResources;
 
 /**
  * It provides the default context to look up <i>Enterprise JavaBeans</i>. <p>

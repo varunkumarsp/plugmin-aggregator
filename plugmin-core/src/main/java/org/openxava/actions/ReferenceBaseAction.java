@@ -1,10 +1,10 @@
 package org.openxava.actions;
 
-import javax.inject.*;
+import javax.inject.Inject;
 
-import org.openxava.util.*;
-import org.openxava.view.*;
-import org.openxava.web.*;
+import org.openxava.util.XavaException;
+import org.openxava.view.View;
+import org.openxava.web.DescriptionsLists;
 
 /**
  * @author Javier Paniza

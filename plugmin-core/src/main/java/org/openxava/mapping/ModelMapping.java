@@ -1,15 +1,34 @@
 package org.openxava.mapping;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 
-import org.apache.commons.logging.*;
-import org.openxava.component.*;
-import org.openxava.converters.*;
-import org.openxava.hibernate.*;
-import org.openxava.jpa.*;
-import org.openxava.model.meta.*;
-import org.openxava.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.component.MetaComponent;
+import org.openxava.converters.IConverter;
+import org.openxava.converters.IMultipleConverter;
+import org.openxava.hibernate.XHibernate;
+import org.openxava.jpa.XPersistence;
+import org.openxava.model.meta.MetaEntity;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.model.meta.MetaProperty;
+import org.openxava.model.meta.MetaReference;
+import org.openxava.util.DataSourceConnectionProvider;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.Is;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaPreferences;
+import org.openxava.util.XavaResources;
 
 /**
  * @author Javier Paniza

@@ -1,12 +1,15 @@
 package org.openxava.application.meta;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-
-
-import org.openxava.application.meta.xmlparse.*;
-import org.openxava.util.*;
+import org.openxava.application.meta.xmlparse.ApplicationParser;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.XavaException;
 
 /**
  * 

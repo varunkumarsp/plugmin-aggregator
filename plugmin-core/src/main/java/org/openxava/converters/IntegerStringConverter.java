@@ -1,6 +1,7 @@
 package org.openxava.converters;
 
-import org.apache.commons.logging.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * In java an int and in database a String.

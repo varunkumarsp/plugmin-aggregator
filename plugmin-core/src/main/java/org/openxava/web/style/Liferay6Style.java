@@ -1,6 +1,7 @@
 package org.openxava.web.style;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * 

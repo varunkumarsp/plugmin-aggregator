@@ -1,8 +1,8 @@
 package org.openxava.tab.impl;
 
-import java.util.*;
+import java.util.Vector;
 
-import javax.swing.table.*;
+import javax.swing.table.TableModel;
 
 /**
  * <code>TableModel</code> that allows put and get all data in <code>Vector</code>

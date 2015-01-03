@@ -1,10 +1,15 @@
 package org.openxava.formatters;
 
-import java.text.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
-import org.openxava.util.*;
+import org.openxava.util.Is;
+import org.openxava.util.Locales;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaResources;
 
 /**
  * Date and time formatter with multilocale support. <p>

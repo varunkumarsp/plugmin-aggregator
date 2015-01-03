@@ -1,14 +1,27 @@
 package org.openxava.controller.meta;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
 
-import javax.servlet.*;
+import javax.servlet.ServletRequest;
 
-import org.apache.commons.logging.*;
-import org.openxava.actions.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.actions.IAction;
+import org.openxava.util.Is;
+import org.openxava.util.Labels;
+import org.openxava.util.PropertiesManager;
+import org.openxava.util.Strings;
+import org.openxava.util.XavaException;
+import org.openxava.util.XavaResources;
+import org.openxava.util.meta.MetaElement;
+import org.openxava.util.meta.MetaSet;
 
 /**
  * 

@@ -2,8 +2,9 @@ package org.openxava.model.meta;
 
 
 
-import org.openxava.component.*;
-import org.openxava.util.*;
+import org.openxava.component.MetaComponent;
+import org.openxava.util.ElementNotFoundException;
+import org.openxava.util.XavaException;
 
 
 /**

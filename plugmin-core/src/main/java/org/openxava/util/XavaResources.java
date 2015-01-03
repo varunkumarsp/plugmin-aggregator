@@ -1,11 +1,12 @@
 package org.openxava.util;
 
-import java.util.*;
+import java.util.Locale;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * To obtain i18n values from OpenXava resource files. <p>

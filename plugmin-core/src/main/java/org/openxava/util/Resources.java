@@ -1,7 +1,9 @@
 package org.openxava.util;
 
-import java.io.*;
-import java.net.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  * @author Javier Paniza

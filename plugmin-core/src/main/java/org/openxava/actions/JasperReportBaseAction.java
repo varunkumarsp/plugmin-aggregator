@@ -1,17 +1,24 @@
 package org.openxava.actions;
 
-import java.io.*;
-import java.sql.*;
-import java.text.*;
-import java.util.*;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
-import javax.servlet.*;
+import javax.servlet.ServletContext;
 
-import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 
-import org.openxava.jpa.*;
-import org.openxava.util.*;
+import org.openxava.jpa.XPersistence;
+import org.openxava.util.DataSourceConnectionProvider;
+import org.openxava.util.Is;
+import org.openxava.util.XavaException;
 
 /**
  * To generate your custom Jasper Report. <p>

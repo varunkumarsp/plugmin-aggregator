@@ -1,6 +1,6 @@
 package org.openxava.tab.impl;
 
-import javax.swing.table.*;
+import javax.swing.table.TableModel;
 
 /**
  * A <code>TablaModel</code> that can refresh data. <p>

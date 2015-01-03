@@ -1,6 +1,6 @@
 package org.openxava.filters;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
 
 

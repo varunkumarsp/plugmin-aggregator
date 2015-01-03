@@ -1,11 +1,13 @@
 package org.openxava.model.meta;
 
-import java.io.*;
+import java.io.Serializable;
 
-import org.apache.commons.logging.*;
-import org.openxava.calculators.*;
-import org.openxava.util.*;
-import org.openxava.util.meta.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openxava.calculators.ICalculator;
+import org.openxava.calculators.IHibernateIdGeneratorCalculator;
+import org.openxava.util.XavaException;
+import org.openxava.util.meta.MetaSetsContainer;
 
 
 /**

@@ -1,6 +1,6 @@
 package org.openxava.session;
 
-import java.io.*;
+import java.io.Serializable;
 
 
 

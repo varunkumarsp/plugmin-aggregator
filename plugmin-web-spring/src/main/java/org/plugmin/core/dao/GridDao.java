@@ -3,7 +3,7 @@ package org.plugmin.core.dao;
 import java.io.Serializable;
 import java.util.Map;
 
-import org.openxava.annotations.extended.vo.PlugminEventListener;
+import org.openxava.annotations.extended.ui.config.vo.PlugminEventListener;
 import org.plugmin.core.service.DataSourceRequest;
 import org.plugmin.core.service.DataSourceResult;
 

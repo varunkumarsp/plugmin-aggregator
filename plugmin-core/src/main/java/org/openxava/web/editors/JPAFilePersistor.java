@@ -1,10 +1,12 @@
 package org.openxava.web.editors;
 
-import static org.openxava.jpa.XPersistence.*;
+import static org.openxava.jpa.XPersistence.commit;
+import static org.openxava.jpa.XPersistence.getManager;
 
-import java.util.*;
+import java.util.Collection;
 
-import javax.persistence.*;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  * An implementation of {@link IFilePersistor} <p>

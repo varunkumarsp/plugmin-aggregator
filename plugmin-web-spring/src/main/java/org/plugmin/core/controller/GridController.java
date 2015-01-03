@@ -71,7 +71,8 @@ public class GridController {
 		model.addAttribute("htmlClassAttribute", HTML_CLASS_ATTRS.get(drillDepth));
 		model.addAttribute("drillDepth", drillDepth + 1);
 		
-//		return "indianstage/grid-view/detail-template";
+		gridService.configureViewSection(metaTab);
+
 		return "grid-detail-template";
 	}
 
