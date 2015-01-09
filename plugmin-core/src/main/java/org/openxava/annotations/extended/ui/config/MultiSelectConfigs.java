@@ -1,15 +1,14 @@
-package org.openxava.annotations.extended.ui.config.grid;
+package org.openxava.annotations.extended.ui.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
-@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EnumValues {
+@Target({ ElementType.TYPE })
+public @interface MultiSelectConfigs {
 
-	String[] value();
+	MultiSelectConfig[] value();
 
 }

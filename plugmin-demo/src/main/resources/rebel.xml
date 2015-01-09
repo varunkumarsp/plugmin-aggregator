@@ -8,6 +8,11 @@
 
 	<web>
 		<link target="/">
+			<dir name="E:/varun/plugmin-project/plugmin-aggregator/plugmin-demo/target/m2e-wtp/web-resources">
+				<exclude name="/"/>
+			</dir>
+		</link>
+		<link target="/">
 			<dir name="E:/varun/plugmin-project/plugmin-aggregator/plugmin-demo/src/main/webapp">
 			</dir>
 		</link>

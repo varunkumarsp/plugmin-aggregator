@@ -60,21 +60,31 @@ public class MetaComponentServiceLazyImpl implements MetaComponentService, Servl
 	
 	@Override
 	public MetaComponent find(String entity) throws Exception {
-		for(MetaComponent component : metaComponents) {
-			String compName = component.getName().toLowerCase().substring(component.getName().lastIndexOf('.') + 1);
-			if(compName.equals(entity.toLowerCase()))
-				return component;
+		MetaComponent component = null;
+		
+		for(MetaComponent component_ : metaComponents) {
+			String compName = component_.getName().toLowerCase().substring(component_.getName().lastIndexOf('.') + 1);
+			if(compName.equals(entity.toLowerCase())) {
+				component = component_;
+				break;
+			}
 		}
 		
-		synchronized (parser) {
-			MetaComponent metaComponent = parser.parse(StringUtils.capitalize(entity));
-	   		metaComponents.add(metaComponent);
-	   		parser.parse2ndPhase(metaComponent, metaComponents, false);
+		if(component == null) {
+			synchronized (parser) {
+				MetaComponent component_ = parser.parse(StringUtils.capitalize(entity));
+		   		metaComponents.add(component_);
+		   		parser.parse2ndPhase(component_, metaComponents, false);
 
-	   		logger.info("MetaComponents Size: " + metaComponents.size());
-	   		
-	   		return metaComponent;
+		   		logger.info("MetaComponents Size: " + metaComponents.size());
+		   		
+		   		component = component_;
+			}
 		}
+
+		if(!component.isDoneParsing3rdPhase())
+			parser.parse3rdPhase(component, metaComponents, false);
+		return component;
 	}
 
 	@SuppressWarnings("unchecked")

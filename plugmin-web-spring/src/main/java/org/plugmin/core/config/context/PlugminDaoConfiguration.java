@@ -16,6 +16,9 @@ import org.plugmin.core.dao.GridDaoJpaImpl;
 import org.plugmin.core.dao.MetaComponentDao;
 import org.plugmin.core.dao.MetaComponentDaoHibernateImpl;
 import org.plugmin.core.dao.MetaComponentDaoJpaImpl;
+import org.plugmin.core.dao.ViewDao;
+import org.plugmin.core.dao.ViewDaoHibernateImpl;
+import org.plugmin.core.dao.ViewDaoJpaImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -107,6 +110,25 @@ public class PlugminDaoConfiguration implements TransactionManagementConfigurer,
 		gridDao.setEventListener(plugminEventListener);
 		
         return gridDao;
+    }
+	
+	@Bean
+    public ViewDao viewDao() {
+		ViewDao viewDao;
+		if(entityManagerFactory != null) {
+			viewDao = new ViewDaoJpaImpl();
+		} else {
+			viewDao = new ViewDaoHibernateImpl(sessionFactory);
+		}
+		
+		PlugminEventListener plugminEventListener = null;
+		try {
+			plugminEventListener = parentBeanFactory.getBean(PlugminEventListener.class);
+		} catch (NoSuchBeanDefinitionException e) {
+		}
+		viewDao.setEventListener(plugminEventListener);
+		
+        return viewDao;
     }
 
 	@Override

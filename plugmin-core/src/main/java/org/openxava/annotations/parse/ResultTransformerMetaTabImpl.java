@@ -7,14 +7,14 @@ import java.util.Map;
 
 import org.hibernate.transform.ResultTransformer;
 
-public class GridResultTransformer implements ResultTransformer {
+public class ResultTransformerMetaTabImpl implements ResultTransformer {
 
 	private static final long serialVersionUID = 1L;
 	
 	private FieldResolver fieldResolver;
 	
 
-	public GridResultTransformer(FieldResolver fieldResolver) {
+	public ResultTransformerMetaTabImpl(FieldResolver fieldResolver) {
 		this.fieldResolver = fieldResolver;
 	}
 

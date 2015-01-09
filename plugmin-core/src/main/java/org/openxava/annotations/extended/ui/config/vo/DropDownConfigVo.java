@@ -1,12 +1,14 @@
 package org.openxava.annotations.extended.ui.config.vo;
 
 import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openxava.annotations.extended.CompositeField;
 import org.openxava.annotations.extended.ui.config.DropDownConfig;
@@ -128,7 +130,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setAutoBind(Boolean autoBind) {
-		this.autoBind = autoBind;
+		if(autoBind != null)
+			this.autoBind = autoBind;
 	}
 
 	public String getCascadeFrom() {
@@ -136,7 +139,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setCascadeFrom(String cascadeFrom) {
-		this.cascadeFrom = cascadeFrom;
+		if(isNotEmpty(cascadeFrom))
+			this.cascadeFrom = cascadeFrom;
 	}
 
 	public String getCascadeFromField() {
@@ -144,7 +148,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setCascadeFromField(String cascadeFromField) {
-		this.cascadeFromField = cascadeFromField;
+		if(isNotEmpty(cascadeFromField))
+			this.cascadeFromField = cascadeFromField;
 	}
 
 	public DataSourceVo getDataSourceObj() {
@@ -160,7 +165,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setDataSourceArray(String[] dataSourceArray) {
-		this.dataSourceArray = dataSourceArray;
+		if(ArrayUtils.isNotEmpty(dataSourceArray))
+			this.dataSourceArray = dataSourceArray;
 	}
 
 	public String getDataTextField() {
@@ -168,7 +174,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setDataTextField(String dataTextField) {
-		this.dataTextField = dataTextField;
+		if(isNotEmpty(dataTextField))
+			this.dataTextField = dataTextField;
 	}
 
 	public String getDataValueField() {
@@ -176,7 +183,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setDataValueField(String dataValueField) {
-		this.dataValueField = dataValueField;
+		if(isNotEmpty(dataValueField))
+			this.dataValueField = dataValueField;
 	}
 
 	public Integer getDelay() {
@@ -184,7 +192,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setDelay(Integer delay) {
-		this.delay = delay;
+		if(delay != null && delay != -1)
+			this.delay = delay;
 	}
 
 	public Operator getFilter() {
@@ -192,7 +201,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setFilter(Operator filter) {
-		this.filter = filter;
+		if(filter != null && filter.getValue() != null)
+			this.filter = filter;
 	}
 
 	public Integer getHeight() {
@@ -200,7 +210,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setHeight(Integer height) {
-		this.height = height;
+		if(delay != null && delay != -1)
+			this.height = height;
 	}
 
 	public Boolean getIgnoreCase() {
@@ -208,7 +219,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setIgnoreCase(Boolean ignoreCase) {
-		this.ignoreCase = ignoreCase;
+		if(ignoreCase != null)
+			this.ignoreCase = ignoreCase;
 	}
 
 	public Integer getIndex() {
@@ -216,6 +228,7 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setIndex(Integer index) {
+		if(index != null && index != -1)
 		this.index = index;
 	}
 
@@ -224,7 +237,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setMinLength(Integer minLength) {
-		this.minLength = minLength;
+		if(minLength != null && minLength != -1)
+			this.minLength = minLength;
 	}
 
 	public String getOptionLabel() {
@@ -232,7 +246,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setOptionLabel(String optionLabel) {
-		this.optionLabel = optionLabel;
+		if(isNotEmpty(optionLabel))
+			this.optionLabel = optionLabel;
 	}
 
 	public String getHeaderTemplateStr() {
@@ -240,7 +255,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setHeaderTemplateStr(String headerTemplateStr) {
-		this.headerTemplateStr = headerTemplateStr;
+		if(isNotEmpty(headerTemplateStr))
+			this.headerTemplateStr = headerTemplateStr;
 	}
 
 	public String getHeaderTemplateFn() {
@@ -248,7 +264,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setHeaderTemplateFn(String headerTemplateFn) {
-		this.headerTemplateFn = headerTemplateFn;
+		if(isNotEmpty(headerTemplateFn))
+			this.headerTemplateFn = headerTemplateFn;
 	}
 
 	public String getTemplateStr() {
@@ -256,7 +273,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setTemplateStr(String templateStr) {
-		this.templateStr = templateStr;
+		if(isNotEmpty(templateStr))
+			this.templateStr = templateStr;
 	}
 
 	public String getTemplateFn() {
@@ -264,7 +282,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setTemplateFn(String templateFn) {
-		this.templateFn = templateFn;
+		if(isNotEmpty(templateFn))
+			this.templateFn = templateFn;
 	}
 
 	public String getValueTemplateStr() {
@@ -272,7 +291,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setValueTemplateStr(String valueTemplateStr) {
-		this.valueTemplateStr = valueTemplateStr;
+		if(isNotEmpty(valueTemplateStr))
+			this.valueTemplateStr = valueTemplateStr;
 	}
 
 	public String getValueTemplateFn() {
@@ -280,7 +300,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setValueTemplateFn(String valueTemplateFn) {
-		this.valueTemplateFn = valueTemplateFn;
+		if(isNotEmpty(valueTemplateFn))
+			this.valueTemplateFn = valueTemplateFn;
 	}
 
 	public String getText() {
@@ -288,7 +309,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setText(String text) {
-		this.text = text;
+		if(isNotEmpty(text))
+			this.text = text;
 	}
 
 	public String getValue() {
@@ -296,7 +318,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setValue(String value) {
-		this.value = value;
+		if(isNotEmpty(value))
+			this.value = value;
 	}
 
 	public Boolean getValuePrimitive() {
@@ -304,7 +327,8 @@ public class DropDownConfigVo implements JsFieldValueResolver, JsonKeyValuesProv
 	}
 
 	public void setValuePrimitive(Boolean valuePrimitive) {
-		this.valuePrimitive = valuePrimitive;
+		if(valuePrimitive != null)
+			this.valuePrimitive = valuePrimitive;
 	}
 
 	public List<EventVo> getEvents() {

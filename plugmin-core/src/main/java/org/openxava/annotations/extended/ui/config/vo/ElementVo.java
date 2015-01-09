@@ -4,7 +4,10 @@ import static org.istage.util.AdminUtil.titleFromFieldName;
 import static org.openxava.annotations.parse.ComponentUtil.autocompleteConfig;
 import static org.openxava.annotations.parse.ComponentUtil.createAutocomplete;
 import static org.openxava.annotations.parse.ComponentUtil.createDropDown;
+import static org.openxava.annotations.parse.ComponentUtil.createEnumComboBox;
 import static org.openxava.annotations.parse.ComponentUtil.createEnumDropDown;
+import static org.openxava.annotations.parse.ComponentUtil.createEnumMultiSelect;
+import static org.openxava.annotations.parse.ComponentUtil.datePickerConfig;
 import static org.openxava.annotations.parse.ComponentUtil.dateTimePickerConfig;
 import static org.openxava.annotations.parse.ComponentUtil.dropDownConfig;
 import static org.openxava.annotations.parse.ComponentUtil.editorConfig;
@@ -13,6 +16,7 @@ import static org.openxava.annotations.parse.ComponentUtil.jsFunctions;
 import static org.openxava.annotations.parse.ComponentUtil.numericTextBoxConfig;
 import static org.openxava.annotations.parse.ComponentUtil.registerAutocomplete;
 import static org.openxava.annotations.parse.ComponentUtil.registerDropDown;
+import static org.openxava.annotations.parse.ComponentUtil.timePickerConfig;
 import static org.openxava.annotations.parse.ComponentUtil.uploadConfig;
 import static org.openxava.annotations.parse.EntityUtil._isIdField;
 import static org.openxava.annotations.parse.EntityUtil.hasCompositePrimaryKey;
@@ -30,29 +34,36 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
 import org.openxava.FeatureNotImplementedException;
-import org.openxava.annotations.Stereotype;
 import org.openxava.annotations.extended.CascadeDropdown;
 import org.openxava.annotations.extended.Label;
+import org.openxava.annotations.extended.ui.config.ComboBoxConfig;
 import org.openxava.annotations.extended.ui.config.DropDownConfig;
+import org.openxava.annotations.extended.ui.config.MultiSelectConfig;
+import org.openxava.annotations.extended.ui.config.defaults.DefaultComboBoxConfig;
 import org.openxava.annotations.extended.ui.config.defaults.DefaultDropDownConfig;
-import org.openxava.annotations.extended.ui.config.defaults.upload.MultipleFileUploadConfig;
-import org.openxava.annotations.extended.ui.config.defaults.upload.MultipleImageUploadConfig;
-import org.openxava.annotations.extended.ui.config.defaults.upload.SingleFileUploadConfig;
-import org.openxava.annotations.extended.ui.config.defaults.upload.SingleImageUploadConfig;
-import org.openxava.annotations.extended.ui.config.grid.EnumValues;
+import org.openxava.annotations.extended.ui.config.defaults.DefaultMultiSelectConfig;
+import org.openxava.annotations.extended.ui.config.grid.UseEnumComboBox;
+import org.openxava.annotations.extended.ui.config.grid.UseEnumDropDown;
+import org.openxava.annotations.extended.ui.config.grid.UseEnumMultiSelect;
 import org.openxava.annotations.extended.ui.config.vo.editor.EditorConfigVo;
 import org.openxava.annotations.extended.ui.use.UseAutocomplete;
+import org.openxava.annotations.extended.ui.use.UseDatePicker;
+import org.openxava.annotations.extended.ui.use.UseDateTimePicker;
+import org.openxava.annotations.extended.ui.use.UseEditor;
+import org.openxava.annotations.extended.ui.use.UseNumericTextBox;
+import org.openxava.annotations.extended.ui.use.UseTimePicker;
+import org.openxava.annotations.extended.ui.use.UseUpload;
 import org.openxava.annotations.parse.JsonUtil;
 import org.openxava.autocomplete.MetaAutocomplete;
 import org.openxava.component.MetaComponent;
+import org.openxava.dropdown.MetaComboBox;
 import org.openxava.dropdown.MetaDropDown;
+import org.openxava.dropdown.MetaMultiSelect;
 import org.openxava.model.meta.MetaEntity;
 import org.openxava.view.meta.MetaView;
 import org.slf4j.Logger;
@@ -62,19 +73,23 @@ public class ElementVo {
 
 	private static Logger logger = LoggerFactory.getLogger(ElementVo.class);
 	
-	private List<Map<String, String>> values;
 	private Boolean editable = true;
 	private Boolean idField = false;
 	private MetaView metaView;
 	private boolean serializeConfig = false;
 	private WidgetConfig widgetConfig;
-	private AngularScope angularScope;
+	private AngularScope angularScope_core;
+	private List<AngularScope> angularScopes = new ArrayList<AngularScope>();
 	private Element element;
 	private Element element_core;
 	private String ngModel;
 	private String field_;
 	private String configName;
 	private String dataField;
+	
+	private boolean foreignEntity;
+	private String foreignEntityIdField;
+	private String field;
 	
 
 	public ElementVo(String field, Field metaField, MetaView metaView, List<MetaComponent> metaComponents, boolean serializeConfig) throws Exception {
@@ -83,11 +98,13 @@ public class ElementVo {
 			setMetaView(metaView);
 			MetaEntity metaEntity = metaView.getMetaComponent().getMetaEntity();
 			Class<?> entity = metaEntity.getPOJOClass();
+		
+			this.field = field;
 			
 			field_ = field.replaceAll("\\.", "_");
 			dataField = field_;
 			ngModel = entity.getSimpleName() + "." + field_;
-			configName = field_ + "_config";
+			configName = field_ + "_" + metaView.getName() + "_config";
 			
 			if(isForeignEntity_(field, metaEntity)) {
 				if(isManyToOne(field, entity)) {
@@ -95,6 +112,7 @@ public class ElementVo {
 					if(field.contains(".")) {
 						ui(field, entity, metaComponents);
 					} else {
+						foreignEntity = true;
 						configureManyToOneColumn(field, metaView, metaComponents);
 					}
 				} else if(isOneToOne(field, entity)){
@@ -104,6 +122,7 @@ public class ElementVo {
 					} else {
 						String nameField = nameField(entity.getDeclaredField(field).getType());
 						field = field + "." + nameField;
+						this.field = field;
 						configureOneToOneColumn(field, metaView, metaComponents, false);
 					}
 				}
@@ -113,6 +132,9 @@ public class ElementVo {
 				if(_isIdField(metaField, metaEntity))
 					configureIdColumn();
 			}
+			
+			if(angularScope_core != null)
+				angularScopes.add(angularScope_core);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -162,7 +184,7 @@ public class ElementVo {
 			logger.error(msg, new FeatureNotImplementedException(msg));
 		}
 		
-		String foreignEntityIdField = idField(foreignEntity);
+		foreignEntityIdField = idField(foreignEntity);
 		String foreignEntityNameField = nameField(foreignEntity);
 
 		StringBuffer cascadeFrom = new StringBuffer(); //StringBuffer is used to mutate the variable in another method
@@ -179,8 +201,7 @@ public class ElementVo {
 		MetaDropDown metaDropDown = createDropDown(dropDownConfig(metaView, metaField), dropdownName, foreignEntityIdField, foreignEntityNameField, cascadeFrom.toString(), cascadeFromField.toString(), foreignComponent, serializeConfig);
 		registerDropDown(metaDropDown, foreignComponent, metaComponents);
 		
-		ngModel = ngModel + "_" + foreignEntityIdField;
-		dataField = dataField + "_" + foreignEntityIdField;
+		ngModel = ngModel + "." + foreignEntityIdField;
 		element_core.append("<select id='" + field_ + "' kendo-drop-down-list class='' ng-model='" + ngModel + "' k-options='" + field_ + "'></select>");
 
 		String json = null;
@@ -188,7 +209,7 @@ public class ElementVo {
 			json = JsonUtil.toJson(metaDropDown.getConfig());
 		
 		widgetConfig = new WidgetConfig(configName, metaDropDown.getConfig(), json);
-		angularScope = new AngularScope("$scope." + field_, configName);
+		angularScope_core = new AngularScope("$scope." + field_, configName);
 		
 		List<String> jsFunctions = metaView.getJsFunctions();
 		jsFunctions.addAll(jsFunctions(dropdownName, metaDropDown));
@@ -250,7 +271,7 @@ public class ElementVo {
 			field_ = field.replaceAll("\\.", "_");
 			dataField = field_;
 			ngModel = entity.getSimpleName() + "." + field_;
-			configName = field_ + "_config";
+			configName = field_ + "_" + metaView.getName() + "_config";
 		}
 		
 		UseAutocomplete useAutocomplete = findAnnotation(UseAutocomplete.class, metaField, metaView);
@@ -274,7 +295,7 @@ public class ElementVo {
 			if(serializeConfig)
 				json = JsonUtil.toJson(metaAutocomplete.getConfig());
 			
-			angularScope = new AngularScope("$scope." + field_, configName);
+			angularScope_core = new AngularScope("$scope." + field_, configName);
 			widgetConfig = new WidgetConfig(configName, metaAutocomplete.getConfig(), json);
 			
 			List<String> jsFunctions = metaView.getJsFunctions();
@@ -298,99 +319,128 @@ public class ElementVo {
 
 		Class<?> type = metaField.getType();
 		
-		Stereotype stereotype_ = metaField.getAnnotation(Stereotype.class);
-		EnumValues enum_ = metaField.getAnnotation(EnumValues.class);
-
-		if(stereotype_ != null) {
-			String stereotype = stereotype_.value().toLowerCase();
-			if(stereotype.equals("wysiwyg_editor")) {
-				html = "<textarea style='width: 200%; height: 5em' kendo-editor ng-model='" + getNgModel() + "' k-options='" + field_ + "'></textarea>";
-				config = new EditorConfigVo(editorConfig(metaView, metaField));
-				element.getElementsByClass("plugmin-field-value").addClass("width-x2");
-			} else if(stereotype.equals("single_image_uploader")) {
-				html = "<input type='file' name='files' kendo-upload k-options='" + field_ + "' />"; 
-				config = new UploadConfigVo(uploadConfig(metaView, metaField, SingleImageUploadConfig.class));
-			} else if(stereotype.equals("multiple_image_uploader")) {
-				html = "<input type='file' name='files' kendo-upload k-options='" + field_ + "' />"; 
-				config = new UploadConfigVo(uploadConfig(metaView, metaField, MultipleImageUploadConfig.class));
-			} else if(stereotype.equals("single_file_uploader")) {
-				html = "<input type='file' name='files' kendo-upload k-options='" + field_ + "' />";
-				config = new UploadConfigVo(uploadConfig(metaView, metaField, SingleFileUploadConfig.class));
-			} else if(stereotype.equals("multiple_file_uploader")) {
-				html = "<input type='file' name='files' kendo-upload k-options='" + field_ + "' />";
-				config = new UploadConfigVo(uploadConfig(metaView, metaField, MultipleFileUploadConfig.class));
-			}
-		} else if(enum_ != null) {
-			MetaDropDown enumDropDown = configureEnumColumn(field, enum_);
+		UseEnumDropDown useEnumDropDown = metaField.getAnnotation(UseEnumDropDown.class);
+		UseEnumMultiSelect useEnumMultiSelect = metaField.getAnnotation(UseEnumMultiSelect.class);
+		UseEnumComboBox useEnumComboBox = metaField.getAnnotation(UseEnumComboBox.class);
+		UseEditor useEditor = findAnnotation(UseEditor.class, metaField, metaView);
+		UseUpload useUpload = findAnnotation(UseUpload.class, metaField, metaView);
+		UseDateTimePicker useDateTimePicker = findAnnotation(UseDateTimePicker.class, metaField, metaView);
+		UseDatePicker useDatePicker = findAnnotation(UseDatePicker.class, metaField, metaView);
+		UseTimePicker useTimePicker = findAnnotation(UseTimePicker.class, metaField, metaView);
+		UseNumericTextBox useNumericTextBox = findAnnotation(UseNumericTextBox.class, metaField, metaView);
+		UseAutocomplete useAutocomplete = findAnnotation(UseAutocomplete.class, metaField, metaView);
+		
+		if(useEnumDropDown != null) {
+			MetaDropDown enumDropDown = configureEnumDropdown(field, useEnumDropDown);
 			html = "<select id='" + field_ + "' kendo-drop-down-list class='' ng-model='" + ngModel + "' k-options='" + field_ + "'></select>";
 			config = enumDropDown.getConfig();
-		} else {
-			if(type.equals(java.lang.Integer.class)) {
-				html = "<input kendo-numeric-text-box ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
-				config = new NumericTextBoxConfigVo(numericTextBoxConfig(metaView, metaField));
-			} else if(type.equals(java.lang.Boolean.class)) {
-				html = "<input type='radio' ng-model='" + getNgModel() + "' />";
-			} else if(type.equals(java.lang.Long.class)) {
-				html = "<input kendo-numeric-text-box ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
-				config = new NumericTextBoxConfigVo(numericTextBoxConfig(metaView, metaField));
-			} else if(type.equals(java.lang.Double.class)) {
-				html = "<input kendo-numeric-text-box ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
-				config = new NumericTextBoxConfigVo(numericTextBoxConfig(metaView, metaField));
-			} else if(type.equals(java.lang.Float.class)) {
-				html = "<input kendo-numeric-text-box ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
-				config = new NumericTextBoxConfigVo(numericTextBoxConfig(metaView, metaField));
-			}  else if(type.equals(BigDecimal.class)) {
-				html = "<input kendo-numeric-text-box ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
-				config = new NumericTextBoxConfigVo(numericTextBoxConfig(metaView, metaField));
-			} else if(type.equals(String.class)) {
-				html = "<input type='text' class='k-textbox ' ng-model='" + getNgModel() + "' />";
-			} else if(type.equals(Calendar.class)) {
-				html = "<input kendo-date-time-picker ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
-				config = new DateTimePickerConfigVo(dateTimePickerConfig(metaView, metaField));
-			} else if(type.equals(Date.class)) {
-				html = "<input kendo-date-time-picker ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
-				config = new DateTimePickerConfigVo(dateTimePickerConfig(metaView, metaField));
-			}
+		} else if(useEnumMultiSelect != null) {
+			MetaMultiSelect enumMultiSelect = configureEnumMultiSelect(field, useEnumMultiSelect);
+			html = "<select id='" + field_ + "' kendo-multi-select class='' ng-model='" + ngModel + "' k-options='" + field_ + "'></select>";
+			config = enumMultiSelect.getConfig();
+		} else if(useEnumComboBox != null) {
+			MetaComboBox enumComboBox = configureEnumComboBox(field, useEnumComboBox);
+			html = "<select id='" + field_ + "' kendo-combo-box class='' ng-model='" + ngModel + "' k-options='" + field_ + "'></select>";
+			config = enumComboBox.getConfig();
+		} else if(useEditor != null) {
+			html = "<textarea style='height: 5em' kendo-editor ng-model='" + getNgModel() + "' k-options='" + field_ + "'></textarea>";
+			config = new EditorConfigVo(editorConfig(metaView, metaField));
+			element.getElementsByClass("plugmin-field-value").addClass("width-x2");
+		} else if(useUpload != null) {
+			html = "<input type='file' name='files' kendo-upload k-select='" + field_ + "_changed' k-remove='" + field_ + "_removed' k-options='" + field_ + "' />";
+			
+			String fnChanged = "function(e) { \n" +
+                    		"\t var fileNames = $.map(e.files, function(file) { return file.name; }).join(', '); \n" +
+                    		"\t $scope." + entity.getSimpleName() + "." + field_ + " = fileNames; \n" +
+                    	"}";
+			
+			AngularScope fileNameChangedScope = new AngularScope("$scope." + field_ + "_changed", fnChanged);
+			angularScopes.add(fileNameChangedScope);
+			
+			String fnRemoved = "function(e) { \n" +
+            		"\t $scope." + entity.getSimpleName() + "." + field_ + " = null; \n" +
+            	"}";
+			
+			AngularScope fileNameRemovedScope = new AngularScope("$scope." + field_ + "_removed", fnRemoved);
+			angularScopes.add(fileNameRemovedScope);
+			
+			config = new UploadConfigVo(uploadConfig(metaView, metaField));
+		} else if(useDateTimePicker != null) {
+			html = "<input kendo-date-time-picker ng-model='" + getNgModel() + "' k-options='" + field_ + "' />"; 
+			config = new DateTimePickerConfigVo(dateTimePickerConfig(metaView, metaField));
+		} else if(useDatePicker != null) {
+			html = "<input kendo-date-time-picker ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
+			config = new DatePickerConfigVo(datePickerConfig(metaView, metaField));
+		} else if(useTimePicker != null) {
+			html = "<input kendo-date-time-picker ng-model='" + getNgModel() + "' k-options='" + field_ + "' />"; 
+			config = new TimePickerConfigVo(timePickerConfig(metaView, metaField));
+		} else if(useNumericTextBox != null) {
+			html = "<input kendo-numeric-text-box ng-model='" + getNgModel() + "' k-options='" + field_ + "' />"; 
+			config = new NumericTextBoxConfigVo(numericTextBoxConfig(metaView, metaField));
+		} else if(useAutocomplete != null) {
+			html = "<input type='text' kendo-auto-complete class='' ng-model='" + ngModel + "' k-options='" + field_ + "' />";
+			config = new AutocompleteConfigVo(autocompleteConfig(metaView, metaField));
+		} else if(type.equals(java.lang.Integer.class)) {
+			html = "<input kendo-numeric-text-box ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
+			config = new NumericTextBoxConfigVo(numericTextBoxConfig((UseNumericTextBox)null, null));
+		} else if(type.equals(java.lang.Boolean.class)) {
+			html = "<input type='radio' ng-model='" + getNgModel() + "' />";
+		} else if(type.equals(java.lang.Long.class)) {
+			html = "<input kendo-numeric-text-box ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
+			config = new NumericTextBoxConfigVo(numericTextBoxConfig((UseNumericTextBox)null, null));
+		} else if(type.equals(java.lang.Double.class)) {
+			html = "<input kendo-numeric-text-box ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
+			config = new NumericTextBoxConfigVo(numericTextBoxConfig((UseNumericTextBox)null, null));
+		} else if(type.equals(java.lang.Float.class)) {
+			html = "<input kendo-numeric-text-box ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
+			config = new NumericTextBoxConfigVo(numericTextBoxConfig((UseNumericTextBox)null, null));
+		}  else if(type.equals(BigDecimal.class)) {
+			html = "<input kendo-numeric-text-box ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
+			config = new NumericTextBoxConfigVo(numericTextBoxConfig((UseNumericTextBox)null, null));
+		} else if(type.equals(String.class)) {
+			html = "<input type='text' class='k-textbox ' ng-model='" + getNgModel() + "' />";
+		} else if(type.equals(Calendar.class)) {
+			html = "<input kendo-date-time-picker ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
+			config = new DateTimePickerConfigVo(dateTimePickerConfig((UseDateTimePicker)null, null));
+		} else if(type.equals(Date.class)) {
+			html = "<input kendo-date-time-picker ng-model='" + getNgModel() + "' k-options='" + field_ + "' />";
+			config = new DateTimePickerConfigVo(dateTimePickerConfig((UseDateTimePicker)null, null));
 		}
+			
 		
 		if(config != null) {
 			String json = null;
 			if(serializeConfig)
 				json = JsonUtil.toJson(config);
 			
-			angularScope = new AngularScope("$scope." + field_, configName);
+			angularScope_core = new AngularScope("$scope." + field_, configName);
 			widgetConfig = new WidgetConfig(configName, config, json);
 		}
 		
 		element_core.append(html);
 	}
 
-	private MetaDropDown configureEnumColumn(String field, EnumValues enumValues) throws Exception {
-		List<Map<String, String>> values = getValues_();
-		for (String enumValue : enumValues.value()) {
-			Map<String, String> map = new HashMap<String, String>(2);
-			map.put("text", enumValue);
-			map.put("value", enumValue);
-			values.add(map);
-		}
-		
+	private MetaDropDown configureEnumDropdown(String field, UseEnumDropDown enumValues) throws Exception {
 		String dropdownName = field + "_enum_" + "_dropdown_" + randomInt();
 		DropDownConfig config = DefaultDropDownConfig.class.getAnnotation(DropDownConfig.class);
 		MetaDropDown metaDropDown = createEnumDropDown(config, dropdownName, field, enumValues.value(), serializeConfig);
-		
-		String[] dataSourceArray = metaDropDown.getConfig().getDataSourceArray();
-		List<Map<String, String>> dataSource = new ArrayList<Map<String,String>>(dataSourceArray.length);
-		for (String item : dataSourceArray) {
-			Map<String, String> map = new HashMap<String, String>(1);
-			map.put(field, item);
-			dataSource.add(map);
-		}
-		
-		List<String> jsFunctions = getMetaView().getJsFunctions();
-		jsFunctions.addAll(jsFunctions(dropdownName, metaDropDown));
-		
 		return metaDropDown;
 	}
+	
+	private MetaMultiSelect configureEnumMultiSelect(String field, UseEnumMultiSelect enumValues) throws Exception {
+		String dropdownName = field + "_enum_" + "_dropdown_" + randomInt();
+		MultiSelectConfig config = DefaultMultiSelectConfig.class.getAnnotation(MultiSelectConfig.class);
+		MetaMultiSelect metaMultiSelect = createEnumMultiSelect(config, dropdownName, field, enumValues.value(), serializeConfig);
+		return metaMultiSelect;
+	}
+	
+	private MetaComboBox configureEnumComboBox(String field, UseEnumComboBox enumValues) throws Exception {
+		String dropdownName = field + "_enum_" + "_dropdown_" + randomInt();
+		ComboBoxConfig config = DefaultComboBoxConfig.class.getAnnotation(ComboBoxConfig.class);
+		MetaComboBox metaComboBox = createEnumComboBox(config, dropdownName, field, enumValues.value(), serializeConfig);
+		return metaComboBox;
+	}
+	
 
 	public Boolean isEditable() {
 		return editable;
@@ -424,21 +474,6 @@ public class ElementVo {
 		this.serializeConfig = serializeConfig;
 	}
 
-	public List<Map<String, String>> getValues_() {
-		if(values == null) {
-			values = new ArrayList<Map<String,String>>();
-		}
-		return values;
-	}
-	
-	public List<Map<String, String>> getValues() {
-		return values;
-	}
-
-	public void setValues(List<Map<String, String>> values) {
-		this.values = values;
-	}
-
 	public WidgetConfig getWidgetConfig() {
 		return widgetConfig;
 	}
@@ -455,14 +490,6 @@ public class ElementVo {
 		this.element = element;
 	}
 
-	public AngularScope getAngularScope() {
-		return angularScope;
-	}
-
-	public void setAngularScope(AngularScope angularScope) {
-		this.angularScope = angularScope;
-	}
-
 	public String getNgModel() {
 		return ngModel;
 	}
@@ -477,6 +504,38 @@ public class ElementVo {
 
 	public void setDataField(String dataField) {
 		this.dataField = dataField;
+	}
+
+	public List<AngularScope> getAngularScopes() {
+		return angularScopes;
+	}
+
+	public void setAngularScopes(List<AngularScope> angularScopes) {
+		this.angularScopes = angularScopes;
+	}
+
+	public boolean isForeignEntity() {
+		return foreignEntity;
+	}
+
+	public void setForeignEntity(boolean foreignEntity) {
+		this.foreignEntity = foreignEntity;
+	}
+
+	public String getForeignEntityIdField() {
+		return foreignEntityIdField;
+	}
+
+	public void setForeignEntityIdField(String foreignEntityIdField) {
+		this.foreignEntityIdField = foreignEntityIdField;
+	}
+
+	public String getField() {
+		return field;
+	}
+
+	public void setField(String field) {
+		this.field = field;
 	}
 	
 }

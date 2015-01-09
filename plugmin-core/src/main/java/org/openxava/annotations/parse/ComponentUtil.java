@@ -8,13 +8,14 @@ import static org.openxava.annotations.parse.ReflectionUtil.findWidget;
 import static org.openxava.annotations.parse.ReflectionUtil.findWidgetConfig;
 import static org.openxava.annotations.parse.ReflectionUtil.isCollection;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
@@ -24,6 +25,7 @@ import org.openxava.annotations.extended.ui.Tab;
 import org.openxava.annotations.extended.ui.Tabs;
 import org.openxava.annotations.extended.ui.config.AutocompleteConfig;
 import org.openxava.annotations.extended.ui.config.AutocompleteConfigs;
+import org.openxava.annotations.extended.ui.config.ComboBoxConfig;
 import org.openxava.annotations.extended.ui.config.DatePickerConfig;
 import org.openxava.annotations.extended.ui.config.DatePickerConfigs;
 import org.openxava.annotations.extended.ui.config.DateTimePickerConfig;
@@ -31,6 +33,7 @@ import org.openxava.annotations.extended.ui.config.DateTimePickerConfigs;
 import org.openxava.annotations.extended.ui.config.DropDownConfig;
 import org.openxava.annotations.extended.ui.config.DropDownConfigs;
 import org.openxava.annotations.extended.ui.config.EditorConfigs;
+import org.openxava.annotations.extended.ui.config.MultiSelectConfig;
 import org.openxava.annotations.extended.ui.config.NumericTextBoxConfig;
 import org.openxava.annotations.extended.ui.config.NumericTextBoxConfigs;
 import org.openxava.annotations.extended.ui.config.TabConfig;
@@ -47,15 +50,18 @@ import org.openxava.annotations.extended.ui.config.defaults.DefaultEditorConfig;
 import org.openxava.annotations.extended.ui.config.defaults.DefaultNumericTextBoxConfig;
 import org.openxava.annotations.extended.ui.config.defaults.DefaultTabConfig;
 import org.openxava.annotations.extended.ui.config.defaults.DefaultTimePickerConfig;
+import org.openxava.annotations.extended.ui.config.defaults.DefaultUploadConfig;
 import org.openxava.annotations.extended.ui.config.editor.EditorConfig;
 import org.openxava.annotations.extended.ui.config.vo.AngularScope;
 import org.openxava.annotations.extended.ui.config.vo.AutocompleteConfigVo;
 import org.openxava.annotations.extended.ui.config.vo.ColumnVo;
+import org.openxava.annotations.extended.ui.config.vo.ComboBoxConfigVo;
 import org.openxava.annotations.extended.ui.config.vo.DataConfig;
 import org.openxava.annotations.extended.ui.config.vo.DataSourceVo;
 import org.openxava.annotations.extended.ui.config.vo.DropDownConfigVo;
 import org.openxava.annotations.extended.ui.config.vo.ElementVo;
 import org.openxava.annotations.extended.ui.config.vo.EventVo;
+import org.openxava.annotations.extended.ui.config.vo.MultiSelectConfigVo;
 import org.openxava.annotations.extended.ui.config.vo.WidgetConfig;
 import org.openxava.annotations.extended.ui.use.UseAutocomplete;
 import org.openxava.annotations.extended.ui.use.UseDatePicker;
@@ -68,9 +74,12 @@ import org.openxava.annotations.extended.ui.use.UseTimePicker;
 import org.openxava.annotations.extended.ui.use.UseUpload;
 import org.openxava.autocomplete.MetaAutocomplete;
 import org.openxava.component.MetaComponent;
+import org.openxava.dropdown.MetaComboBox;
 import org.openxava.dropdown.MetaDropDown;
+import org.openxava.dropdown.MetaMultiSelect;
 import org.openxava.tab.meta.MetaTab;
 import org.openxava.util.meta.MetaElement;
+import org.openxava.view.meta.MetaCollectionView;
 import org.openxava.view.meta.MetaView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -147,6 +156,38 @@ public class ComponentUtil {
 			metaDropDown.setJson(JsonUtil.toJson(dropDownConfig));
 		}
 		return metaDropDown;
+	}
+	
+	public static MetaMultiSelect createEnumMultiSelect(MultiSelectConfig config, String multiSelectName, String field, String[] enumValues, boolean isSerializeConfig) throws Exception {
+		MultiSelectConfigVo multiSelectConfig = new MultiSelectConfigVo(enumValues);
+		multiSelectConfig.copyFrom(config);
+		
+		MetaMultiSelect metaMultiSelect = new MetaMultiSelect();
+		metaMultiSelect.setName(multiSelectName);
+		
+		multiSelectConfig.setDataSourceArray(enumValues);
+		metaMultiSelect.setConfig(multiSelectConfig);
+
+		if(isSerializeConfig) {
+			metaMultiSelect.setJson(JsonUtil.toJson(multiSelectConfig));
+		}
+		return metaMultiSelect;
+	}
+	
+	public static MetaComboBox createEnumComboBox(ComboBoxConfig config, String multiSelectName, String field, String[] enumValues, boolean isSerializeConfig) throws Exception {
+		ComboBoxConfigVo comboBoxConfig = new ComboBoxConfigVo(enumValues);
+		comboBoxConfig.copyFrom(config);
+		
+		MetaComboBox metaComboBox = new MetaComboBox();
+		metaComboBox.setName(multiSelectName);
+		
+		comboBoxConfig.setDataSourceArray(enumValues);
+		metaComboBox.setConfig(comboBoxConfig);
+
+		if(isSerializeConfig) {
+			metaComboBox.setJson(JsonUtil.toJson(comboBoxConfig));
+		}
+		return metaComboBox;
 	}
 	
 	public static MetaAutocomplete createAutocomplete(AutocompleteConfig config, String autocompleteName, String dataTextField, MetaComponent metaComponent, boolean isSerializeConfig) throws Exception {
@@ -239,15 +280,17 @@ public class ComponentUtil {
 
 	@SuppressWarnings("unchecked")
 	public static void configureViewSection(MetaView view, List<MetaComponent> metaComponents, boolean serializeConfig) throws Exception {
-		Class<?> pojoClass = view.getMetaComponent().getMetaEntity().getPOJOClass();
+		Class<?> entity = view.getMetaComponent().getMetaEntity().getPOJOClass();
 
 		List<AngularScope> angularScopes = view.getAngularScopes();
 		Element angularView = view.getAngularView();
 		List<WidgetConfig> widgetConfigs = view.getWidgetConfigs();
 		DataConfig dataConfig = view.getDataConfig();
 		
-		angularScopes.add(new AngularScope("$scope." + pojoClass.getSimpleName(), pojoClass.getSimpleName()));
-		dataConfig.setName(pojoClass.getSimpleName());
+		String modelScope = entity.getSimpleName();
+		angularScopes.add(new AngularScope("$scope." + modelScope, modelScope + "_" + view.getName()));
+		dataConfig.setName(modelScope);
+		dataConfig.setVariable(modelScope + "_" + view.getName());
 		
 		Collection<String> membersNames = view.getMembersNames();
 		
@@ -256,38 +299,93 @@ public class ComponentUtil {
 		
 		for (String field : membersNames) {
 			if(field.startsWith("__GROUP__")) {
-				continue;
+				
 			} else if(field.equals("\n")) {
 				angularView.appendChild(row);
 				row = new Element(Tag.valueOf("div"), "");
 				row.attr("class", "plugmin-row");
-				continue;
+			} else {
+				Field metaField = fieldReflection(field, entity);
+				if(isCollection(metaField)) {
+					String gridId = view.getName() + "_" + metaField.getName() + "_" + "grid";
+
+					String tabName = "default";
+					UseTab useTab = findAnnotation(UseTab.class, metaField, view);
+					if(useTab != null)
+						tabName = useTab.name();
+					
+					ParameterizedType paramType = (ParameterizedType) metaField.getGenericType();
+			        Class<?> referencedEntity = (Class<?>) paramType.getActualTypeArguments()[0];
+					MetaTab metaTab = new AnnotatedClassParser().childTab(entity, referencedEntity, metaField, tabName, metaComponents, serializeConfig);
+					
+					MetaCollectionView metaCollectionView = new MetaCollectionView();
+					metaCollectionView.setCollectionName(field);
+					metaCollectionView.setViewName(view.getName() + "_" + field + "_" + "section");
+					metaCollectionView.setLabel(field + " List");
+					metaCollectionView.setMetaTab(metaTab);
+					metaCollectionView.setEntity(referencedEntity);
+					metaCollectionView.setId(gridId);
+					
+					view.addMetaViewCollection(metaCollectionView);
+				} else {
+					ElementVo element = new ElementVo(field, metaField, view, metaComponents, serializeConfig);
+					view.addElement(element);
+					
+					row.appendChild(element.getElement());
+					
+					if(CollectionUtils.isNotEmpty(element.getAngularScopes()))
+						angularScopes.addAll(element.getAngularScopes());
+					
+					if(element.getWidgetConfig() != null)
+						widgetConfigs.add(element.getWidgetConfig());
+					
+					if(isNotEmpty(element.getDataField()))
+						dataConfig.getFields().add(element.getDataField());
+				}
 			}
-			
-			Field metaField = fieldReflection(field, pojoClass);
-			if(isCollection(metaField)) {
-				continue;
-			}
-			
-			ElementVo element = new ElementVo(field, metaField, view, metaComponents, serializeConfig);
-			
-			row.appendChild(element.getElement());
-			
-			if(element.getAngularScope() != null)
-				angularScopes.add(element.getAngularScope());
-			
-			if(element.getWidgetConfig() != null)
-				widgetConfigs.add(element.getWidgetConfig());
-			
-			if(isNotEmpty(element.getDataField()))
-				dataConfig.getFields().add(element.getDataField());
 		}
+		
 		angularView.appendChild(row);
+
+		// Include a submit button and its scope
+		Element submitButton = new Element(Tag.valueOf("button"), "");
+		submitButton.attr("class", "k-button");
+		submitButton.attr("ng-click", "onSubmit()");
+		submitButton.text("Submit");
+		angularView.appendChild(submitButton);
+		
+		
+		String submitUrl = "ctx + '" + PLUGMIN_REST_BASE_URL + "/rest/view/update/" + entity.getSimpleName() + "?view=" + view.getName() + "&entity-id=' + parentEntityId";
+		
+		String onSubmitScope = "function () { \n" +
+									"\t console.log('submit invoked'); \n" +
+									"\t var model = $scope." + view.getDataConfig().getName() + "; \n" +
+									"\t $.ajax({ \n" +
+										"\t\t url: " + submitUrl + ", \n" +
+										"\t\t type:'POST', \n" +
+										"\t\t data: JSON.stringify(model), \n" +
+										"\t\t contentType: 'application/json; charset=utf-8', \n" +
+										"\t\t dataType: 'json', \n" +
+										"\t\t success: function(response){ \n" +
+											"\t\t\t console.log(response); \n" +
+										"\t\t } \n" +
+									"\t }); \n" +
+									"\t console.log(model); \n" +
+								"};";
+		
+		angularScopes.add(new AngularScope("$scope.onSubmit", onSubmitScope));
 	}
 
+	/**
+	 * Searches for @UseDateTimePicker and returns the specified config.
+	 * If not found, returns the default config. 
+	 * 
+	 * @param metaElement
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
 	public static DateTimePickerConfig dateTimePickerConfig(MetaElement metaElement, Field metaField) throws Exception {
-		DateTimePickerConfig dateTimePickerConfig = null;
-
 		UseDateTimePicker useDatePicker = null;
 		
 		if(metaElement instanceof MetaTab)
@@ -296,9 +394,26 @@ public class ComponentUtil {
 			useDatePicker = findAnnotation(UseDateTimePicker.class, metaField, (MetaView)metaElement);
 		else
 			throw new Exception("DateTimePicker config cannot be obtained for elements other than MetaTab & MetaView");
-			
-		if(useDatePicker != null) {
-			String config = useDatePicker.config();
+
+		return dateTimePickerConfig(useDatePicker, metaField);
+	}
+	
+	/**
+	 * This method expects metaField to be not null, if useDateTimePicker is not null.
+	 * Otherwise, it throws NPE.
+	 * 
+	 * If useDateTimePicker is null, then it ignores the metaField and returns the default config.
+	 * 
+	 * @param useDateTimePicker
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static DateTimePickerConfig dateTimePickerConfig(UseDateTimePicker useDateTimePicker, Field metaField) throws Exception {
+		DateTimePickerConfig dateTimePickerConfig = null;
+		
+		if(useDateTimePicker != null) {
+			String config = useDateTimePicker.config();
 			if(StringUtils.isNotEmpty(config)) {
 				dateTimePickerConfig = findWidgetConfig(DateTimePickerConfigs.class, DateTimePickerConfig.class, config, metaField.getDeclaringClass());
 			}
@@ -310,10 +425,17 @@ public class ComponentUtil {
 		
 		return dateTimePickerConfig;
 	}
-	
-	public static DatePickerConfig datePickerConfig(MetaElement metaElement, Field metaField) throws Exception {
-		DatePickerConfig datePickerConfig = null;
 
+	/**
+	 * Searches for @UseDatePicker and returns the specified config.
+	 * If not found, returns the default config. 
+	 * 
+	 * @param metaElement
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static DatePickerConfig datePickerConfig(MetaElement metaElement, Field metaField) throws Exception {
 		UseDatePicker useDatePicker = null;
 		
 		if(metaElement instanceof MetaTab)
@@ -322,7 +444,24 @@ public class ComponentUtil {
 			useDatePicker = findAnnotation(UseDatePicker.class, metaField, (MetaView)metaElement);
 		else
 			throw new Exception("DatePicker config cannot be obtained for elements other than MetaTab & MetaView");
-			
+
+		return datePickerConfig(useDatePicker, metaField);
+	}
+	
+	/**
+	 * This method expects metaField to be not null, if useDatePicker is not null.
+	 * Otherwise, it throws NPE.
+	 * 
+	 * If useDatePicker is null, then it ignores the metaField and returns the default config.
+	 * 
+	 * @param useDatePicker
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static DatePickerConfig datePickerConfig(UseDatePicker useDatePicker, Field metaField) throws Exception {
+		DatePickerConfig datePickerConfig = null;
+		
 		if(useDatePicker != null) {
 			String config = useDatePicker.config();
 			if(StringUtils.isNotEmpty(config)) {
@@ -336,21 +475,45 @@ public class ComponentUtil {
 		
 		return datePickerConfig;
 	}
-	
-	public static TimePickerConfig timePickerConfig(MetaElement metaElement, Field metaField) throws Exception {
-		TimePickerConfig timePickerConfig = null;
 
-		UseTimePicker useDatePicker = null;
+	/**
+	 * Searches for @UseTimePicker and returns the specified config.
+	 * If not found, returns the default config. 
+	 * 
+	 * @param metaElement
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static TimePickerConfig timePickerConfig(MetaElement metaElement, Field metaField) throws Exception {
+		UseTimePicker useTimePicker = null;
 		
 		if(metaElement instanceof MetaTab)
-			useDatePicker = findAnnotation(UseTimePicker.class, metaField, (MetaTab)metaElement);
+			useTimePicker = findAnnotation(UseTimePicker.class, metaField, (MetaTab)metaElement);
 		else if(metaElement instanceof MetaView)
-			useDatePicker = findAnnotation(UseTimePicker.class, metaField, (MetaView)metaElement);
+			useTimePicker = findAnnotation(UseTimePicker.class, metaField, (MetaView)metaElement);
 		else
 			throw new Exception("TimePicker config cannot be obtained for elements other than MetaTab & MetaView");
-			
-		if(useDatePicker != null) {
-			String config = useDatePicker.config();
+
+		return timePickerConfig(useTimePicker, metaField);
+	}
+	
+	/**
+	 * This method expects metaField to be not null, if useTimePicker is not null.
+	 * Otherwise, it throws NPE.
+	 * 
+	 * If useTimePicker is null, then it ignores the metaField and returns the default config.
+	 * 
+	 * @param useTimePicker
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static TimePickerConfig timePickerConfig(UseTimePicker useTimePicker, Field metaField) throws Exception {
+		TimePickerConfig timePickerConfig = null;
+		
+		if(useTimePicker != null) {
+			String config = useTimePicker.config();
 			if(StringUtils.isNotEmpty(config)) {
 				timePickerConfig = findWidgetConfig(TimePickerConfigs.class, TimePickerConfig.class, config, metaField.getDeclaringClass());
 			}
@@ -362,10 +525,17 @@ public class ComponentUtil {
 		
 		return timePickerConfig;
 	}
-	
-	public static NumericTextBoxConfig numericTextBoxConfig(MetaElement metaElement, Field metaField) throws Exception {
-		NumericTextBoxConfig numericTextBoxConfig = null;
 
+	/**
+	 * Searches for @UseNumericTextBox and returns the specified config.
+	 * If not found, returns the default config. 
+	 * 
+	 * @param metaElement
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static NumericTextBoxConfig numericTextBoxConfig(MetaElement metaElement, Field metaField) throws Exception {
 		UseNumericTextBox useNumericTextBox = null;
 		
 		if(metaElement instanceof MetaTab)
@@ -374,7 +544,24 @@ public class ComponentUtil {
 			useNumericTextBox = findAnnotation(UseNumericTextBox.class, metaField, (MetaView)metaElement);
 		else
 			throw new Exception("DatePicker config cannot be obtained for elements other than MetaTab & MetaView");
-			
+
+		return numericTextBoxConfig(useNumericTextBox, metaField);
+	}
+
+	/**
+	 * This method expects metaField to be not null, if useNumericTextBox is not null.
+	 * Otherwise, it throws NPE.
+	 * 
+	 * If useNumericTextBox is null, then it ignores the metaField and returns the default config.
+	 * 
+	 * @param useNumericTextBox
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static NumericTextBoxConfig numericTextBoxConfig(UseNumericTextBox useNumericTextBox, Field metaField) throws Exception {
+		NumericTextBoxConfig numericTextBoxConfig = null;
+		
 		if(useNumericTextBox != null) {
 			String config = useNumericTextBox.config();
 			if(StringUtils.isNotEmpty(config)) {
@@ -389,9 +576,16 @@ public class ComponentUtil {
 		return numericTextBoxConfig;
 	}
 
+	/**
+	 * Searches for @UseEditor and returns the specified config.
+	 * If not found, returns the default config. 
+	 * 
+	 * @param metaElement
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
 	public static EditorConfig editorConfig(MetaElement metaElement, Field metaField) throws Exception {
-		EditorConfig editorConfig = null;
-
 		UseEditor useEditor = null;
 		
 		if(metaElement instanceof MetaTab)
@@ -401,6 +595,23 @@ public class ComponentUtil {
 		else
 			throw new Exception("Editor config cannot be obtained for elements other than MetaTab & MetaView");
 			
+		return editorConfig(useEditor, metaField);
+	}
+	
+	/**
+	 * This method expects metaField to be not null, if useEditor is not null.
+	 * Otherwise, it throws NPE.
+	 * 
+	 * If useEditor is null, then it ignores the metaField and returns the default config.
+	 * 
+	 * @param useEditor
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static EditorConfig editorConfig(UseEditor useEditor, Field metaField) throws Exception {
+		EditorConfig editorConfig = null;
+		
 		if(useEditor != null) {
 			String config = useEditor.config();
 			if(StringUtils.isNotEmpty(config)) {
@@ -415,9 +626,16 @@ public class ComponentUtil {
 		return editorConfig;
 	}
 	
-	public static UploadConfig uploadConfig(MetaElement metaElement, Field metaField, Class<? extends Annotation> defaultConfigClass) throws Exception {
-		UploadConfig uploadConfig = null;
-
+	/**
+	 * Searches for @UseUpload and returns the specified config.
+	 * If not found, returns the default config. 
+	 * 
+	 * @param metaElement
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static UploadConfig uploadConfig(MetaElement metaElement, Field metaField) throws Exception {
 		UseUpload useUpload = null;
 		
 		if(metaElement instanceof MetaTab)
@@ -426,7 +644,24 @@ public class ComponentUtil {
 			useUpload = findAnnotation(UseUpload.class, metaField, (MetaView)metaElement);
 		else
 			throw new Exception("Upload config cannot be obtained for elements other than MetaTab & MetaView");
-			
+
+		return uploadConfig(useUpload, metaField);
+	}
+
+	/**
+	 * This method expects metaField to be not null, if useUpload is not null.
+	 * Otherwise, it throws NPE.
+	 * 
+	 * If useUpload is null, then it ignores the metaField and returns the default config.
+	 * 
+	 * @param useUpload
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static UploadConfig uploadConfig(UseUpload useUpload, Field metaField) throws Exception {
+		UploadConfig uploadConfig = null;
+		
 		if(useUpload != null) {
 			String config = useUpload.config();
 			if(StringUtils.isNotEmpty(config)) {
@@ -435,16 +670,22 @@ public class ComponentUtil {
 		}
 		
 		if(uploadConfig == null) {
-			uploadConfig = defaultConfigClass.getAnnotation(UploadConfig.class);
+			uploadConfig = DefaultUploadConfig.class.getAnnotation(UploadConfig.class);
 		}
 		
 		return uploadConfig;
 	}
 
-	
+	/**
+	 * Searches for @UseAutocomplete and returns the specified config.
+	 * If not found, returns the default config. 
+	 * 
+	 * @param metaElement
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
 	public static AutocompleteConfig autocompleteConfig(MetaElement metaElement, Field metaField) throws Exception {
-		AutocompleteConfig autocompleteConfig = null;
-
 		UseAutocomplete useAutocomplete = null;
 		
 		if(metaElement instanceof MetaTab)
@@ -453,7 +694,24 @@ public class ComponentUtil {
 			useAutocomplete = findAnnotation(UseAutocomplete.class, metaField, (MetaView)metaElement);
 		else
 			throw new Exception("AutoComplete config cannot be obtained for elements other than MetaTab & MetaView");
-			
+
+		return autocompleteConfig(useAutocomplete, metaField);
+	}
+	
+	/**
+	 * This method expects metaField to be not null, if useAutocomplete is not null.
+	 * Otherwise, it throws NPE.
+	 * 
+	 * If useAutocomplete is null, then it ignores the metaField and returns the default config.
+	 * 
+	 * @param useAutocomplete
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static AutocompleteConfig autocompleteConfig(UseAutocomplete useAutocomplete, Field metaField) throws Exception {
+		AutocompleteConfig autocompleteConfig = null;
+		
 		if(useAutocomplete != null) {
 			String config = useAutocomplete.config();
 			if(StringUtils.isNotEmpty(config)) {
@@ -467,10 +725,17 @@ public class ComponentUtil {
 		
 		return autocompleteConfig;
 	}
-	
-	public static DropDownConfig dropDownConfig(MetaElement metaElement, Field metaField) throws Exception {
-		DropDownConfig dropDownConfig = null;
 
+	/**
+	 * Searches for @UseDropdown and returns the specified config.
+	 * If not found, returns the default config. 
+	 * 
+	 * @param metaElement
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static DropDownConfig dropDownConfig(MetaElement metaElement, Field metaField) throws Exception {
 		UseDropdown useDropDown = null;
 		
 		if(metaElement instanceof MetaTab)
@@ -479,7 +744,24 @@ public class ComponentUtil {
 			useDropDown = findAnnotation(UseDropdown.class, metaField, (MetaView)metaElement);
 		else
 			throw new Exception("DropDown config cannot be obtained for elements other than MetaTab & MetaView");
-			
+
+		return dropDownConfig(useDropDown, metaField);
+	}
+	
+	/**
+	 * This method expects metaField to be not null, if useDropDown is not null.
+	 * Otherwise, it throws NPE.
+	 * 
+	 * If useDropDown is null, then it ignores the metaField and returns the default config.
+	 * 
+	 * @param useDropDown
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static DropDownConfig dropDownConfig(UseDropdown useDropDown, Field metaField) throws Exception {
+		DropDownConfig dropDownConfig = null;
+		
 		if(useDropDown != null) {
 			String name = useDropDown.name();
 			if(StringUtils.isNotEmpty(name)) {
@@ -499,10 +781,17 @@ public class ComponentUtil {
 		
 		return dropDownConfig;
 	}
-	
-	public static TabConfig tabConfig(MetaElement metaElement, Field metaField) throws Exception {
-		TabConfig tabConfig = null;
 
+	/**
+	 * Searches for @UseTab and returns the specified config.
+	 * If not found, returns the default config. 
+	 * 
+	 * @param metaElement
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static TabConfig tabConfig(MetaElement metaElement, Field metaField) throws Exception {
 		UseTab useTab = null;
 		
 		if(metaElement instanceof MetaTab)
@@ -512,6 +801,23 @@ public class ComponentUtil {
 			useTab = findAnnotation(UseTab.class, metaField, (MetaView)metaElement);
 		else
 			throw new Exception("Tab config cannot be obtained for elements other than MetaTab & MetaView");
+
+		return tabConfig(useTab, metaField);
+	}
+
+	/**
+	 * This method expects metaField to be not null, if useTab is not null.
+	 * Otherwise, it throws NPE.
+	 * 
+	 * If useTab is null, then it ignores the metaField and returns the default config.
+	 * 
+	 * @param useTab
+	 * @param metaField
+	 * @return
+	 * @throws Exception
+	 */
+	public static TabConfig tabConfig(UseTab useTab, Field metaField) throws Exception {
+		TabConfig tabConfig = null;
 		
 		if(useTab != null) {
 			String name = useTab.name();

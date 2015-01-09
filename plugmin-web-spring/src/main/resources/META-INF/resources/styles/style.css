@@ -1,3 +1,28 @@
+.view-wrapper {
+	margin: 50px 10px;
+}
+.grid-wrapper {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+.shield {
+  background: none repeat scroll 0 0 #000000;
+  height: 100%;
+  left: 0;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+.shield .shield-ldr {
+	background: url('/plugmin/images/loading-image.gif') no-repeat center;
+	height: 100px;
+	width: inherit;
+}
+.angular-view-wrapper {
+	padding: 10px; position: relative;
+}
 #configurator {
 	display: none;
 }
@@ -25,58 +50,16 @@ div.plugmin-container {
 	width: 200px;
 }
 .plugmin-field-value.width-x2 {
-	width: 620px;
+	width: 580px;
 }
 .plugmin-seperator {
   float: left;
   margin-left: 5px;
   margin-right: 15px;
 }
-.k-textbox, .k-ff input.k-textbox {
-  height: 1.87em;
-  line-height: 1.1em;
-}
-.k-button {
-  padding: 4px 14px;
-}
-.k-grouping-header {
-  line-height: 1.2;
-}
-.k-grid-header th.k-header, .k-filter-row th {
-  padding: 0.486em 0.6em 0.414em;
-}
-.k-grid td {
-  padding: 0.329em 1.286em;
-}
-:root * > .k-icon, *:root * > .k-sprite, *:root * > .k-button-group .k-tool-icon {
-  position: relative;
-  top: 18%;
-  vertical-align: middle;
-}
-:root * > .k-grid-toolbar .k-icon, *:root * > .k-grid-toolbar .k-sprite, *:root * > .k-button-group .k-grid-toolbar .k-tool-icon {
-  top: -9%;
-}
-.k-icon, .k-sprite, .k-button-group .k-tool-icon {
-  height: 17px;
-}
-.k-tabstrip-items .k-link {
-  padding: 0.3em 1.071em;
-}
-.k-grid-toolbar .k-cancel, .k-grid-toolbar .k-button:hover .k-cancel {
-  background-position: -48px -47px;
-}
-.k-grid-toolbar .k-update, .k-grid-toolbar .k-button:hover .k-update {
-  background-position: -48px -31px;
-}
-.k-textbox > input, .k-autocomplete .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input, .k-dropdown-wrap .k-input, .k-selectbox .k-input {
-  height: 1.414em;
-  line-height: 1.414em;
-}
-.k-numerictextbox .k-link {
-  height: 0.884em;
-  line-height: 0.957em;
-}
-.k-picker-wrap .k-select, .k-numeric-wrap .k-select, .k-dropdown-wrap .k-select {
-  line-height: 1.564em;
-  min-height: 1.214em;
+
+.plugmin-field-value .k-button-group .k-tool {
+  width: 30px;
+  height: 20px;
+  line-height: 20px;
 }

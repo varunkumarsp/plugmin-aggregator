@@ -60,6 +60,10 @@ public class MetaComponentServiceEagerImpl implements MetaComponentService, Serv
 			}
 	        
 	        for (MetaComponent metaComponent : metaComponents) {
+	        	parser.parse3rdPhase(metaComponent, metaComponents, true);
+			}
+	        
+	        for (MetaComponent metaComponent : metaComponents) {
 	        	Collection<MetaTab> metaTabs = metaComponent.getMetaTabs();
 	    		for (MetaTab tab : metaTabs) {
 	    			parser.configureSections(tab, metaComponents, true);

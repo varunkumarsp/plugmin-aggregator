@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 
+import org.openxava.annotations.extended.ui.use.IsNotCollection;
 import org.openxava.tab.meta.MetaTab;
 import org.openxava.view.meta.MetaView;
 
@@ -84,6 +85,8 @@ public class ReflectionUtil {
 	}
 	
 	public static boolean isCollection(Field field) {
+		if(field.isAnnotationPresent(IsNotCollection.class))
+			return false;
 		return Collection.class.isAssignableFrom(field.getType()) || field.getType().isArray();
 	}
 	
@@ -97,14 +100,50 @@ public class ReflectionUtil {
 		return false;
 	}
 	
+	/**
+	 * This method searches for multiple annotations of the given type. (i.e) The same
+	 * annotation can be declared multiple times on a field, which is JDK 8 feature (repeatable annotations). 
+	 * 
+	 * @param annotation
+	 * @param metaField
+	 * @param elementName
+	 * @param singularMethod
+	 * @param pluralMethod
+	 * @return
+	 * @throws Exception
+	 */
 	public static <T extends Annotation> T findAnnotation(Class<T> annotation, Field metaField, MetaTab metaTab) throws Exception {
 		return findAnnotation(annotation, metaField, metaTab.getName(), "forTab", "forTabs");
 	}
 	
+	/**
+	 * This method searches for multiple annotations of the given type. (i.e) The same
+	 * annotation can be declared multiple times on a field, which is JDK 8 feature (repeatable annotations). 
+	 * 
+	 * @param annotation
+	 * @param metaField
+	 * @param elementName
+	 * @param singularMethod
+	 * @param pluralMethod
+	 * @return
+	 * @throws Exception
+	 */
 	public static <T extends Annotation> T findAnnotation(Class<T> annotation, Field metaField, MetaView metaView) throws Exception {
 		return findAnnotation(annotation, metaField, metaView.getName(), "forView", "forViews");
 	}
 	
+	/**
+	 * This method searches for multiple annotations of the given type. (i.e) The same
+	 * annotation can be declared multiple times on a field, which is JDK 8 feature (repeatable annotations). 
+	 * 
+	 * @param annotation
+	 * @param metaField
+	 * @param elementName
+	 * @param singularMethod
+	 * @param pluralMethod
+	 * @return
+	 * @throws Exception
+	 */
 	private static <T extends Annotation> T findAnnotation(Class<T> annotation, Field metaField, String elementName, String singularMethod, String pluralMethod) throws Exception {
 		T[] anns = getAnnotationsByType(metaField, annotation);
 		for (T ann : anns) {

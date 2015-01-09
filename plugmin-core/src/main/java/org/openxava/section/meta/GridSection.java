@@ -5,7 +5,7 @@ import org.openxava.annotations.extended.ui.config.vo.TabConfigVo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-public class MetaSectionForGrid extends MetaSection {
+public class GridSection extends MetaSection {
 
 
 	private String init;
@@ -18,10 +18,10 @@ public class MetaSectionForGrid extends MetaSection {
 
 
 	
-	public MetaSectionForGrid() {
+	public GridSection() {
 	}
 	
-	public MetaSectionForGrid(String title, String id, String sectionId, String json, String forEntity, String forView) throws JsonProcessingException {
+	public GridSection(String title, String id, String sectionId, String json, String forEntity, String forView) throws JsonProcessingException {
 		super(title, sectionId, forEntity, forView);
 		this.sectionId = sectionId;
 		this.json = json;

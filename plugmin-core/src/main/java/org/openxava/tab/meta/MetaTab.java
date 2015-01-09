@@ -1,7 +1,7 @@
 package org.openxava.tab.meta;
 
-import static org.openxava.annotations.parse.JsonUtil.toJson;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.openxava.annotations.parse.JsonUtil.toJson;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,7 +29,8 @@ import org.openxava.mapping.PropertyMapping;
 import org.openxava.model.meta.MetaModel;
 import org.openxava.model.meta.MetaProperty;
 import org.openxava.model.meta.MetaReference;
-import org.openxava.section.meta.MetaSection;
+import org.openxava.section.meta.GridSection;
+import org.openxava.section.meta.ViewSection;
 import org.openxava.tab.Tab;
 import org.openxava.util.ElementNotFoundException;
 import org.openxava.util.Is;
@@ -81,7 +82,8 @@ public class MetaTab extends MetaElement implements java.io.Serializable, Clonea
 	private String editor;
 	private TabConfigVo config;
 	private MetaView view;
-	private List<MetaSection> sections = new ArrayList<MetaSection>();
+	private List<GridSection> gridSections = new ArrayList<GridSection>();
+	private List<ViewSection> viewSections = new ArrayList<ViewSection>();
 	private boolean sectionsConfigured;
 	
 
@@ -881,24 +883,36 @@ public class MetaTab extends MetaElement implements java.io.Serializable, Clonea
 		this.view = view;
 	}
 
-	public List<MetaSection> getSections() {
-		return sections;
-	}
-
-	public void addSections(List<MetaSection> sections) {
-		this.sections.addAll(sections);
-	}
-	
-	public void addSection(MetaSection section) {
-		this.sections.add(section);
-	}
-
 	public boolean isSectionsConfigured() {
 		return sectionsConfigured;
 	}
 
 	public void setSectionsConfigured(boolean sectionsConfigured) {
 		this.sectionsConfigured = sectionsConfigured;
+	}
+
+	public List<GridSection> getGridSections() {
+		return gridSections;
+	}
+
+	public void addGridSections(List<GridSection> gridSections) {
+		this.gridSections.addAll(gridSections);
+	}
+	
+	public void addGridSection(GridSection gridSection) {
+		this.gridSections.add(gridSection);
+	}
+
+	public List<ViewSection> getViewSections() {
+		return viewSections;
+	}
+
+	public void addViewSections(List<ViewSection> viewSections) {
+		this.viewSections.addAll(viewSections);
+	}
+	
+	public void addViewSection(ViewSection viewSection) {
+		this.viewSections.add(viewSection);
 	}
 
 }

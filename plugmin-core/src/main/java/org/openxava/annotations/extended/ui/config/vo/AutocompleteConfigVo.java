@@ -106,6 +106,10 @@ public class AutocompleteConfigVo implements JsFieldValueResolver,
 		this.dataTextField = dataTextField;
 	}
 
+	public AutocompleteConfigVo(AutocompleteConfig autocompleteConfig) {
+		this.copyFrom(autocompleteConfig);
+	}
+
 	public AnimationVo getAnimation_() {
 		if(animation == null)
 			try {

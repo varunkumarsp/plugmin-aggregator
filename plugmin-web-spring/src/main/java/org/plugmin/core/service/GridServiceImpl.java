@@ -2,10 +2,10 @@ package org.plugmin.core.service;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.openxava.annotations.parse.EntityUtil.idField;
+import static org.plugmin.core.util.FilterUtil.cast;
 import static org.plugmin.core.util.PlugminConfigurationUtils.PLUGMIN_PARSER_MODE;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -15,21 +15,15 @@ import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.openxava.annotations.extended.ui.config.vo.AngularScope;
 import org.openxava.annotations.extended.ui.config.vo.ColumnVo;
-import org.openxava.annotations.extended.ui.config.vo.DataConfig;
 import org.openxava.annotations.extended.ui.config.vo.FilterItem;
 import org.openxava.annotations.extended.ui.config.vo.TabConfigVo;
 import org.openxava.annotations.parse.FieldResolver;
-import org.openxava.annotations.parse.FieldResolverImpl;
-import org.openxava.annotations.parse.FieldResolverNoOpImpl;
-import org.openxava.annotations.parse.GridResultTransformer;
+import org.openxava.annotations.parse.FieldResolverMetaTabImpl;
+import org.openxava.annotations.parse.ResultTransformerMetaTabImpl;
 import org.openxava.component.MetaComponent;
 import org.openxava.model.meta.MetaProperty;
-import org.openxava.section.meta.MetaSection;
-import org.openxava.section.meta.MetaSectionForView;
 import org.openxava.tab.meta.MetaTab;
-import org.openxava.view.meta.MetaView;
 import org.plugmin.core.dao.GridDao;
 import org.plugmin.core.service.DataSourceRequest.FilterDescriptor;
 import org.plugmin.core.service.DataSourceRequest.ProjectionDescriptor;
@@ -103,9 +97,9 @@ public class GridServiceImpl implements GridService, ServletContextAware, Applic
 		}
 		
 		String idField = idField(pojoClass);
-		addIdFieldIfNot(projectionFields, idField); //id field needed for selecting distinct rows on left outer join.
+		includeIdFieldIfNot(projectionFields, idField); //id field needed for selecting distinct rows on left outer join.
 		
-		moveIdFieldToFirst(projectionFields, idField); //id field should be in the first position so that the "DISTINCT" keyword is placed correctly
+		moveIdFieldToTop(projectionFields, idField); //id field should be in the first position so that the "DISTINCT" keyword is placed correctly
 		
 		for (String projectionField : projectionFields) {
 			ProjectionDescriptor projection = new ProjectionDescriptor();
@@ -132,14 +126,14 @@ public class GridServiceImpl implements GridService, ServletContextAware, Applic
 		}
 		
 		
-		FieldResolver fieldResolver = new FieldResolverImpl(columns);
+		FieldResolver fieldResolver = new FieldResolverMetaTabImpl(columns);
 		req.setFieldResolver(fieldResolver);
-		req.setResultTransformer(new GridResultTransformer(fieldResolver));
+		req.setResultTransformer(new ResultTransformerMetaTabImpl(fieldResolver));
 		
 		return gridDao.getList(req, pojoClass);
 	}
 	
-	private void moveIdFieldToFirst(Set<String> projectionFields, String idField) {
+	private void moveIdFieldToTop(Set<String> projectionFields, String idField) {
 		Set<String> set = new LinkedHashSet<String>(projectionFields);
 		
 		projectionFields.clear();
@@ -151,19 +145,10 @@ public class GridServiceImpl implements GridService, ServletContextAware, Applic
 		}
 	}
 
-	private void addIdFieldIfNot(Set<String> projectionFields, String idField) {
+	private void includeIdFieldIfNot(Set<String> projectionFields, String idField) {
 		if(!projectionFields.contains(idField)) {
 			projectionFields.add(idField);
 		}
-	}
-
-	private FilterDescriptor cast(FilterItem filterItem) {
-		FilterDescriptor filter = new FilterDescriptor();
-		filter.setField(filterItem.getField());
-		filter.setValue(filterItem.getValue());
-		filter.setOperator(filterItem.getOperator());
-		filter.setIgnoreCase(filterItem.isIgnoreCase());
-		return filter;
 	}
 
 	private List<String> getFields(ColumnVo column) {
@@ -175,7 +160,7 @@ public class GridServiceImpl implements GridService, ServletContextAware, Applic
 			if(column.isForeignEntity()) {
 				fields.add(field + "." + column.getForeignEntityIdField());
 				fields.add(field + "." + column.getForeignEntityNameField());
-			} else if(field.contains(".")) {
+			} else if(field.contains(".")) { //one-to-one
 				fields.add(field);
 			} else {
 				fields.add(field);
@@ -184,22 +169,11 @@ public class GridServiceImpl implements GridService, ServletContextAware, Applic
 		
 		return fields;
 	}
-
+	
 	@Override
 	public List<MetaProperty> metaProperties(String entity, String view) throws Exception {
 		List<MetaProperty> metaProperties = metaComponentService.metaPropertiesTab(entity, view);
 		return metaProperties;
-	}
-
-	@Override
-	public void setServletContext(ServletContext servletContext) {
-		this.servletContext = servletContext;
-	}
-
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext)
-			throws BeansException {
-		this.applicationContext = applicationContext;
 	}
 
 	@Override
@@ -261,62 +235,19 @@ public class GridServiceImpl implements GridService, ServletContextAware, Applic
 	}
 
 	@Override
-	public void configureViewSection(MetaTab metaTab) throws Exception {
-		List<MetaSection> sections = metaTab.getSections();
-		for (MetaSection section : sections) {
-			if(section instanceof MetaSectionForView) {
-				viewData((MetaSectionForView) section);
-				break;
-			}
-		}
-	}
-
-	private void viewData(MetaSectionForView viewSection) throws Exception {
-		MetaView metaView = viewSection.getMetaView();
-		Class<?> entity = metaView.getMetaComponent().getMetaEntity().getPOJOClass();
-		DataConfig dataConfig = metaView.getDataConfig();
-		List<String> fields = dataConfig.getFields();
-
-		List<AngularScope> angularScopes = viewSection.getAngularScopes();
-		Set<AngularScope> angularScopes_ = new HashSet<AngularScope>(angularScopes);
-		angularScopes.clear();
-		angularScopes.addAll(angularScopes_);
-		
-		if(fields.size() > 0) {
-			DataSourceRequest req = new DataSourceRequest();
-			populateRequest(req, fields, entity);
-			DataSourceResult list = gridDao.getList(req, entity);
-			Object data = list.getData().get(0);
-			
-			dataConfig.setData(data);
-		}
-	}
-
-	private void populateRequest(DataSourceRequest req, List<String> fields,
-			Class<?> entity) {
-		List<ProjectionDescriptor> projections = new ArrayList<ProjectionDescriptor>();
-		Set<String> projectionFields = new LinkedHashSet<String>();
-		
-		for(String field : fields) {
-			projectionFields.add(field.replaceAll("_", "."));
-		}
-		
-		for (String projectionField : projectionFields) {
-			ProjectionDescriptor projection = new ProjectionDescriptor();
-			projection.setField(projectionField);
-			projections.add(projection);
-		}
-
-		req.setProjection(projections);
-		
-		FieldResolver fieldResolver = new FieldResolverNoOpImpl();
-		
-		req.setFieldResolver(fieldResolver);
-		req.setResultTransformer(new GridResultTransformer(fieldResolver));
-	}
-
-	@Override
 	public void clear() throws Exception {
 		metaComponentService.clear();
 	}
+	
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		this.applicationContext = applicationContext;
+	}
+	
 }

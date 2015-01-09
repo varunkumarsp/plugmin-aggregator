@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.openxava.util.meta.MetaElement;
+
 
 
 
@@ -15,7 +17,7 @@ import java.util.Collections;
  * @author Javier Paniza
  */
 
-public class MetaMemberView {
+public class MetaMemberView extends MetaElement {
 	
 	private Collection actionsNames;
 	private Collection alwaysEnabledActionsNames;
@@ -59,5 +61,10 @@ public class MetaMemberView {
 
 	public void setCollapsed(boolean collapsed) {
 		this.collapsed = collapsed;
+	}
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

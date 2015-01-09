@@ -65,7 +65,8 @@ public class MetaComponent implements Serializable {
 	private Map metaAutocompletes;
 	private EntityMapping entityMapping;
 	private String packageName;
-	private boolean _transient; 
+	private boolean _transient;
+	private boolean doneParsing3rdPhase;
 		
 	/**
 	 * 
@@ -550,6 +551,14 @@ public class MetaComponent implements Serializable {
 
 	public void setTransient(boolean _transient) {
 		this._transient = _transient;
+	}
+
+	public boolean isDoneParsing3rdPhase() {
+		return doneParsing3rdPhase;
+	}
+
+	public void setDoneParsing3rdPhase(boolean doneParsing3rdPhase) {
+		this.doneParsing3rdPhase = doneParsing3rdPhase;
 	}
 		
 }

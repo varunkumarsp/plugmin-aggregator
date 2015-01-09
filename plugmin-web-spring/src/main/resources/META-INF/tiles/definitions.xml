@@ -77,7 +77,7 @@
     </definition>
     
     <!-- Plugmin -->
-    <definition name="grid-index" template="/views/plugmin/grid-view/index-new.jsp">
+    <definition name="grid-index" template="/views/plugmin/grid/index.jsp">
     	<!-- 
         <put-attribute name="scripts-include" value="/views/includes/scripts-include.jsp"/>
         <put-attribute name="top-navigation-section" value="/views/sections/top-navigation-section.jsp"/>
@@ -85,7 +85,15 @@
          -->
     </definition>
     
-    <definition name="grid-detail-template" template="/views/plugmin/grid-view/detail-template.jsp">
+    <definition name="grid-detail-template" template="/views/plugmin/grid/detail-template.jsp">
+    	<!-- 
+        <put-attribute name="scripts-include" value="/views/includes/scripts-include.jsp"/>
+        <put-attribute name="top-navigation-section" value="/views/sections/top-navigation-section.jsp"/>
+        <put-attribute name="footer-section" value="/views/sections/footer-section.jsp"/>
+         -->
+    </definition>
+    
+    <definition name="view-index" template="/views/plugmin/view/index.jsp">
     	<!-- 
         <put-attribute name="scripts-include" value="/views/includes/scripts-include.jsp"/>
         <put-attribute name="top-navigation-section" value="/views/sections/top-navigation-section.jsp"/>

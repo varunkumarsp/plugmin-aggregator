@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 
 import org.openxava.annotations.Tree;
 import org.openxava.tab.meta.MetaRowStyle;
+import org.openxava.tab.meta.MetaTab;
 import org.openxava.util.Is;
 
 
@@ -42,7 +43,11 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private Collection rowStyles; 
 	private String onSelectElementActionName;
 	private Tree path;
-	private Map<String, List<String>> totalProperties; 
+	private Map<String, List<String>> totalProperties;
+
+	private MetaTab metaTab;
+	private Class<?> entity;
+	private String id;
 
 	
 	public void addActionDetailName(String actionName) {
@@ -271,6 +276,31 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 
 	public Tree getPath() {
 		return path;
+	}
+
+	public MetaTab getMetaTab() {
+		return metaTab;
+	}
+
+	public void setMetaTab(MetaTab metaTab) {
+		this.metaTab = metaTab;
+	}
+
+	public Class<?> getEntity() {
+		return entity;
+	}
+
+	public void setEntity(Class<?> entity) {
+		this.entity = entity;
+	}
+
+	@Override
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

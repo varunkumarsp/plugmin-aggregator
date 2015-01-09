@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import javax.servlet.ServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openxava.annotations.extended.ui.config.vo.WidgetConfig;
 import org.openxava.component.MetaComponent;
 import org.openxava.util.Is;
@@ -28,6 +29,7 @@ abstract public class MetaElement implements java.io.Serializable {
 	public MetaComponent metaComponent;
 	public String json;
 	public List<String> jsFunctions = new ArrayList<String>();
+	public List<String> onDocReadyjsFunctions = new ArrayList<String>();
 	public List<WidgetConfig> widgetConfigs = new ArrayList<WidgetConfig>();
 	
 	
@@ -39,10 +41,6 @@ abstract public class MetaElement implements java.io.Serializable {
 	public boolean hasName() {
 		String n = getName();
 		return n != null && !n.trim().equals("");
-	}
-	
-	public String getLabel() {
-		return getLabel(Locales.getCurrent()); 
 	}
 	
 	public String getLabel(ServletRequest request) {		
@@ -84,10 +82,6 @@ abstract public class MetaElement implements java.io.Serializable {
 	 */
 	public java.lang.String getName() {
 		return name == null ? "" : name;
-	}
-	
-	public void setLabel(String newLabel) {
-		label = newLabel;
 	}
 	
 	public void setName(java.lang.String newName) {
@@ -149,16 +143,45 @@ abstract public class MetaElement implements java.io.Serializable {
 	}
 
 	public void addJsFunctions(List<String> jsFunctions) {
-		this.jsFunctions = jsFunctions;
+		this.jsFunctions.addAll(jsFunctions);
+	}
+	
+	public void addJsFunction(String jsFunction) {
+		this.jsFunctions.add(jsFunction);
 	}
 
 	public List<WidgetConfig> getWidgetConfigs() {
 		return widgetConfigs;
 	}
 
-	public void setWidgetConfigs(List<WidgetConfig> widgetConfigs) {
-		this.widgetConfigs = widgetConfigs;
+	public void addWidgetConfigs(List<WidgetConfig> widgetConfigs) {
+		this.widgetConfigs.addAll(widgetConfigs);
 	}
-		
+	
+	public void addWidgetConfig(WidgetConfig widgetConfig) {
+		this.widgetConfigs.add(widgetConfig);
+	}
+
+	public List<String> getOnDocReadyjsFunctions() {
+		return onDocReadyjsFunctions;
+	}
+
+	public void addOnDocReadyjsFunctions(List<String> onDocReadyjsFunctions) {
+		this.onDocReadyjsFunctions.addAll(onDocReadyjsFunctions);
+	}
+	
+	public void addOnDocReadyjsFunction(String onDocReadyjsFunction) {
+		this.onDocReadyjsFunctions.add(onDocReadyjsFunction);
+	}
+	
+	public String getLabel() {
+		if(StringUtils.isEmpty(label))
+			return getName();
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
 
 }

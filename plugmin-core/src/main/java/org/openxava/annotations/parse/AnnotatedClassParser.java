@@ -209,9 +209,8 @@ import org.openxava.model.meta.MetaEntity;
 import org.openxava.model.meta.MetaModel;
 import org.openxava.model.meta.MetaProperty;
 import org.openxava.model.meta.MetaReference;
-import org.openxava.section.meta.MetaSection;
-import org.openxava.section.meta.MetaSectionForGrid;
-import org.openxava.section.meta.MetaSectionForView;
+import org.openxava.section.meta.GridSection;
+import org.openxava.section.meta.ViewSection;
 import org.openxava.tab.meta.MetaRowStyle;
 import org.openxava.tab.meta.MetaTab;
 import org.openxava.util.ElementNotFoundException;
@@ -306,9 +305,30 @@ public class AnnotatedClassParser {
 		
 		// View
 		parseViews(component, pojoClass, metaComponents, serializeConfig);
-					
+		
 		// Other model level annotations
 		processAnnotations(entity, pojoClass);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void parse3rdPhase(MetaComponent component, List<MetaComponent> metaComponents, boolean serializeConfig) throws Exception {
+		component.setDoneParsing3rdPhase(true);
+		try {
+			Collection<MetaView> metaViews = component.getMetaEntity().getMetaViews();
+			for (MetaView metaView : metaViews) {
+				configureViewSection(metaView, metaComponents, serializeConfig);
+				List<MetaView> sections = metaView.getSections();
+				for(MetaView metaView_ : sections) {
+					metaView_.setLabel(metaView_.getName());
+					metaView_.setName(metaView.getName() + "_" + metaView_.getName() + "_" + "section");
+					metaView_.setMetaComponent(component);
+					configureViewSection(metaView_, metaComponents, serializeConfig);
+					component.getMetaEntity().addMetaView(metaView_);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private Annotation getAnnotationInHierarchy(Class pojoClass, Class annotation) {
@@ -695,12 +715,6 @@ public class AnnotatedClassParser {
 			addMembersToView(null, null, metaView, new StringTokenizer(view.members(), ";,{}[]#", true));
 		component.addMetaView(metaView);
 		metaView.setMetaComponent(component);
-		
-		try {
-			configureViewSection(metaView, metaComponents, serializeConfig);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	private String addMembersToView(String sectionName, String groupName, MetaView metaView, StringTokenizer st) throws XavaException {
@@ -941,91 +955,97 @@ public class AnnotatedClassParser {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	public void configureSections(MetaTab metaTab, List<MetaComponent> metaComponents, boolean serializeConfig) throws Exception {
 		metaTab.setSectionsConfigured(true);
-		Class<?> pojoClass = metaTab.getMetaComponent().getMetaEntity().getPOJOClass();
+		Class<?> entity = metaTab.getMetaComponent().getMetaEntity().getPOJOClass();
 		
 		MetaView metaView = metaTab.getMetaComponent().getMetaEntity().getMetaView("default");
+		metaTab.addViewSection(new ViewSection("Basic", metaView));
 		
-		MetaSection sectionForView = new MetaSectionForView("Basic", metaView);
-		metaTab.addSection(sectionForView);
+		List<MetaView> sections = metaView.getSections();
+		if(sections != null) {
+			for (MetaView metaView2 : sections) {
+				metaTab.addViewSection(new ViewSection(metaView2.getName(), metaView2));
+			}
+		}
 		
 		Collection<String> collectionNames = new ArrayList<String>();
 		for (Object name : metaTab.getPropertiesNames()) {
-			if(isCollection((String)name, pojoClass)) {
+			if(isCollection((String)name, entity)) {
 				collectionNames.add((String) name);
 			}
 		}
 		
 		for (String col : collectionNames) {
-			Field colField = pojoClass.getDeclaredField(col);
-			try {
-				ParameterizedType paramType = (ParameterizedType) colField.getGenericType();
-		        Class<?> referencedEntity = (Class<?>) paramType.getActualTypeArguments()[0];
-
-		        MetaComponent metaComponent = null;
-		        for (MetaComponent metaComponent_ : metaComponents) {
-		        	if(metaComponent_.getName().equals(referencedEntity.getSimpleName())) {
-		        		metaComponent = metaComponent_;
-		        		break;
-		        	}
-		        }
-		        
-		        if(metaComponent == null) {
-		        	metaComponent = parse(referencedEntity.getSimpleName());
-		        	metaComponents.add(metaComponent);
-		        	parse2ndPhase(metaComponent, metaComponents, serializeConfig);
-		        }
-		        
-		        String nestedTabName = nestedTabName(metaTab, colField);
-		        MetaTab metaTab_ = metaComponent.getMetaTab(nestedTabName);
-
-				String sectionId = pojoClass.getSimpleName() + "-" + col + "-section";
-				
-				TabConfigVo config = new Cloner().deepClone(metaTab_.getConfig());
-				config.getGroupable_().setGroupable(false);
-//				config.getEditable_().getConfig_().setMode(EditableMode.POPUP);
-//				config.resetToolbarStr().resetToolbarFn().resetToolbarArray();
-//				config.addColumn(new ColumnVo(new String[]{ "edit", "destroy" }));
-				config.getFilterable_().getConfig_().setMode(FilterableMode.NESTED_GRID_MODE);
-				for(ColumnVo column : config.getColumns()) {
-					column.setFilterableBool(true);
-					column.getFilterable_().resetCell();
-				}
-				
-				Field refField = ReflectionUtils.findField(referencedEntity, null, pojoClass);
-				Field refIdField = EntityUtil.idField2(pojoClass);
-				config.getDataSource().getSchema_().getModel().addModelOnlyField(refField.getName() + "_" + refIdField.getName(), refIdField.getType(), "parentEntityId");
-				
-				DataSourceVo dataSource = config.getDataSource();
-				
-				Field metaField = ReflectionUtils.findField(referencedEntity, null, pojoClass);
-				String field = metaField.getName() + "_" + EntityUtil.idField(pojoClass);
-				dataSource.addFilter(new FilterItem(field, "parentEntityId", "eq"));
-				
-				TransportCreate create = dataSource.getTransport().getCreate();
-				create.setUrl(addParentInfo(create.getUrl(), pojoClass));
-			    
-			    TransportRead read = dataSource.getTransport().getRead();
-			    read.setUrl(addParentInfo(read.getUrl(), pojoClass));
-			    
-			    TransportUpdate update = dataSource.getTransport().getUpdate();
-			    update.setUrl(addParentInfo(update.getUrl(), pojoClass));
-			    
-			    TransportDestroy destroy = dataSource.getTransport().getDestroy();
-			    destroy.setUrl(addParentInfo(destroy.getUrl(), pojoClass));
-			    
-			    String id = pojoClass.getSimpleName() + "_" + col;
-				String json = null;
-			    if(serializeConfig)
-					json = JsonUtil.toJson(config);
-				MetaSectionForGrid section = new MetaSectionForGrid(titleFromFieldName(col), id, sectionId, json, referencedEntity.getSimpleName(), nestedTabName);
-				section.setTabConfig(config);
-				metaTab.addSection(section);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			Field field = entity.getDeclaredField(col);
+			ParameterizedType paramType = (ParameterizedType) field.getGenericType();
+	        Class<?> referencedEntity = (Class<?>) paramType.getActualTypeArguments()[0];
+	        String tabName = nestedTabName(metaTab, field);
+			MetaTab metaTab_ = childTab(entity, referencedEntity, field, tabName, metaComponents, serializeConfig);
+			
+		    String id = entity.getSimpleName() + "_" + col;
+			String json = null;
+		    if(serializeConfig)
+				json = JsonUtil.toJson(metaTab_);
+		    String sectionId = entity.getSimpleName() + "-" + col + "-section";
+			GridSection gridSection = new GridSection(titleFromFieldName(col), id, sectionId, json, referencedEntity.getSimpleName(), tabName);
+			gridSection.setTabConfig(metaTab_.getConfig());
+			metaTab.addGridSection(gridSection);
 		}
+	}
+
+	public MetaTab childTab(Class<?> entity, Class<?> referencedEntity, Field metaField_, String tabName, List<MetaComponent> metaComponents, boolean serializeConfig) throws Exception {
+        MetaComponent metaComponent = null;
+        for (MetaComponent metaComponent_ : metaComponents) {
+        	if(metaComponent_.getName().equals(referencedEntity.getSimpleName())) {
+        		metaComponent = metaComponent_;
+        		break;
+        	}
+        }
+        
+        if(metaComponent == null) {
+        	metaComponent = parse(referencedEntity.getSimpleName());
+        	metaComponents.add(metaComponent);
+        	parse2ndPhase(metaComponent, metaComponents, serializeConfig);
+        }
+        
+        MetaTab metaTab_ = metaComponent.getMetaTab(tabName);
+
+		TabConfigVo config = new Cloner().deepClone(metaTab_.getConfig());
+		config.getGroupable_().setGroupable(false);
+//		config.getEditable_().getConfig_().setMode(EditableMode.POPUP);
+//		config.resetToolbarStr().resetToolbarFn().resetToolbarArray();
+//		config.addColumn(new ColumnVo(new String[]{ "edit", "destroy" }));
+		config.getFilterable_().getConfig_().setMode(FilterableMode.NESTED_GRID_MODE);
+		
+		for(ColumnVo column : config.getColumns()) {
+			column.setFilterableBool(true);
+			column.getFilterable_().resetCell();
+		}
+		
+		Field refField = ReflectionUtils.findField(referencedEntity, null, entity);
+		Field refIdField = EntityUtil.idField2(entity);
+		config.getDataSource().getSchema_().getModel().addModelOnlyField(refField.getName() + "_" + refIdField.getName(), refIdField.getType(), "parentEntityId");
+		
+		DataSourceVo dataSource = config.getDataSource();
+		
+		Field metaField = ReflectionUtils.findField(referencedEntity, null, entity);
+		String field = metaField.getName() + "_" + EntityUtil.idField(entity);
+		dataSource.addFilter(new FilterItem(field, "parentEntityId", "eq"));
+		
+		TransportCreate create = dataSource.getTransport().getCreate();
+		create.setUrl(addParentInfo(create.getUrl(), entity));
+	    
+	    TransportRead read = dataSource.getTransport().getRead();
+	    read.setUrl(addParentInfo(read.getUrl(), entity));
+	    
+	    TransportUpdate update = dataSource.getTransport().getUpdate();
+	    update.setUrl(addParentInfo(update.getUrl(), entity));
+	    
+	    TransportDestroy destroy = dataSource.getTransport().getDestroy();
+	    destroy.setUrl(addParentInfo(destroy.getUrl(), entity));
+		return metaTab_;
 	}
 
 	private String addParentInfo(String url, Class<?> pojoClass) {

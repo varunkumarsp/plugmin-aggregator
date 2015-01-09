@@ -11,6 +11,8 @@ public class DataConfig {
 
 	private String name;
 	
+	private String variable;
+	
 	private List<String> fields = new LinkedList<String>();
 	
 	private Object data;
@@ -53,6 +55,14 @@ public class DataConfig {
 
 	public void setJson(String json) {
 		this.json = json;
+	}
+
+	public String getVariable() {
+		return variable;
+	}
+
+	public void setVariable(String variable) {
+		this.variable = variable;
 	}
 	
 }

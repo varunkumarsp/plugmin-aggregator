@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.openxava.annotations.extended.ui.config.vo.ColumnVo;
 
-public class FieldResolverImpl implements FieldResolver {
+public class FieldResolverMetaTabImpl implements FieldResolver {
 
 	
 	private List<ColumnVo> columns;
 	
 
-	public FieldResolverImpl(List<ColumnVo> columns) {
+	public FieldResolverMetaTabImpl(List<ColumnVo> columns) {
 		this.columns = new ArrayList<ColumnVo>();
 		for (ColumnVo column : columns) {
 			if(!column.isCommandColumn()) {

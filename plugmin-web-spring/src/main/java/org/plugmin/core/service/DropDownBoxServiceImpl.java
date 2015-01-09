@@ -12,7 +12,7 @@ import javax.servlet.ServletContext;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.openxava.annotations.extended.ui.config.vo.ColumnVo;
 import org.openxava.annotations.parse.FieldResolver;
-import org.openxava.annotations.parse.FieldResolverImpl;
+import org.openxava.annotations.parse.FieldResolverMetaTabImpl;
 import org.openxava.component.MetaComponent;
 import org.openxava.dropdown.MetaDropDown;
 import org.plugmin.core.dao.DropDownBoxDao;
@@ -73,7 +73,7 @@ public class DropDownBoxServiceImpl implements DropDownBoxService, ServletContex
 		
 		FieldResolver fieldResolver = metaDropDown.getConfig().getFieldResolver();
 		if(fieldResolver == null)
-			fieldResolver = new FieldResolverImpl(new ArrayList<ColumnVo>());
+			fieldResolver = new FieldResolverMetaTabImpl(new ArrayList<ColumnVo>());
 
 		req.setFieldResolver(fieldResolver);
 		req.setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP);

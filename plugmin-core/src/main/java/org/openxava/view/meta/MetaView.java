@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jsoup.nodes.Element;
@@ -18,6 +19,7 @@ import org.openxava.actions.IOnChangePropertyAction;
 import org.openxava.actions.OnChangeSearchAction;
 import org.openxava.annotations.extended.ui.config.vo.AngularScope;
 import org.openxava.annotations.extended.ui.config.vo.DataConfig;
+import org.openxava.annotations.extended.ui.config.vo.ElementVo;
 import org.openxava.model.meta.MetaMember;
 import org.openxava.model.meta.MetaModel;
 import org.openxava.model.meta.MetaProperty;
@@ -52,7 +54,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	private Collection _membersNames = new ArrayList(); // Of String
 	private Map metaViewsReferences;
 	private Map metaViewsProperties;
-	private Map metaViewsCollections;
+	private Map<String, MetaCollectionView> metaViewsCollections;
 	private Map metaViewProperties;
 	private MetaSearchAction metaSearchAction;
 		
@@ -65,12 +67,14 @@ public class MetaView extends MetaElement implements Cloneable {
 		
 	private String mediatorClassName;
 	private Collection notAlwaysEnabledViewActionsNames;
-	private String extendsView; 
+	private String extendsView;
 	private boolean extendedFromExtendsView = false;
 	
 	private Element angularView = new Element(Tag.valueOf("div"), "");
 	private List<AngularScope> angularScopes = new ArrayList<AngularScope>();
 	private DataConfig dataConfig = new DataConfig();
+	private List<ElementVo> elements = new ArrayList<ElementVo>();
+	
 	
 	private void addMemberName(String memberName) {
 		_membersNames.add(memberName);
@@ -878,6 +882,10 @@ public class MetaView extends MetaElement implements Cloneable {
 	public Element getAngularView() {
 		return angularView;
 	}
+	
+	public String getAngularViewHtml() {
+		return angularView.outerHtml();
+	}
 
 	public void setAngularView(Element angularView) {
 		this.angularView = angularView;
@@ -895,4 +903,20 @@ public class MetaView extends MetaElement implements Cloneable {
 		return dataConfig;
 	}
 
+	public List<ElementVo> getElements() {
+		return elements;
+	}
+
+	public void addElements(List<ElementVo> elements) {
+		this.elements.addAll(elements);
+	}
+	
+	public void addElement(ElementVo element) {
+		this.elements.add(element);
+	}
+
+	public Map<String, MetaCollectionView> getMetaCollectionViews() {
+		return metaViewsCollections;
+	}
+	
 }

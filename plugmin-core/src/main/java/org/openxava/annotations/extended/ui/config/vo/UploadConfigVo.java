@@ -16,6 +16,7 @@ import org.openxava.annotations.parse.GenericConfigSerializer;
 import org.openxava.annotations.parse.JsField;
 import org.openxava.annotations.parse.JsFieldValueResolver;
 import org.openxava.annotations.parse.JsFieldVariable;
+import org.openxava.annotations.parse.JsObject;
 import org.openxava.annotations.parse.JsonKeyValuesProviderI;
 import org.openxava.annotations.parse.JsonRawKeyValueProvider;
 
@@ -36,7 +37,8 @@ public class UploadConfigVo implements JsFieldValueResolver,
 	
 	@DefaultValue("true")
 	private Boolean enabled;
-	
+
+	@JsObject
 	private String files;
 	
 	@DefaultValue("true")
@@ -143,6 +145,10 @@ public class UploadConfigVo implements JsFieldValueResolver,
 
 	public void copyFrom(UploadConfig config) {
 		getAsync_().copyFrom(config.async());
+		setEnabled(config.enabled().getBool());
+		setFiles(config.files());
+		setMultiple(config.multiple().getBool());
+		setShowFileList(config.showFileList().getBool());
 		setTemplateFn(config.templateFn());
 		setTemplateStr(config.templateStr());
 	}

@@ -46,7 +46,7 @@ import org.openxava.annotations.extended.ui.config.enums.Aggregates;
 import org.openxava.annotations.extended.ui.config.enums.EditableMode;
 import org.openxava.annotations.extended.ui.config.enums.Operator;
 import org.openxava.annotations.extended.ui.config.grid.Command;
-import org.openxava.annotations.extended.ui.config.grid.EnumValues;
+import org.openxava.annotations.extended.ui.config.grid.UseEnumDropDown;
 import org.openxava.annotations.extended.ui.config.grid.TabColumn;
 import org.openxava.annotations.extended.ui.use.UseAutocomplete;
 import org.openxava.annotations.parse.DefaultValue;
@@ -211,11 +211,12 @@ public class ColumnVo implements JsFieldValueResolver {
 			setSerializeConfig(serializeConfig);
 			setMetaElement(metaElement);
 			MetaEntity metaEntity = metaElement.getMetaComponent().getMetaEntity();
+
+			setTitle(field);
+			setField(field);
 			
 			if(isForeignEntity_(field, metaEntity)) {
 				if(isManyToOne(field, metaEntity.getPOJOClass())) {
-					setTitle(field);
-					setField(field);
 					if(field.contains(".")) {
 						metaField = fieldReflection(field, metaEntity.getPOJOClass());
 						init(metaField, metaComponents);
@@ -229,14 +230,11 @@ public class ColumnVo implements JsFieldValueResolver {
 					}
 				} else if(isOneToOne(field, metaEntity.getPOJOClass())){
 					if(field.contains(".")) {
-						setTitle(field);
-						setField(field);
 						init(metaField, metaComponents);
 						configureOneToOneColumn(field, metaElement, metaComponents);
 					} else {
 						String nameField = nameField(metaEntity.getPOJOClass().getDeclaredField(field).getType());
 						metaField = fieldReflection(field + "." + nameField, metaEntity.getPOJOClass());
-						setTitle(field);
 						field = field + "." + nameField;
 						setField(field);
 						init(metaField, metaComponents);
@@ -248,8 +246,6 @@ public class ColumnVo implements JsFieldValueResolver {
 //					configureManyToManyColumn(field, metaElement, metaComponents);
 				}
 			} else {
-				setTitle(field);
-				setField(field);
 				init(metaField, metaComponents);
 				if(_isIdField(metaField, metaEntity))
 					configureIdColumn();
@@ -465,7 +461,7 @@ public class ColumnVo implements JsFieldValueResolver {
 	private void init(Field metaField, List<MetaComponent> metaComponents) throws Exception {
 		setMetaField(metaField);
 		
-		EnumValues enumValues = metaField.getAnnotation(EnumValues.class);
+		UseEnumDropDown enumValues = metaField.getAnnotation(UseEnumDropDown.class);
 		if(enumValues != null) {
 			configureEnumColumn(enumValues);
 			return; 
@@ -508,7 +504,7 @@ public class ColumnVo implements JsFieldValueResolver {
 		}
 	}
 
-	private void configureEnumColumn(EnumValues enumValues) throws Exception {
+	private void configureEnumColumn(UseEnumDropDown enumValues) throws Exception {
 		this.enumValues = enumValues.value();
 		
 		List<Map<String, String>> values = getValues_();

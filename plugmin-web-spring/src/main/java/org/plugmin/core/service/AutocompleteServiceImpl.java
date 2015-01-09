@@ -12,7 +12,7 @@ import javax.servlet.ServletContext;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.openxava.annotations.extended.ui.config.vo.ColumnVo;
 import org.openxava.annotations.parse.FieldResolver;
-import org.openxava.annotations.parse.FieldResolverImpl;
+import org.openxava.annotations.parse.FieldResolverMetaTabImpl;
 import org.openxava.autocomplete.MetaAutocomplete;
 import org.openxava.component.MetaComponent;
 import org.plugmin.core.dao.AutocompleteDao;
@@ -64,7 +64,7 @@ public class AutocompleteServiceImpl implements AutocompleteService, ServletCont
 		
 		FieldResolver fieldResolver = metaAutocomplete.getConfig().getFieldResolver();
 		if(fieldResolver == null)
-			fieldResolver = new FieldResolverImpl(new ArrayList<ColumnVo>());
+			fieldResolver = new FieldResolverMetaTabImpl(new ArrayList<ColumnVo>());
 
 		req.setFieldResolver(fieldResolver);
 		req.setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP);

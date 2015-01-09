@@ -6,6 +6,7 @@ import static org.openxava.annotations.parse.ReflectionUtil.calledFrom;
 import org.openxava.annotations.extended.ui.config.Async;
 import org.openxava.annotations.parse.DefaultValue;
 import org.openxava.annotations.parse.GenericConfigSerializer;
+import org.openxava.annotations.parse.JsObject;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -21,6 +22,7 @@ public class AsyncVo {
 	@DefaultValue("fileNames")
 	private String removeField;
 
+	@JsObject
 	private String removeUrl;
 
 	@DefaultValue("POST")
@@ -28,6 +30,7 @@ public class AsyncVo {
 
 	private String saveField;
 
+	@JsObject
 	private String saveUrl;
 
 	@DefaultValue("true")

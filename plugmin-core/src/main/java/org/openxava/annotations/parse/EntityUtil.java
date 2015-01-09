@@ -362,7 +362,7 @@ public class EntityUtil {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static Map<String, Object> reConfigure(Map<String, Object> rootEntity) {
+	public static Map<String, Object> reConfigure(Map<String, Object> rootEntity) {
 		Map<String, Object> _rootEntity = new HashMap<String, Object>();
 
 		for(String key : rootEntity.keySet()) {
